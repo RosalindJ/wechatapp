@@ -97,15 +97,38 @@ from . import app
 #     return render_template(template, sign=sign)
 
 @app.route('/')
-def helo():
+def hello():
     return "hello"
 
 
+# 调用微信扫一扫,返回签名等
+# @app.route("/saoyisao/<path:template>")
+# def apiSign(template=None):
+#     url = request.url
+#     print(url)
+#     sign = {}
+#     sign["appId"] = "123"
+#     sign["timestamp"] = 123
+#     return render_template(template,sign=sign)
 
 @app.route("/saoyisao/<path:template>")
-def hello(template=None):
+def apiSign(template=None):
     url = request.url
     print(url)
     sign = Helper.jsapi_sign(url)
     sign["appId"] = WxPayConf_pub.APPID
     return render_template(template,sign=sign)
+
+@app.route("/codeResult",methods=['GET','POST'])
+def code():
+    if request.method == 'GET':
+        page = int(request.args.get('page', 1))
+        print(page)
+
+    if request.method == 'POST':
+        print(request.form)
+        codeResult = str(request.form.get('codeResult', ''))
+        print(codeResult)
+        if codeResult:
+            return 'yes'
+        return 'no'

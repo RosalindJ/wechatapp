@@ -119,6 +119,7 @@ def apiSign(template=None):
     sign["appId"] = WxPayConf_pub.APPID
     return render_template(template,sign=sign)
 
+#二维码扫出的结果接受
 @app.route("/codeResult",methods=['GET','POST'])
 def code():
     if request.method == 'GET':

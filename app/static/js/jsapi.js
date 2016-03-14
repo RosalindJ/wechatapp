@@ -1,4 +1,5 @@
-/**
+ var div = document.getElementById("div");
+    /**
  * Created by tangmeirong on 16/3/11.
  */
   /*
@@ -12,13 +13,19 @@
  * 邮件主题：【微信JS-SDK反馈】具体问题
  * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
  */
-  wx.ready(function () {
+
+
+    var Btn = document.getElementsByClassName("Btn")[0];
+    Btn.onclick = function(){
+        console.log("点击了")
+        wx.ready(function () {
   /*调起微信扫一扫接口*/
         wx.scanQRCode({
              needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
              scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
              success: function (res) {
                 var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                div.innerHTML = result;
              }
         });
   })
@@ -26,9 +33,4 @@
   wx.error(function (res) {
       alert(res.errMsg);
   });
-
-
-    var Btn = document.getElementsByClassName("Btn")[0];
-    Btn.onclick = function(){
-        console.log("点击了")
     }

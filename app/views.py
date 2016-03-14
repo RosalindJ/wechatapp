@@ -102,15 +102,10 @@ def helo():
 
 
 @app.route('/saoyisao/')
-@app.route("/saoyisao/<path:name>")
-def hello(name=None):
+@app.route("/saoyisao/<path:template>")
+def hello(template=None):
     url = request.url
     print(url)
     sign = Helper.jsapi_sign(url)
-    # sign = {}
-    # sign["appId"] = "1234"
     sign["appId"] = WxPayConf_pub.APPID
-    # sign["timestamp"] = "1234"
-    # sign["nonceStr"] = "1234"
-    # sign["signature"] = "1234"
-    return render_template('/apphtml/saoyisao.html',sign=sign)
+    return render_template(template,sign=sign)

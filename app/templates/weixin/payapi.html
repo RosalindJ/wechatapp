@@ -1,4 +1,4 @@
-
+{% include 'weixin/jsapi.html' %}
 	<script>
  /*
  * 注意：
@@ -19,7 +19,7 @@
         wx.ready(function () {
             /*发起一个微信支付请求*/
             wx.chooseWXPay({
-                timestamp:{{ parameters.timeStamp }},
+                timestamp:{{ parameters.timestamp }},
                 nonceStr:'{{ parameters.nonceStr }}',
                 package:'{{ parameters.package }}',
                 signType:'{{ parameters.signType }}',

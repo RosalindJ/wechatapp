@@ -8,7 +8,7 @@ from .wxapi.backends.fl import (Helper, sns_userinfo_callback)
 from .wxapi.lib import WeixinHelper
 from .wxapi.config import WxPayConf_pub
 from . import app
-from .wxapi.pay import JsApi_pub
+from .wxapi.pay1 import JsApi_pub
 #
 # @blueprint.route('/do', methods=['GET', 'POST'])
 # def do():

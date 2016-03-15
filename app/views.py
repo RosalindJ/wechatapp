@@ -133,3 +133,14 @@ def code():
         if codeResult:
             return 'yes'
         return 'no'
+
+# 微信支付
+@app.route("/wxpay/")
+@app.route("/wxpay/<path:template>")
+def wxpay(template=None):
+    url = request.url
+    print(url)
+    sign = Helper.jsapi_sign(url)
+    sign["appId"] = WxPayConf_pub.APPID
+    return render_template(template,sign=sign)
+

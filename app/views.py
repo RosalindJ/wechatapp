@@ -143,6 +143,6 @@ def wxpay(template=None):
     print(url)
     sign = Helper.jsapi_sign(url)
     sign["appId"] = WxPayConf_pub.APPID
-    parameters=JsApi_pub.getParameters()
-    return render_template(template,parameters=parameters)
+
+    return render_template(template,sign=sign)
 

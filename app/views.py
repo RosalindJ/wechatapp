@@ -103,22 +103,22 @@ def hello():
 
 
 # 调用微信扫一扫,返回签名等
-@app.route("/saoyisao/<path:template>")
-def apiSign(template=None):
-    url = request.url
-    print(url)
-    sign = {}
-    sign["appId"] = "123"
-    sign["timestamp"] = 123
-    return render_template(template,sign=sign)
-
 # @app.route("/saoyisao/<path:template>")
 # def apiSign(template=None):
 #     url = request.url
 #     print(url)
-#     sign = Helper.jsapi_sign(url)
-#     sign["appId"] = WxPayConf_pub.APPID
+#     sign = {}
+#     sign["appId"] = "123"
+#     sign["timestamp"] = 123
 #     return render_template(template,sign=sign)
+
+@app.route("/saoyisao/<path:template>")
+def apiSign(template=None):
+    url = request.url
+    print(url)
+    sign = Helper.jsapi_sign(url)
+    sign["appId"] = WxPayConf_pub.APPID
+    return render_template(template,sign=sign)
 
 #二维码扫出的结果接受
 @app.route("/codeResult",methods=['GET','POST'])
@@ -136,23 +136,23 @@ def code():
         return 'no'
 
 # 微信支付
-@app.route("/wxpay/<path:template>")
-def wxpay(template=None):
-    url = request.url
-    print(url)
-    sign = Helper.jsapi_sign(url)
-    sign["appId"] = WxPayConf_pub.APPID
-    parameters = JsApi_pub.getParameters()
-    return render_template(template,sign=sign,parameters=parameters)
-
 # @app.route("/wxpay/<path:template>")
 # def wxpay(template=None):
 #     url = request.url
 #     print(url)
-#     sign = {}
-#     sign["appId"] = "123"
-#     sign["timestamp"] = 123
-#     parameters = {}
-#     parameters["nonceStr"] = "123"
-#     parameters["timestamp"] = 123
+#     sign = Helper.jsapi_sign(url)
+#     sign["appId"] = WxPayConf_pub.APPID
+#     parameters = JsApi_pub.getParameters()
 #     return render_template(template,sign=sign,parameters=parameters)
+
+@app.route("/wxpay/<path:template>")
+def wxpay(template=None):
+    url = request.url
+    print(url)
+    sign = {}
+    sign["appId"] = "123"
+    sign["timestamp"] = 123
+    parameters = {}
+    parameters["nonceStr"] = "123"
+    parameters["timestamp"] = 123
+    return render_template(template,sign=sign,parameters=parameters)

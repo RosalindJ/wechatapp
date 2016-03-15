@@ -4,7 +4,7 @@ from flask import g
 from flask import request, Response, render_template
 
 from .wxapi import handler as HD
-from .wxapi.backends.fl import (Helper, sns_userinfo_callback)
+from .wxapi.backends.fl import (Helper, sns_userinfo)
 from .wxapi.lib import WeixinHelper
 from .wxapi.config import WxPayConf_pub
 from . import app
@@ -75,7 +75,7 @@ def userinfo_process(openid, userinfo):
 
 
 @app.route('/oauth', methods=['GET', 'POST'])
-@sns_userinfo_callback
+@sns_userinfo
 def oauth():
     """网页授权获取用户信息"""
     resp = Response(g.openid)
@@ -83,9 +83,6 @@ def oauth():
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 
-@app.route('/openid/')
-def openid():
-    return render_template("/apphtml/openid.html")
 
 @app.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

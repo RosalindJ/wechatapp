@@ -142,10 +142,10 @@ def wxpay(template=None):
     print(url)
     sign = Helper.jsapi_sign(url)
     sign["appId"] = WxPayConf_pub.APPID
-    # parameters = JsApi_pub.getParameters()
-    parameters = {}
-    parameters["nonceStr"] = "123"
-    parameters["timestamp"] = 123
+    parameters = JsApi_pub.getParameters()
+    # parameters = {}
+    # parameters["nonceStr"] = "123"
+    # parameters["timestamp"] = 123
     return render_template(template,sign=sign,parameters=parameters)
 
 # @app.route("/wxpay/<path:template>")
@@ -155,7 +155,9 @@ def wxpay(template=None):
 #     sign = {}
 #     sign["appId"] = "123"
 #     sign["timestamp"] = 123
-#     parameters = {}
-#     parameters["nonceStr"] = "123"
-#     parameters["timestamp"] = 123
+#     # parameters = {}
+#     # parameters["nonceStr"] = "123"
+#     # parameters["timestamp"] = 123
+#     parameters = JsApi_pub.getParameters()
+#     print(parameters)
 #     return render_template(template,sign=sign,parameters=parameters)

@@ -136,23 +136,26 @@ def code():
         return 'no'
 
 # 微信支付
-# @app.route("/wxpay/<path:template>")
-# def wxpay(template=None):
-#     url = request.url
-#     print(url)
-#     sign = Helper.jsapi_sign(url)
-#     sign["appId"] = WxPayConf_pub.APPID
-#     parameters = JsApi_pub.getParameters()
-#     return render_template(template,sign=sign,parameters=parameters)
-
 @app.route("/wxpay/<path:template>")
 def wxpay(template=None):
     url = request.url
     print(url)
-    sign = {}
-    sign["appId"] = "123"
-    sign["timestamp"] = 123
+    sign = Helper.jsapi_sign(url)
+    sign["appId"] = WxPayConf_pub.APPID
+    # parameters = JsApi_pub.getParameters()
     parameters = {}
     parameters["nonceStr"] = "123"
     parameters["timestamp"] = 123
     return render_template(template,sign=sign,parameters=parameters)
+
+# @app.route("/wxpay/<path:template>")
+# def wxpay(template=None):
+#     url = request.url
+#     print(url)
+#     sign = {}
+#     sign["appId"] = "123"
+#     sign["timestamp"] = 123
+#     parameters = {}
+#     parameters["nonceStr"] = "123"
+#     parameters["timestamp"] = 123
+#     return render_template(template,sign=sign,parameters=parameters)

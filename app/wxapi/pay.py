@@ -167,7 +167,7 @@ class JsApi_pub(Common_util_pub):
         timeStamp = int(time.time())
         jsApiObj["timeStamp"] = "{0}".format(timeStamp)
         jsApiObj["nonceStr"] = self.createNoncestr()
-        jsApiObj["package"] = "prepay_id={0}".format(self.prepay_id)
+        # jsApiObj["package"] = "prepay_id={0}".format(self.prepay_id)
         jsApiObj["signType"] = "MD5"
         jsApiObj["paySign"] = self.getSign(jsApiObj)
         self.parameters = json.dumps(jsApiObj)

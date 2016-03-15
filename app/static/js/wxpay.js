@@ -22,7 +22,7 @@
         wx.ready(function () {
             /*发起一个微信支付请求*/
             wx.chooseWXPay({
-                timestamp:{{ parameters.timeStamp }},
+                timestamp:0,
                 nonceStr:'',
                 package:'',
                 signType:'',

@@ -83,6 +83,9 @@ def oauth():
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 
+@app.route('/openid/')
+def openid():
+    return render_template("/apphtml/openid.html")
 
 @app.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

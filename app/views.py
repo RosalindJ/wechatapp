@@ -143,6 +143,7 @@ def wxpay(template=None):
     sign = Helper.jsapi_sign(url)
     sign["appId"] = WxPayConf_pub.APPID
     parameters = JsApi_pub.getParameters()
+    print(parameters)
     # parameters = {}
     # parameters["nonceStr"] = "123"
     # parameters["timestamp"] = 123

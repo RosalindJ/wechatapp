@@ -245,6 +245,16 @@ class WeixinHelper(object):
         return _OAUTH_URL.format(WxPayConf_pub.APPID, quote(redirect_uri),
                                  scope, state)
 
+    # 自己加上去的,基于snsapi_base,静默获取用户的openid
+    @classmethod
+    def oauth2_base(cls, redirect_uri, scope="snsapi_base", state="STATE"):
+        """网页授权获取用户信息
+        http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html
+        """
+        _OAUTH_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&state={3}#wechat_redirect"
+        return _OAUTH_URL.format(WxPayConf_pub.APPID, quote(redirect_uri),
+                                 scope, state)
+
     @classmethod
     def getAccessToken(cls):
         """获取access_token

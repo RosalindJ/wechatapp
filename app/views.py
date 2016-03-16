@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #from .. import app
 from flask import g
-from flask import request, Response, render_template
+from flask import request, Response, render_template,redirect
 
 from .wxapi import handler as HD
 from .wxapi.backends.fl import (Helper, sns_userinfo)
@@ -142,13 +142,14 @@ def code():
 def wxpay(template=None):
     url = request.url
     print(url)
+    redirect(WeixinHelper.oauth2_base(url))
     sign = Helper.jsapi_sign(url)
     sign["appId"] = WxPayConf_pub.APPID
     print(sign)
-    parameters = jsApiParameters.getJsParameters()
-    print(parameters)
-    # parameters = {}
-    # parameters["nonceStr"] = "123"
+    # parameters = jsApiParameters.getJsParameters()
+    # print(parameters)
+    parameters = {}
+    parameters["nonceStr"] = "123"
     # parameters["timestamp"] = 123
     return render_template(template,sign=sign,parameters=parameters)
 

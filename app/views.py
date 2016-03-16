@@ -141,11 +141,12 @@ def code():
 @app.route("/wxpay/<path:template>")
 def wxpay(template=None):
     url = request.url
-    print(url)
+    # print(url)
     redirect(WeixinHelper.oauth2_base(url))
+    print(WeixinHelper.oauth2_base(url))
     sign = Helper.jsapi_sign(url)
     sign["appId"] = WxPayConf_pub.APPID
-    print(sign)
+    # print(sign)
     # parameters = jsApiParameters.getJsParameters()
     # print(parameters)
     parameters = {}

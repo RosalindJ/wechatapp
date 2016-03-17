@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>兆晶-联系我们</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" href="css/company.css">
+	<script type="text/javascript">
+        function browserRedirect() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+            if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+                console.log("phone");
+                window.location.href="company_moblie.html";
+            } else {
+                console.log("pc");
+            }
+        }
+
+        browserRedirect();
+    </script>
+</head>
+<body>
+	<div id="contain">
+	<!-- 导航条 -->
+		<div id="nav">
+			<div class="clearfix topList">
+				<div class="zhaojing">
+					<a href="javascript:void(0)">兆晶新风</a>
+					<span>引领健康家居智能化</span>
+				</div>
+				<div class="nav_header">
+					<a href="index.html">新风</a>
+					<a href="product.html">中央式新风</a>
+					<a href="trendy.html">小不点</a>
+					<a href="company.html" class="navActive">联系我们</a>
+
+				</div>
+			</div>
+		</div>
+
+		<div id="fullpage">
+		<!-- 公司简介 -->
+			<div id="page_1" class="page">
+				<div class="title_1 title">
+					<h3>公司简介</h3>
+				</div>
+				<div class="container">
+					<p>广州市兆晶科技有限公司是一家制造智能健康家居产品的公司。</p>
+					<p>我们的使命是与我们的用户在一起，打造用户体验遗留的智能健康家居产品，改善人们的家庭生活质量</p>
+					<p>在缺乏创新精神和人文情怀的家电产品阵营中，我们的的团队格外擅长用户体验设计，并精通硬件的工业设计</p>
+					<p>广州市兆晶科技有限公司成立于2005年5月，运营中心成立于2015年10月</p>
+				</div>
+			</div>
+			<!-- 联系我们 -->
+			<div id="page_2" class="page">
+				<div class="title_2 title">
+					<h3>联系我们</h3>
+				</div>
+				<div class="container clearfix">
+					<div class="address_1">
+						<p>公司地址：广州市天河区林和西9号，耀中广场B座910</p>
+						<img src="img/company/map.jpg" class="map">
+					</div>
+					<div class="address_2">
+						<p>客服地址：广州市天河区林和西9号，耀中广场B座911</p>
+						<p>服务时间：9:00-18:00全年无休</p>
+						<p>服务电话：4001-010-310</p>
+					</div>
+					<div class="contactWay">
+						<span class="way_1">9:00-21:00<br>微信客服</span>
+						<span class="way_2">9:00-24:00<br>微博客服</span>
+						<span class="way_3">9:00-18:00<br>客服邮箱</span>
+						<span class="way_4">9:00-18:00<br>客服电话</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- 底部联系页面 -->
+			<div id="foort">
+				<div class="contact">	
+					<a href="company.html">公司简介</a>
+					<a href="company.html">联系我们</a>			
+					<a href="company.html">新浪微博</a>
+					<a href="company.html">官方微信</a>	
+				</div>
+				<p>Copyright © 2016 广州市兆晶科技有限公司</p>
+			</div>
+	</div>
+</body>
+</html>

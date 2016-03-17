@@ -1,0 +1,85 @@
+
+/*page8*/
+.page8_bg{
+	position: absolute;
+	width:100%;
+	top:0;
+	left: 0;
+}
+.divuser,.divtel{
+	width: 70%;
+	height: 5%;
+	font-size: 1.8rem;
+	position: absolute;
+	top:49.6031746031746%;
+	left:15%;
+}
+.divtel{
+	top:57.53968253968254%;
+}
+.username,.telNum{
+	width: 70%;
+	height:100%;
+	color:#000;
+	border:0;
+	border-bottom:1px solid #666;
+	font-size: 1.8rem;
+}
+.icon1,.icon2,.tel_icon1,.tel_icon2{
+	position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 50%;
+    right: -3%;
+    margin-left: -11px;
+    margin-top: -11px;
+    display: none;
+}
+.page8_bg2{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left:0;
+}
+.block{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    line-height: 100px;
+    font-size: 28px;
+    margin-left: -100px;
+    margin-top: -50px;
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    background: #E65049;
+    display: none;
+}
+.yudingBtn{
+	position: absolute;
+    top: 68.45238095238095%;
+    left: 50%;
+    width:70%;
+    height: 45px;
+    line-height: 45px;
+    margin-left: -35%;
+    background-color: #fe7b20;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+}
+.activity{
+	width: 100%;
+	position: absolute;
+	top:80.35714285714286%;
+	left:0%;
+	font-size: 2rem;
+	font-family: "宋体";
+}
+.activity p{
+	width: 100%;
+	text-align: center;
+}

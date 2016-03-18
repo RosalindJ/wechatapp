@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>预约报名</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='h5/2/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='h5/2/css/index.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='h5/2/css/animate.css') }}">
+	<style>
+	</style>
+</head>
+<body>
+		<!-- 预定页面 -->
+		<div class="page page8">
+			<img src="{{ url_for('static', filename='h5/2/img/page8_bg.jpg') }}" alt="" class="page8_bg">
+			<!-- 姓名输入框 -->
+			<div class="divuser">
+				<span>姓名：</span>
+				<input type="text" class="username">
+				<img src="{{ url_for('static', filename='h5/2/img/icon1.png') }}" alt="" class="icon1">
+				<img src="{{ url_for('static', filename='h5/2/img/icon2.png') }}" alt="" class="icon2">
+			</div>
+			<!-- 号码输入框 -->
+			<div class="divtel">
+				<span>号码：</span>
+				<input type="tel" class="telNum">
+				<img src="{{ url_for('static', filename='h5/2/img/icon1.png') }}" alt="" class="tel_icon1">
+				<img src="{{ url_for('static', filename='h5/2/img/icon2.png') }}" alt="" class="tel_icon2">
+			</div>
+
+			<a href="javascript:void(0);" class="yudingBtn">马上预约</a>
+			<!-- 活动地址 -->
+			<img src="{{ url_for('static', filename='h5/2/img/page8_bg2.jpg') }}" alt="" class="page8_bg2">
+			<!-- 预约成功 -->
+			<div class="block">预约成功!</div>
+		</div>
+	<script src="{{ url_for('static', filename='h5/2/js/jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='h5/2/js/index.js') }}"></script>
+	<script>
+		$(".page").height($(window).height());
+	</script>
+</body>
+</html>

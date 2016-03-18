@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>定时</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/setingTime.css') }}">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+	    		<!-- 返回 -->
+              <a class="backBtn" href="javascript:void(0);">
+                  <span class="icon icon-left iconFS"></span>
+                  <span>返回</span>
+              </a>
+         	</header>
+			<div class="content wrap">
+				<!-- 设置时间 -->
+				<!-- <div class="color_fff"> -->
+					<div id="setTimeBox" class="row no-gutter">
+						<p>时间</p>
+						<div class="timeBox">
+							<input type="time" value="07:31" id="times">
+						</div>	
+					</div>
+				
+				<!-- 设置重复 -->
+				<div id="recurBox">
+					<p>重复</p>
+					<div class="row no-gutter" id="dayBox">
+						<span id="seven" class="activeDay col-10 day">日</span>
+						<span id="one" class="col-10 day">一</span>
+						<span id="two" class="col-10 day">二</span>
+						<span id="three" class="col-10 day">三</span>
+						<span id="four" class="col-10 day">四</span>
+						<span id="five" class="col-10 day">五</span>
+						<span id="six" class="col-10 day">六</span>
+					</div>	
+				</div>
+				<!-- 保存按钮 -->
+				<div class="row fixed_foort">
+						<a href=" " class="col-66 button button-fill saveBtn">保存</a >
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+	<script type="text/javascript">
+	(function($){
+		
+		$("#dayBox").on("click","span",function(e){
+			// 控制点击，tem为-1未选，否则为选中
+			var tem = e.target.className.indexOf("activeDay");
+			if (tem == -1) {
+				e.target.className = ""+e.target.className+" activeDay";
+			}else{
+				e.target.className = "col-10 day";
+			}			
+		})
+
+		// 点击返回，返回上一级
+		$(".backBtn").eq(0).on("click",function(){
+			window.history.back();
+		})
+
+		// 点击保存触发ajax，向服务器发送数据
+		$(".saveBtn").eq(0).on("click",function(){
+				// 用str暂存选择重复的天
+				var str = "";
+				for(var i = 0;i < $(".activeDay").length;i++){
+					str += $(".activeDay").eq(i).html();
+				}
+				// 判断临时存储，timeType为open,说明设置的是开机时间，否则为关机时间
+				if(sessionStorage.timeType == "open"){
+					var URL = "/setingOpen";
+				}else{
+					var URL = "/setingClose";
+				}
+				// ajax
+				$.ajax({
+					type:"POST",
+					url:URL,
+					data:"time=" + $("#times").val() + "&recur=" + str,
+					success:function(){
+						window.location.href="setTime";
+						console.log("data");
+					},
+					error:function(){
+						console.log("error");
+					}
+				})
+			
+		})
+	})(Zepto)
+	</script>
+</body>
+</html>

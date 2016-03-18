@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>下单</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/ordering.css') }}">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+	    		<!-- 返回 -->
+              <a class="backBtn" href="javascript:void(0);">
+                  <span class="icon icon-left iconFS"></span>
+                  <span>返回</span>
+              </a>
+         	</header>
+			<div class="content wrap">
+				<!-- 订单内容 -->
+				<!-- 列表 -->
+				<div class="list-block">
+					<!-- 订单详情 -->
+					<ul id="detailList">
+						<!-- 滤网简介 -->
+						<li id="productText" class="item-content">
+					        <div class="item-text">
+						         <!-- 滤网图片 -->
+								<img src="{{ url_for('static',filename=netData.netImg) }}" class="netImg">
+								<div class="productName">
+{#									<span id="productId" style="display: none"></span>#}
+									<!-- 滤网名称 -->
+									<h2 id="pro_name" data-netId="{{ netData.netId }}">{{ netData.pro_name }}</h2>
+									<!-- 滤网说明 -->
+									<span id="pro_type">{{ netData.pro_type }}</span>
+								</div>
+					        </div>
+					    </li>					
+						<!-- 滤网单价 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">单价</div>
+					          <div class="item-after"><span id="price">{{ netData.price }}</span>元</div>
+					        </div>
+					    </li>
+					
+						<!-- 滤网购买数量 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">数量</div>
+					          <div class="item-after quantity"><span id="reduce">-</span><input type="tel" value="1" id="num"><span id="add">+</span></div>
+					        </div>
+					    </li>
+						<!-- 配送方式 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">配送方式</div>
+					          <div class="item-after" id="sendWay">{{ netData.sendWay }}</div>
+					        </div>
+					    </li>
+						<!-- 收货信息 -->
+						<li class="item-content">
+					        <div class="item-text">
+						          <span class="nameText clearfix">收货人：<input type="text" value="{{ userMessage.name }}" id="name"><input type="tel" value="{{ userMessage.tel }}" id="tel"></span>
+						          <span id="address" class="row no-gutter"><textarea rows="50" cols="2" id="street" class="col-100" style="height:40px;font-size:0.7rem">{{ userMessage.address }}</textarea></span>
+{#						          <div style="visibility: hidden;height:0;"><span id="hideStreet"></span></div>#}
+					        </div>
+					    </li>
+						
+						<!-- 买家留言 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title row no-gutter messageBox"><span class="col-20">买家留言：</span>
+					          <span id="messBox" class="col-80"><textarea placeholder="选填，可填你的要求。" id="message"></textarea></span></div>
+					        </div>
+					    </li>
+						
+					</ul>
+				</div>
+				<!-- 购买滤网合计费用 -->
+				<div id="expense" class="clearfix"><span class="amountBox">合计：<span id="amount">100</span>元</span></div>
+
+				<div class="row no-gutter fixed_foort">
+					<!-- 微信支付按钮 -->
+					<a href=" " class="col-66 button button-fill payBnt">微信支付</a >
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+	<script type="text/javascript" src="http://g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static',filename="app/js/ordering.js") }}"></script>
+</body>
+</html>

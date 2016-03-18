@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>设置</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/setup.css') }}">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<div class="content wrap">
+			    <div class="list-block">
+			    	<!-- 设置列表 -->
+			    	<ul>
+			    		<!-- 产品介绍 -->
+			    		<li>
+			    			<a href="javascript:void(0);" class="introduce">
+			    				<div class="item-title-row row no-gutter">
+				    				<div class="item-title text col-80">
+										<p>产品介绍</p>
+										<span>详细了解兆晶新风机的功能与操作</span>
+									</div>
+				    			</div>
+			    			</a>
+			    			
+			    		</li>
+			    		<!-- 定时开关机 -->
+			    		<li>
+			    			<a href="javascript:void(0);" class="setTime">
+			    				<div class="item-title-row row no-gutter">
+				    				<div class="tem-title text col-80">
+										<p>定时开关机</p>
+										<span>根据您的在家时间设定新风机的开启和关闭时间</span>
+									</div>
+				    			</div>
+			    			</a>
+			    			
+			    		</li>
+			    		<!-- 异常提醒 -->
+			    		<li>
+			    			<div class="item-title-row row no-gutter">
+			    				<div class="tem-title text col-80">
+									<p>异常提醒</p>
+									<span>当新风机出现故障的时候将提醒您及时联系售后维修</span>
+								</div>
+								<div class="on_off item-after col-20">
+									<div class="item-input">
+							              <label class="label-switch">
+							                <input type="checkbox">
+							                <div class="checkbox" id="unusual" data-select="false"></div>
+							              </label>
+							        </div>
+								</div>
+			    			</div>
+			    		</li>
+			    		<!-- 参数设置 -->
+			    		<li>
+			    			<a href="javascript:void(0);" class="setParameter">
+			    				<div class="item-title-row row no-gutter">
+				    				<div class="tem-title text col-80">
+										<p>参数设置</p>
+										<span>可以设定您感觉最舒适的温度、湿度、CO2含量。</span>
+									</div>
+				    			</div>
+			    			</a>
+			    			
+			    		</li>
+			    		<!-- 售后服务设定 -->
+			    		<li>
+			    			<a href="javascript:void(0);" class="setserver">
+			    				<div class="item-title-row row no-gutter">
+				    				<div class="tem-title text col-80">
+										<p>售后服务设定</p>
+										<span>设定您的家庭地址准确位置和联系电话</span>
+									</div>
+				    			</div>
+			    			</a>
+			    			
+			    		</li>
+			    		<!-- 滤网更换提醒 -->
+			    		<li>
+			    			<div class="item-title-row row no-gutter">
+			    				<div class="tem-title text col-80">
+									<p>滤网更换提醒</p>
+									<span>当滤网剩余使用寿命达到警戒线的时候提醒您更换滤网</span>
+								</div>
+								<div class="on_off item-after col-20">
+									<div class="item-input">
+							            <label class="label-switch">
+							             	<input type="checkbox">
+							              	<div class="checkbox" id="renew" data-select="false"></div>
+							             </label>
+							        </div>
+								</div>
+			    			</div>
+			    		</li>
+			    	</ul>
+			    </div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+	<script type="">
+	(function($){
+		// 跳转到产品介绍页面
+		$(".introduce").eq(0).on("click",function(){
+			window.location.href = "introduce";
+		});
+		// 跳转到定时开关机页面
+		$(".setTime").eq(0).on("click",function(){
+			window.location.href = "setTime";
+		});
+		// 跳转到参数设置页面
+		$(".setParameter").eq(0).on("click",function(){
+			window.location.href = "setParameter";
+		});
+		// 跳转到售后服务设定页面
+		$(".setserver").eq(0).on("click",function(){
+			window.location.href = "personal";
+		});
+		// ajax,向服务器发送数据
+		function ajax(URL,ID,data_select){
+			$.ajax({
+				type:"POST",
+				url:URL,
+				data: "id="+ID+"&select="+data_select,
+				success:function(){
+					console.log("success");
+				},
+				error:function(){
+					console.log("error");
+				}
+			})
+		}
+		
+		function isSelect(element,url){
+			$(element).on("click",function(){
+				if($(element).attr("data-select") == "true"){
+					$(element).attr("data-select",false);
+				}else{
+					$(element).attr("data-select",true);
+				}
+				ajax(url,$(element).attr("id"),$(element).attr("data-select"));
+			})
+		}
+		isSelect("#renew","/netChangeW");
+		isSelect("#unusual","/abnormalWarn");
+	}(Zepto))
+	</script>
+</body>
+</html>

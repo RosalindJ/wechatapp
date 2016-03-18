@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>订单</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/order.css') }}">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page {{ page["page1"] }}">
+			<div class="content wrap">
+				<!-- 订单空 -->
+				<div id="order_nothing" class="row no-gutter">
+					<div class="nothingBox col-90">
+						<!-- order图标 -->	
+						<div class="row no-gutter">
+							<img src="{{ url_for('static',filename='app/img/order.png') }}" class="orderIcon col-25">
+						</div>
+						
+						<!-- 文字说明_nothing -->
+						<p>空空如也</p>
+						<p>去看看<a href="javascript:void(0);" class="showNet">滤网</a>的使用情况</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="page {{ page["page2"] }}" id="page-infinite-scroll-bottom">
+			<!-- 订单列表 -->
+			<div class="content wrap infinite-scroll infinite-scroll-bottom" data-distance="50">
+				<!-- <div class="list-block"> -->
+					<ul class="list-container">
+                    <!-- 每个订单信息 -->
+                     {% for i in range(0,lenList["Len"]) %}
+						<li class="card">
+                            <div class="header clearfix">
+                                <!-- 订单号 -->
+                                <span class="codeBox">订单号：<span class="code">{{ orderJson[i].orderNum }}</span></span>
+                                <!-- 交易状态 -->
+                                <span class="statusBox">交易状态：<span class="status">{{ orderJson[i].tradingStatus }}</span></span>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-content-inner row">
+                                    <!-- 滤网图片 -->
+	                                <img src="{{ orderJson[i].netImgUrl }}" class="netImg col-33">
+                                    <div>
+                                        <!-- 滤网名称 -->
+                                        <h2>{{ orderJson[i].netName }}</h2>
+                                        <!-- 滤网说明 -->
+                                        <span class="config">适配机型：{{ orderJson[i].adapterodel }}</span>
+                                        <p class="clearfix">
+                                            <!-- 购买数量 -->
+                                            <span class="quantityBox">数量： <span class="quantity">{{ orderJson[i].quantity }}</span></span>
+                                            <!-- 购买合计金额 -->
+                                            <span class="amountBox">合计：<span class="amount">{{ orderJson[i].sumMoney }}元</span></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+					</ul>
+				<!-- </div> -->
+				<!-- 加载提示符 -->
+				<div class="infinite-scroll-preloader">
+	              <div class="preloader"></div>
+	         	</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+{#    <script src="{{ url_for('static',filename="app/js/order.js") }}"></script>#}
+	<script type="text/javascript">
+
+     (function($){
+        //点击查看滤网,走进滤网页面
+        $(".showNet").eq(0).on("click",function(){
+            window.location.href = "net"
+        })
+
+      //判断当前的li是否等于数据库的总条数
+        {% if  lenList["Len"] == lenList["sumLen"]%}
+         // 加载完毕，则注销无限加载事件，以防不必要的加载
+{#		    $.detachInfiniteScroll($('.infinite-scroll'));#}
+		    // 删除加载提示符
+	        $('.infinite-scroll-preloader').remove();
+        {% endif %}
+
+
+     //添加条目
+    function addItems(arr) {
+		 // 生成新条目的HTML
+        var html = '';
+        for (var i = 0; i < arr.length; i++) {
+            html += '<li class="card"><div class="header clearfix"><!-- 订单号 --><span class="codeBox">订单号：<span class="code">'+arr[i]["orderNum"]+'</span></span><!-- 交易状态 --><span class="statusBox">交易状态：<span class="status">'+arr[i]["tradingStatus"]+'</span></span></div><div class="card-content"><div class="card-content-inner row"><!-- 滤网图片 -->'+
+		        '<img src="'+arr[i]["netImgUrl"]+'" class="netImg col-33"><div><!-- 滤网名称 --><h2>'+arr[i]["netName"]+'</h2><!-- 滤网说明 --><span class="config">适配机型：'+arr[i]["adapterodel"]+'</span><p class="clearfix"><!-- 购买数量 --><span class="quantityBox">数量： <span class="quantity">'+arr[i]["quantity"]+'</span></span><!-- 购买合计金额 --><span class="amountBox">合计：<span class="amount">'+arr[i]["sumMoney"]+'元</span></span></p></div></div></div></li>';
+        }
+        // 添加新条目
+        $('.infinite-scroll-bottom .list-container').append(html);
+        // 更新最后加载的序号
+        lastIndex = $('.list-container li').length;
+	}
+
+    // 发送请求ajax,接受服务器数据
+     function ajax(){
+         $.ajax({
+        	type:"POST",
+        	url:"/testing_app1/order",
+            data:"lastIndex="+lastIndex,
+        	success:function(data){
+                var json_data = JSON.parse(data);
+                console.log(json_data);
+                //添加新条目
+                addItems(json_data);
+        	},
+        	error:function(){
+        		console.log("error");
+        	}
+        })
+     }
+
+     // 上次加载的序号,初始化
+     var lastIndex = null;
+
+     // 最多可加载的条目,后期修改为数据库总条数
+	 var maxItems = {{ lenList["sumLen"] }};
+
+     // 每次加载添加多少条目
+    var itemsPerLoad = {{ lenList["preLen"] }}
+
+    // 加载flag
+	var loading = false;
+
+	//自动生成订单列表
+	function autoOrder(){
+		$.init();
+		// 加载flag
+		loading = false;
+
+		// 上次加载的序号
+		lastIndex = $('.list-container li').length;
+
+		// 注册'infinite'事件处理函数
+		$(document).on('infinite', '.infinite-scroll-bottom',function() {
+
+		    // 如果正在加载，则退出
+		    if (loading) return;
+
+		    // 设置flag
+		    loading = true;
+
+		    // 模拟1s的加载过程
+		    setTimeout(function() {
+		        // 重置加载flag
+		        loading = false;
+
+		        if (lastIndex >= maxItems) {
+		            // 加载完毕，则注销无限加载事件，以防不必要的加载
+		            $.detachInfiniteScroll($('.infinite-scroll'));
+		            // 删除加载提示符
+		            $('.infinite-scroll-preloader').remove();
+		            return;
+		        }
+                //发送ajax请求
+                ajax(lastIndex);
+		        //容器发生改变,如果是js滚动，需要刷新滚动
+		        $.refreshScroller();
+		    }, 1000);
+		});
+	}
+   autoOrder();
+
+     //存放cookie的函数
+    function setCookie(c_name, value, expiredays){
+        var exdate=new Date();
+        exdate.setDate(exdate.getDate() + expiredays);
+        document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+    }
+	// 使用事件委托
+	$(".list-container").on("click","li",function(e){
+        var orderNum = e.currentTarget.children[0].children[0].children[0].innerText;
+        //获取订单id,存储在cookie中,为查看相应订单详情做准备
+         setCookie("orderNum",orderNum,1);
+		// 还要实现跳转订单详情页面
+		window.location.href = "orderdetail";
+	})
+})(Zepto)
+	</script>
+{#{% include 'orderJs.html' %}#}
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>滤网列表</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/equipment.css') }}">
+</head>
+<body>
+	<div class="page-group">
+        <div class="page page-current">
+         	<div class="content">
+         	 	<div class="list-block">
+				    <ul>
+                    {% for i in orderJson %}
+                        <li class="item-content" data-productId="{{ i.productId }}">
+                            <div class="item-media"><img src="{{ url_for('static',filename=i.proImgUrl) }}"></div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <p>{{ i.proName }}</p>
+                                    <span  style="font-size: 0.8rem;color:#f04e55">专用滤网</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+				    </ul>
+				</div>
+         	</div>
+        </div>
+    </div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+	<script type="text/javascript">
+		(function(){
+
+            //存放cookie的函数
+            function setCookie(c_name, value, expiredays){
+        　　　　var exdate=new Date();
+        　　　　exdate.setDate(exdate.getDate() + expiredays);
+        　　　　document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+        　　}
+
+            // 点击相应的滤网跳转到下单环节,使用事件委托
+            $(".list-block ul").on("click","li",function(e){
+                console.log(e.currentTarget.attributes["data-productId"].nodeValue);
+                //获取产品的id,存储在临时缓存中,为了将产品的id传递到下单页面,作为数据传输做准备
+{#                sessionStorage.net_proId = e.currentTarget.attributes["data-productId"].nodeValue;#}
+                //获取产品的id,存储在cookie中,为滤网下单做准备,也为了减少ajax的使用
+                setCookie("net_proId",e.currentTarget.attributes["data-productId"].nodeValue,1);
+                window.location.href = 'ordering';
+            })
+			$.init();
+		})()
+	</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+html,body{
+  height: 100%;
+  background-color: #f4f4f4;
+}
+.wrap{
+  height: 100%;
+	margin: 0 auto;
+	color: #999;
+  position: relative;
+}
+
+/*返回*/
+a.backBtn{
+  color:#999;
+  margin-left: 0.75rem;
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  display: inline-block;
+}
+/*修改头部默认样式*/
+.bar{
+  padding-left: 0;
+  padding-right: 0;
+  height: 45px;
+  background-color: #f4f4f4;
+}
+.bar-nav ~ .content {
+  top: 45px;
+}
+.bar .icon{
+  padding: 0;
+}
+/*icon的字体大小*/
+.bar .icon.iconFS {
+  font-size: 16px;
+}
+/*参数设置*/
+.list-block{
+  margin:0;
+}
+/*参数设置*/
+/*#setParameter{
+  background-color: #fff; 
+  padding: 0 20px; 
+}*/
+/*#setParameter li{
+  padding: 12px 0;
+  height: 76px;
+  line-height: 52px;
+  border-bottom: 1px solid #f4f4f4;
+}*/
+.list-block .item-inner{
+  min-height: none;
+  padding-right: 0;
+}
+.list-block ul li{
+  padding:0 0.75rem;
+}
+.parameterName{
+  /*float: left;*/
+  font-size: 0.8rem;
+}
+
+/*输入框box*/
+.box{
+  /*float: right;*/
+  position: relative;
+}
+.list-block .item-after{
+  max-height: none;
+}
+.row.no-gutter{
+  /*width: 100%;*/
+}
+
+.add,.reduce,input{
+  /*float: right;*/
+  display: inline-block;
+  text-align: center;
+}
+/*增加按钮 减少按钮*/
+.add,.reduce{
+  width: 2.6rem;
+  height:2.4rem;
+  font-size: 30px;
+  color: #000;
+  background-color: #eee;
+
+}
+.add{
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px; 
+}
+/*减少按钮 */
+.reduce{
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+/*输入框*/
+.list-block input[type="text"], .list-block input[type="password"], .list-block input[type="search"], .list-block input[type="email"], .list-block input[type="tel"], .list-block input[type="url"], .list-block input[type="date"], .list-block input[type="datetime-local"], .list-block input[type="time"], .list-block input[type="number"], .list-block select, .list-block textarea{
+  width:3.9rem;
+  height:2.4rem;
+  outline: none;
+  border: none;
+  background-color: #9edef2;
+  color: #fff;
+  padding: 10px;
+  padding-left: 0;
+  font-size: 1rem;
+
+}
+/*单位*/
+.unit{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5.2rem;
+  line-height: 2.4rem;
+  margin: auto;
+  color: #fff;
+  font-size: 1rem;
+}
+/*保存按钮*/
+a.button.saveBtn{
+  height: 60px;
+  line-height: 60px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: lighter;
+  background-color: #f49068;
+  float: none;
+  text-align: center;
+  letter-spacing: 0.4rem;
+}
+.fixed_foort{
+  padding: 0.5rem 0 1rem 0;
+  position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   margin: auto;
+}
+/*修改默认的按钮点击时的active*/
+.button.button-fill.active, .button.button-fill:active {
+  background-color: #f49068;
+}

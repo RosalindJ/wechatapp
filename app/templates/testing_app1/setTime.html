@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>定时开关机</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/setTime.css') }}">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+	    		<!-- 返回 -->
+              <a class="backBtn" href="javascript:void(0);">
+                  <span class="icon icon-left iconFS"></span>
+                  <span>返回</span>
+              </a>
+         	</header>
+			<div class="content wrap">
+				<!-- 设定开机时间 -->
+				<div id="openTime">
+					<div class="clearfix">
+						<span class="openTitle">1、设定开机时间</span>
+						<!-- 添加时间 -->
+						<a href="javascript:void(0);" class="addTimeBnt"></a>
+					</div>
+					<div class="list-block">
+						<ul id="openTimeList">
+							<!-- 具体的开机时间 -->
+						</ul>
+					</div>
+					
+				</div>
+				<!-- 设定关机时间 -->
+				<div id="closeTime">
+					<div class="clearfix">
+						<span class="closeTitle">2、设定关机时间</span>
+						<!-- 添加时间 -->
+						<a href="javascript:void(0);" class="addTimeBnt"></a>
+					</div>
+					<div class="list-block">
+						<ul id="closeTimeList">
+							<!-- 具体的关机时间 -->
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename="app/js/setTime.js") }}"></script>
+</body>
+</html>

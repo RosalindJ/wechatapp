@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>参数设置</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/setParameter.css') }}">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+	    		<!-- 返回 -->
+                <a class="backBtn" href="javascript:void(0);">
+                    <span class="icon icon-left iconFS"></span>
+                   <span>返回</span>
+                </a>
+         	</header>
+			<div class="content wrap">
+				<div class="list-block">
+					<!-- /*参数设置*/ -->
+					<ul>
+						<li class="item-content">
+							<div class="item-inner">
+								<!-- <div class="item-title-row row no-gutter"> -->
+									<span class="parameterName item-title">温度</span>
+									<!-- 输入框box -->
+									<div class="box item-after">
+										<!-- 减少按钮 -->
+										<span class="reduce">-</span>
+										<input type="tel" id="temperature" class="fill">	
+										<!-- 单位 -->			
+										<span class="unit">℃</span>	
+										<!-- 增加按钮 -->
+										<span class="add">+</span>					
+									</div>
+								<!-- </div> -->
+							</div>
+						</li>
+						<li class="item-content">
+							<div class="item-inner">
+								<!-- <div class="item-title-row row no-gutter"> -->
+									<span class="parameterName item-title">湿度</span>
+									<!-- 输入框box -->
+									<div class="box item-after">
+										<!-- 减少按钮 -->
+										<span class="reduce">-</span>
+										<input type="tel" id="moisture" class="fill">	
+										<!-- 单位 -->			
+										<span class="unit">%</span>		
+										<!-- 增加按钮 -->
+										<span class="add">+</span>					
+									</div>
+								<!-- </div> -->
+							</div>
+						</li>
+						<li class="item-content">
+							<div class="item-inner">
+								<!-- <div class="item-title-row row no-gutter"> -->
+									<span class="parameterName item-title">CO2浓度</span>
+									<!-- 输入框box -->
+									<div class="box clearfix item-after">
+										<!-- 减少按钮 -->
+										<span class="reduce">-</span>
+										<input type="tel" id="carbon" class="fill">	
+										<!-- 单位 -->
+										<span class="unit">%</span>					
+										<!-- 增加按钮 -->
+										<span class="add">+</span>					
+									</div>
+								<!-- </div> -->
+							</div>
+						</li>
+					</ul>
+					<!-- 保存按钮 -->
+					<div class="row fixed_foort">
+						<a href="javascript:void(0);" class="col-66 button button-fill saveBtn">保存</a >
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename="app/js/setParameter.js") }}"></script>
+</body>
+</html>

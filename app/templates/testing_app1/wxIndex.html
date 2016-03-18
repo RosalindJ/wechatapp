@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>微信首页模拟</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <style>
+        ul{
+            background:#fff;
+        }
+        .wrapBtn{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right:0;
+        }
+        .wrapBtn li{
+            border-left:1px solid #eee;
+        }
+        li{
+            text-align: center;
+            height:50px;
+            line-height: 50px;
+            border-top:1px solid #eee;
+        }
+        .innerBtn{
+            display: none;
+            width:100%;
+            position: absolute;
+            bottom:50px;
+            right:0;
+        }
+        .innerBtn ul{
+            float: right !important;
+        }
+    </style>
+</head>
+<body>
+    <ul class="wrapBtn row">
+        <li class="col-33">设备</li>
+        <li class="col-33">一键滤网</li>
+        <li class="my col-33">我的</li>
+    </ul>
+    <div class="innerBtn row clearfix">
+        <ul class="col-33">
+            <li>反馈</li>
+            <li>订单</li>
+            <li>设置</li>
+            <li>个人</li>
+        </ul>
+    </div>
+    <script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+    <script>
+        (function($){
+            $(".my").on("click",function(e){
+                $(".innerBtn").show();
+                e.stopPropagation();
+            })
+            $(".innerBtn ul").on("click",function(e){
+                console.log(e);
+                e.stopPropagation();
+            })
+            $(window).on("click",function(){
+                $(".innerBtn").hide();
+            })
+        })(Zepto)
+    </script>
+</body>
+</html>

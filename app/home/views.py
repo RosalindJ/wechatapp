@@ -118,6 +118,11 @@ def index():
 #def get_data():
 #    test_gevent.pool_test('小米 空气进化器', 1000, pages=1)
 
+#测试首页
+@app.route('/testing_app1/wxIndex')
+def wxIndex():
+    return render_template('testing_app1/wxIndex.html')
+
 @app.route('/testing_app1/addEquipment')
 def addEquipment():
     return render_template('testing_app1/addEquipment.html')

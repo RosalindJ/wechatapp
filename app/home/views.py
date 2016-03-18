@@ -319,9 +319,10 @@ def setingTime():
 
 
 #设置参数
-@app.route('/testing_app1/setParameter')
+@app.route('/testing_app1/setParameter', methods=['GET', 'POST'])
 def setParameter():
-    return render_template('testing_app1/setParameter.html')
+    if request.method == 'GET':
+        return render_template('testing_app1/setParameter.html')
 
 #初始化参数
 @blueprint.route('/getParameter', methods=['GET', 'POST'])

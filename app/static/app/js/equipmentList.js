@@ -22,7 +22,7 @@
                             success: function (data) {
                                 console.log(data);
                                 if(data == 'yes'){
-                                    window.location.href = "addaddEquipment";
+                                    window.location.href = "addEquipment";
                                 }else{
                                     //数据没有成功接收
                                     $(".page").eq(2).addClass("page-current").siblings().removeClass("page-current");

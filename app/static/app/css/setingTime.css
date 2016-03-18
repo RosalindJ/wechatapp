@@ -1,0 +1,122 @@
+html,body{
+  height: 100%;
+  background-color: #f4f4f4;
+}
+#wrap{
+  height: 100%;
+	width: 320px;
+	margin: 0 auto;
+	color: #999;
+}
+p{
+  margin: 0;
+}
+/*返回*/
+a.backBtn{
+  width: inherit;
+  color:#999;
+  margin-left: 0.75rem;
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  display: inline-block;
+  background: none;
+}
+/*修改头部默认样式*/
+.bar{
+  padding-left: 0;
+  padding-right: 0;
+  height: 45px;
+  background-color: #f4f4f4;
+}
+.bar-nav ~ .content {
+  top: 45px;
+}
+.bar .icon{
+  padding: 0;
+}
+/*icon的字体大小*/
+.bar .icon.iconFS {
+  font-size: 16px;
+}
+/*设置时间 设置重复*/
+#setTimeBox,#recurBox{
+  background-color: #fff; 
+  padding: 0.5rem 0.75rem;
+  padding-left: 1rem;
+  margin: 0 auto;
+}
+.timeBox{
+  text-align: center;
+}
+/*设置重复*/
+#recurBox{
+  padding:0.5rem 0.75rem 0.6rem;
+  margin-top: 20px;
+  text-align: center;
+}
+#recurBox div{
+  padding-bottom: 2px;
+}
+/*输入框*/
+input{
+  width: 80%;
+  height: 2.5rem;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  background-color: #9edef2;
+  color: #fff;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid #eee;
+}
+/*去掉路蓝旗默认的自带上下箭头*/
+/*input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}*/
+.row > [class*="col-"], .row > [class*="tablet-"]{
+  float: inherit;
+}
+#recurBox p,#setTimeBox p{
+  text-align: left;
+  font-size: 0.8rem;
+  margin-bottom:0.6rem;
+}
+#recurBox span{
+  min-width: 33px;
+  display: inline-block;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  padding: 0.4rem 0;
+  margin-right: 4px;
+}
+/*激活重复日期*/
+.activeDay{
+  background-color: #9edef2;
+  color: #fff; 
+}
+/*保存按钮*/
+a.button.saveBtn{
+  height: 60px;
+  line-height: 60px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: lighter;
+  background-color: #f49068;
+  float: none;
+  text-align: center;
+  letter-spacing: 0.4rem;
+}
+.fixed_foort{
+   margin: 1.2rem 0;
+}
+/*修改默认的按钮点击时的active*/
+.button.button-fill.active, .button.button-fill:active {
+  background-color: #f49068;
+}

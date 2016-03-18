@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>订单详情</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm-extend.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/orderDetail.css') }}">
+</head>
+<body>
+	<div class="page-group">
+	    <div class="page page-current">
+	    	<header class="bar bar-nav">
+	    		<!-- 返回 -->
+              <a class="backBtn" href="javascript:void(0);">
+                  <span class="icon icon-left iconFS"></span>
+                  <span>返回</span>
+              </a>
+         	</header>
+			<!-- 订单详情 -->
+			<div class="content wrap">
+				<!-- 列表 -->
+				<div class="list-block">
+					<!-- 订单详情 -->
+					<ul id="detailList">
+						<!-- 滤网简介 -->
+						<li id="productText" class="item-content">
+					        <div class="item-text">
+						         <!-- 滤网图片 -->
+								<img src="{{ url_for('static',filename=netData.netImg) }}" class="netImg">
+								<div class="productName">
+									<!-- 滤网名称 -->
+									<h2>{{ netData.pro_name }}</h2>
+									<!-- 滤网说明 -->
+									<span>{{ netData.pro_type }}</span>
+								</div>
+					        </div>
+					    </li>					
+						<!-- 滤网单价 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">单价</div>
+					          <div class="item-after" id="price">{{ orderings.price }}</div>
+					        </div>
+					    </li>
+					
+						<!-- 滤网购买数量 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">数量</div>
+					          <div class="item-after" id="quantity">{{ orderings.quantity }}</div>
+					        </div>
+					    </li>
+						<!-- 配送方式 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">配送方式</div>
+					          <div class="item-after" id="sendway">{{ orderings.sendWay }}</div>
+					        </div>
+					    </li>
+						<!-- 收货信息 -->
+						<li class="item-content">
+					        <div class="item-text">
+						          <span class="nameText">收货人：<span id="name">{{ orderings.name }}</span><span id="tel">{{ orderings.tel }}</span></span>
+						          <p id="address">{{ orderings.address }}</p>
+						          
+					        </div>
+					    </li>
+						
+						<!-- 下单时间 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">下单时间</div>
+					          <div class="item-after" id="orderTime">{{ orderings.time }}</div>
+					        </div>
+					    </li>
+						<!-- 买家留言 -->
+						<li class="item-content">
+					        <div class="item-inner">
+					          <div class="item-title">买家留言：<span id="message">{{ orderings.message }}</span></div>
+					        </div>
+					    </li>
+						
+					</ul>
+				</div>
+				<!-- 购买滤网合计费用 -->
+				<div id="expense"><span class="amountBox">合计：<span id="amount">{{ orderings.amount }}</span></span></div>
+				
+			</div>
+	    </div>
+	</div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
+	<script type="text/javascript">
+	(function($){
+		// 点击返回到上一级
+		$(".backBtn").eq(0).on("click",function(){
+			//window.location.href = "order.html";
+            window.history.back()
+		});
+
+		//发送ajax请求,向服务器发送数据配对，接受返回数据，以及数据处理 
+{#		$.ajax({#}
+{#			type:"POST",#}
+{#			url:"",#}
+{#			data:JSON.stringify({orderCode:sessionStorage.orderCode}),#}
+{#			success:function(data){#}
+{#				// 根据服务器返回数据，进行相应的处理，图片是否也作为数据处理#}
+{#				console.log("success");#}
+{#				$(".productName h2").html("data");#}
+{#				$(".productName span").html("data");#}
+{#				$("#price").html("data元");#}
+{#				$("#quantity").html("data");#}
+{#				$("#sendway").html("data");#}
+{#				$("#name").html("data");#}
+{#				$("#tel").html("data");#}
+{#				$("#address").html("data");#}
+{#				$("#orderTime").html("data");#}
+{#				$("#message").html("data");#}
+{#				$("#amount").html("data元");#}
+{#			},#}
+{#			error:function(){#}
+{#				console.log("error");#}
+{#			}#}
+{#		})#}
+	})(Zepto)
+	</script>
+</body>
+</html>

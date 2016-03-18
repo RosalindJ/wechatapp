@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>设备</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/equipment.css') }}">
+</head>
+<body>
+	<div class="page-group">
+        <div class="page page-current">
+         	<div class="content">
+         	 	<div class="list-block equipList">
+				    <ul>
+					    <li class="item-content">
+					        <div class="item-media"><img src="{{ url_for('static',filename='app/img/equip.png') }}"></div>
+					        <div class="item-inner">
+					          	<div class="item-title">
+					          		<p>兆晶新风机（卧室)</p>
+									<span>李霞控制</span>
+								</div>
+					          	<div class="item-after"><span class="icon icon-right iconFS"></span></div>
+					        </div>
+					    </li>
+				    </ul>
+				</div>
+				<div id="fixed_foort" class="row">
+					<!-- 二维码通道按钮 -->
+					<a href="javascript:void(0);" class="col-66 button button-fill addBtn codeBnt">扫二维码添加设备</a>
+					<!-- WiFi通道按钮 -->
+					<a href="javascript:void(0);" class="col-66 button button-fill addBtn wifiBnt">通过WiFi添加设备</a>
+				</div>
+         	</div>
+        </div>
+    </div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+	<script type="text/javascript">
+		(function(){
+			// 视口的高度
+			var allHeight = document.documentElement.clientHeight;
+			// 按钮的高度
+			var foort_height = $("#fixed_foort").height();
+			// 添加的设备的高度
+			$(".equipList").eq(0).height(allHeight - foort_height);
+			var json_data;//json数据
+			// 发送请求，获取到添加设备的数据
+			$.ajax({
+				type: 'POST',
+				url: 'SSS.php',
+				dataType: 'JSON',
+				success:function(data) {
+					console.log(data);
+					// js对象转化成json对象
+					json_data = JSON.stringify(data);
+					// 创建设备
+					creatList(json_data);
+				}
+			})
+			// 创建li,设备的函数
+			function creatList(arr){
+				console.log(arr + ' 长度 '+ arr.length)
+				for (var i = 0; i < arr.length; i++){
+					var newLi = $('<li class="item-content"><div class="item-media"><img src="'+arr[i].imgSrc+'"></div><div class="item-inner"><div class="item-title"><p>'+arr[i].roomMachine+'</p><span>'+arr[i].controller+'</span></div><div class="item-after"><span class="icon icon-right iconFS"></span></div></div> </li>');
+					$(".equipList ul").append(newLi);
+				}
+			}
+
+			// 点击
+			$(".item-content").click(function() {
+				window.location.href = "install_index.html";
+			});
+				
+			$.init();
+		})()
+	</script>
+</body>
+</html>

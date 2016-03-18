@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>添加设备</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/equipmentList.css') }}">
+</head>
+<body>
+	<div class="page-group">
+        <div class="page page-current">
+         	<div class="content wrap addMachine">
+         		<!-- applogo -->
+				<div class="logo"></div>
+				<!-- 文件说明 -->
+				<p>你离在家享受好空气只差一点点啦<br> 赶紧去添加一台新风机吧！</p>
+				<div class="row fixed_foort">
+					<!-- 二维码通道按钮 -->
+					<a href="javascript:void(0);" class="col-66 button button-fill addBtn codeBnt">扫二维码添加设备</a>
+					<!-- WiFi通道按钮 -->
+					<a href="javascript:void(0);" class="col-66 button button-fill addBtn wifiBnt">通过WiFi添加设备</a>
+				</div>
+         	</div>
+     	</div>
+     	<!-- wifi搜索中 -->
+     	<div class="page">
+         	<div class="content wrap">
+				<div id="wifi_ing">
+					<div class="wifiBox">
+						<!-- wifi——logo -->	
+						<div class="wifi_bg"></div>
+						<!-- 文字说明_wifi -->
+						<p>正在搜寻同一WiFi网络下的设备</p>
+					</div>
+				</div>
+         	</div>
+     	</div>
+     	<!-- 二维码扫描失败 -->
+     	<div class="page">
+     		<header class="bar bar-nav">
+              <a class="backBtn" href="javascript:void(0);">
+                  <span class="icon icon-left iconFS"></span>
+                  <span>返回</span>
+              </a>
+         	</header>
+         	<div class="content wrap codeFail">
+				<!-- applogo -->
+				<div class="logo"></div>
+				<!-- 文件说明 -->
+				<p>获取设备信息失败，你可以再扫一次<br> 或者通过WiFi添加设备。
+				</p>
+				<div class="row fixed_foort">
+					<!-- 二维码通道按钮 -->
+					<a href="javascript:void(0);" class="col-66 button button-fill addBtn codeBnt">扫二维码添加设备</a>
+					<!-- WiFi通道按钮 -->
+					<a href="javascript:void(0);" class="col-66 button button-fill addBtn wifiBnt">通过WiFi添加设备</a>
+				</div>
+         	</div>
+     	</div>
+    </div>
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{#    {% include 'weixin/scanQRCode.html' %}#}
+    <script>
+	  /*
+	  * 注意：
+	  * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+	  * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+	  * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+	  *
+	  * 开发中遇到问题详见文档“附录5-常见错误及解决办法”解决，如仍未能解决可通过以下渠道反馈：
+	  * 邮箱地址：weixin-open@qq.com
+	  * 邮件主题：【微信JS-SDK反馈】具体问题
+	  * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
+	  */
+	  wx.config({
+	  debug: false,
+	  appId: '{{ sign.appId }}',
+	  timestamp: {{ sign.timestamp }},
+	  nonceStr: '{{ sign.nonceStr }}',
+	  signature: '{{ sign.signature }}',
+	  jsApiList: [
+          'checkJsApi',
+          'scanQRCode',
+	  ]
+	  });
+	</script>
+    <script src="{{ url_for('static', filename='app/js/equipmentList.js')}}"></script>
+	<script type="text/javascript">
+		(function(){
+			// 点击二维码按钮 扫描二维码
+{#			$(".codeBnt").click(function(event) {#}
+{#				/* Act on the event */#}
+{#				// 调用微信的扫一扫#}
+{#				wx.scanQRCode({#}
+{#                    needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，#}
+{#                    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有#}
+{#                    // 二维码扫描成功 clickN = 1#}
+{#                    success: function (res) {#}
+{#                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果#}
+{#                        console.log(result);#}
+{##}
+{#                        // 跳转到添加设备页面 addEquipment.html#}
+{#                        window.location.href = "addEquipment.html";#}
+{##}
+{#                        // 扫描设备，获取设备的信息，保存到localStroge#}
+{#                        if(window.sessionStorage){#}
+{#							sessionStorage.setItem('clickN',result);#}
+{#						}#}
+{#                    },#}
+{#                    // 二维码扫描失败#}
+{#	                error:function(res){#}
+{#	                	$(".page").eq(2).addClass("page-current").siblings().removeClass("page-current");#}
+{#	     //            	// 进入搜索设备页面 clickN = 3#}
+{#	     //            	window.location.href = "addEquipment.html";#}
+{#	     //            	clickN = 3;#}
+{#      //                   if(window.localStorage){#}
+{#						// 	// window.localStorage.clickN = 1;#}
+{#						// 	localStorage.setItem('clickN', 3);#}
+{#						// }#}
+{#	                }#}
+{#                });#}
+{#			});#}
+{#			// wifi 添加设备#}
+{#			$(".wifiBnt").click(function(event) {#}
+{#				// 调用手机wifi#}
+{#				// 出现搜索同wifi 下的设备页面#}
+{#				$(".page").eq(1).addClass("page-current").siblings().removeClass("page-current");#}
+{#				// 搜索到设备时会获取到设备的信息 result#}
+{#				if(success){#}
+{#					//   保存到localStroge#}
+{#					if(window.sessionStorage){#}
+{#						sessionStorage.setItem('clickN',result);#}
+{#					}#}
+{#					// 跳转到添加设备页面 addEquipment.html#}
+{#	                window.location.href = "addEquipment.html";#}
+{#				}else{//搜索失败时#}
+{#					$(".page").eq(2).addClass("page-current").siblings().removeClass("page-current");#}
+{#				}   #}
+{#				// 进入搜索设备页面#}
+{#				// if(window.localStorage){#}
+{#				// 	window.localStorage.clickN = 2;#}
+{#				// 	localStorage.setItem('clickN', 2);#}
+{#				// }#}
+{#				// console.log(window.localStorage.clickN)#}
+{#				// window.location.href = "addEquipment.html";#}
+{##}
+{##}
+{#			});#}
+
+{#			// wifi搜索中#}
+{#			var allHeight = document.documentElement.clientHeight;#}
+{#			// var barHeight = $(".bar-nav ~ .content").offset().top;#}
+{#			// var contentHeight = allHeight - barHeight;#}
+{#			// WiFi搜索中为视口的高度#}
+{#			$("#wifi_ing").height(allHeight);#}
+
+			
+			// 初始化
+{#			$.init();#}
+		})()
+	</script>
+</body>
+</html>

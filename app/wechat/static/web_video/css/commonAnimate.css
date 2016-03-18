@@ -1,0 +1,130 @@
+
+.animated {
+    -webkit-animation-duration:1s;
+    animation-duration:1s;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both
+}
+.animated_1 {
+    -webkit-animation-duration:.4s;
+    animation-duration:.4s;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both
+}
+.animated_2 {
+    -webkit-animation-duration:.6s;
+    animation-duration:.6s;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both
+}
+.animated_3 {
+    -webkit-animation-duration:2s;
+    animation-duration:2s;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both
+}
+.infinite{
+    -webkit-animation-iteration-count:infinite;
+    animation-iteration-count:infinite;
+}
+.delay_1{
+    -webkit-animation-delay:0.2s;
+    animation-delay:0.2s;
+}
+.delay_2{
+    -webkit-animation-delay:0.6s;
+    animation-delay:0.6s;
+}
+.delay_3{
+    -webkit-animation-delay:1s;
+    animation-delay:1s;
+}
+/*淡现*/
+.opacity {
+    -webkit-animation-name:opacity;
+    animation-name:opacity
+}
+@-webkit-keyframes opacity {
+    from {
+        opacity:0
+    }
+    100% {
+        opacity:1
+    }
+}
+@keyframes opacity {
+    from {
+        opacity:0
+    }
+    100% {
+        opacity:1
+    }
+}
+.opacity_hide {
+    -webkit-animation-name:opacity_hide;
+    animation-name:opacity_hide
+}
+@-webkit-keyframes opacity_hide {
+    from {
+        opacity:1
+    }
+    100% {
+        opacity:0
+    }
+}
+@keyframes opacity_hide {
+    from {
+        opacity:1
+    }
+    100% {
+        opacity:0
+    }
+}
+.opac_1{
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-name:opac_1;
+    animation-name:opac_1;  
+}
+@-webkit-keyframes opac_1{
+    from {
+        opacity: 0.3;
+        
+    }
+    25%{
+        opacity: 1;
+    }
+    
+    50%{
+        opacity:0.3;
+    }
+    
+    75% {
+        opacity:1;
+    
+    }
+    100%{
+        opacity:0.3;
+    }
+}
+@keyframes opac_1{
+    from {
+        opacity: 0.3;
+        
+    }
+    25%{
+        opacity: 1;
+    }
+    
+    50%{
+        opacity:0.3;
+    }
+    
+    75% {
+        opacity:1;
+    
+    }
+    100%{
+        opacity:0.3;
+    }
+}

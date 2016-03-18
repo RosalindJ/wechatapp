@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>添加设备</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/addEquipment.css') }}">
+</head>
+<body>
+	<div class="page-group">
+        <div class="page page-current">
+			<header class="bar bar-nav">
+              <a class="backBtn" href="javascript:void(0);">
+                  <span class="icon icon-left iconFS"></span>
+                  <span>返回</span>
+              </a>
+         	</header>
+        	<div class="content wrap">
+				<!-- 搜素到的设备 -->
+				<div id="equipmentList"  class="list-block equip_list">
+					<!-- 设备列表 -->
+				    <ul>
+				    	<!-- 设备名称 -->
+					    <!-- <li class="item-content">
+					        <div class="item-inner">
+					         	<div class="item-title">新风机——3253635346</div>
+					         	<a href="javascript:void(0);" class="item-after selectBnt"></a>
+					        </div>
+					    </li> -->
+				    </ul>
+					<!-- 添加设备按钮 -->
+					<div id="sheBtn" class="row fixed_foort">
+						<a href="javascript:void(0);" class="col-66 button button-fill addBtn">添加设备</a>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+        
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript">
+	// 微信config接口
+		wx.config({
+	  	debug: false,
+	  	appId: 'wx753cb1f1a5681082',
+	  	timestamp: 1456986103,
+	  	nonceStr: 'rsjoI2DcckeR6F3',
+	  	signature: 'b7ee6add13a3da329606887e27eb788a60823c06',
+	  	jsApiList: [
+        	'checkJsApi',
+        	'onMenuShareTimeline',
+        	'onMenuShareAppMessage',
+        	'onMenuShareQQ',
+        	'onMenuShareWeibo',
+        	'onMenuShareQZone',
+       		'scanQRCode',
+	  	]
+	  	});
+		// 微信验证成功
+		wx.ready(function(){
+			console.log("success")
+	    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+		});
+		// 微信验证失败
+		wx.error(function() {
+			/* Act on the event */
+		});
+	</script>
+	<script type="text/javascript">
+		(function(){
+			// 点击返回按钮
+			$(".bar .backBtn").eq(0).click(function() {
+				window.history.back();
+			});
+
+			var allHeight = document.documentElement.clientHeight;
+			var barHeight = $(".bar-nav ~ .content").offset().top;
+			var contentHeight = allHeight - barHeight;
+			// 求出设备列表的高度
+			$(".equip_list").eq(0).height(contentHeight - $("#sheBtn").height());
+
+			// 获取localStorage的新风机的信息
+			if(window.sessionStorage){
+				var machineinInf = sessionStorage.getItem('clickN');
+				json_data = JSON.stringify(machineinInf);
+				// console.log(json_data)
+				if(json_data != "null"){
+					creatList(json_data);
+				}
+				addEq();// 点击小图标添加设备 
+			}
+
+			// 创建li,设备的函数
+			function creatList(arr){
+				console.log(arr + ' 长度 '+ arr.length)
+				for (var i = 0; i < arr.length; i++){
+					var newLi = $('<li class="item-content"><div class="item-inner"><div class="item-title">'+arr[i]+'</div><a href="javascript:void(0);" class="item-after selectBnt"></a></div></li>');
+					$("#equipmentList ul").append(newLi);
+				}
+			}
+			var _indexArr = [];//添加了class 的数组
+			//  点击小图标添加设备
+			function addEq(){
+				var _index;//点击列表的下标
+				// 点击哪个小图标 添加class，或者删除class
+				$(".selectBnt").click(function(event){
+					_index = $(this).parents('.item-content').index();
+					// 如果添加了class 那么点击时就移除class
+					if(_indexArr.indexOf(_index) != -1){
+						$(".selectBnt").eq(_index).removeClass('activeBnt');
+						var indexN = _indexArr.indexOf(_index);
+						_indexArr.splice(indexN,1);
+						// console.log("splice"+_indexArr)
+					}else{// 如果没有添加class 那么点击时就添加class
+						_indexArr.push(_index);
+						$(".selectBnt").eq(_index).addClass('activeBnt');
+						// console.log("push"+_indexArr)
+					}
+					// 将数组大小排序
+ 					_indexArr.sort(function(a,b){return a-b});
+ 					console.log(_indexArr)
+				});
+			}
+			// 点击添加设备按钮添加到设备列表内
+			
+			$("#sheBtn .addBtn").eq(0).click(function() {
+				if(_indexArr.length != 0){
+					var machineIdArr = [];//添加了的新风机的title名的数组
+					var jsonMachine;//json格式的设备信息
+					// console.log(_indexArr.length)
+					for(var i = 0; i < _indexArr.length;i++){
+						var machineId = $(".item-content").eq(_indexArr[i]).find('.item-inner .item-title').html();
+						machineIdArr.push(machineId);
+					}
+					// window.location.href = "equipment.html";
+					aj(machineIdArr);//machineIdArr转化成json
+					// 数组转化成json格式的函数
+					function aj(arr){
+						var json = {};
+						for(var j = 0;j < arr.length;j++){
+						    json[j] = arr[j];
+						}
+						jsonMachine = JSON.stringify(json); 
+						console.log(jsonMachine);
+					}
+					$.ajax({
+						url: 'sdjhf/',
+						type: 'POST',
+						dataType:"JSON",
+						data: jsonMachine,
+						success:function(data){
+							window.location.href = "equipment";
+						}
+					})
+				}
+			});
+
+			// 扫描二维码失败之后  
+			// 扫描二维码
+			// $(".codeBnt").click(function(event) {
+			// 	/* Act on the event */
+			// 	// 调用微信的扫一扫
+			// 	// 进入搜索设备页面
+			// 	// 如果扫描二维码失败
+			// 	var flagFailed = Math.random();
+			// 	if(flagFailed < 0.5){
+			// 		$(".codeFail").eq(0).show();
+			// 	}else if(flagFailed<1 && flagFailed>=0.5){
+			// 		creatList(json_data)
+			// 		// 扫描成功
+			// 		// $(".equip_list").eq(0).show();
+			// 		setTimeout(function(){
+			// 			$(".equip_list").eq(0).show();
+			// 			$("#wifi_ing").hide();
+			// 			$(".codeFail").eq(0).hide();
+			// 			addEq();
+			// 		},2000)
+			// 	}
+			// 	// 进入搜索设备页面
+			// 	// clickN = 1;
+			// 	// if(window.localStorage){
+			// 	// 	// window.localStorage.clickN = 1;
+			// 	// 	localStorage.setItem('clickN', 1);
+			// 	// }
+			// 	// console.log(window.localStorage.clickN)
+			// 	// window.location.href = "addEquipment.html";
+			// });
+			// // wifi 添加设备
+			// $(".wifiBnt").click(function(event) {
+			// 	/* Act on the event */
+			// 	// 调用wifi
+			// 	// 进入搜索设备页面
+			// 	$("#wifi_ing").show();
+			// 	$(".codeFail").eq(0).hide();
+			// 	$(".equip_list").eq(0).hide();
+			// 	creatList(json_data)
+
+			// 		// $.ajax({
+			// 		// 	type: 'POST',
+			// 		// 	url: '3333',
+			// 		// 	dataType: 'JSON',
+			// 		// 	success:function(data) {
+			// 		// 		console.log("success");
+			// 		// 		console.log(data);
+			// 		// 		// js对象转化成json对象
+			// 		// 		json_data = JSON.stringify(data);
+			// 		// 		$(".equip_list").eq(0).show();
+			// 		// 		$("#wifi_ing").hide();
+			// 		// 		creatList(json_data)
+			// 		// 	}
+			// 		// })
+			// 		setTimeout(function(){
+			// 			$(".equip_list").eq(0).show();
+			// 			$("#wifi_ing").hide();
+			// 			addEq();
+			// 		},5000)
+			// 	// if(window.localStorage){
+			// 	// 	// window.localStorage.clickN = 2;
+			// 	// 	localStorage.setItem('clickN', 2);
+			// 	// }
+			// 	// console.log(window.localStorage.clickN)
+			// 	// window.location.href = "addEquipment.html";
+
+
+			// });
+
+
+			
+			// 判断上个页面是哪个按钮点击链接过来的
+			// var json_data = ["新风机——1","新风机——2","新风机——3"];
+			// if(window.localStorage){
+			// 	var clickNum = localStorage.getItem('clickN');
+			// 	console.log(clickNum);
+			// 	// clickNum = 1 扫描二维码成功 clickNum = 2 扫描二维码失败 clickNum = 2 wifi 
+			// 	if(clickNum == 1){
+			// 		// 扫描成功
+			// 		// 如果扫描二维码失败
+			// 		// var flagFailed = Math.random();
+			// 		if(flagFailed < 0.5){
+			// 			$(".codeFail").eq(0).show();
+			// 		}else if(flagFailed<1 && flagFailed>=0.5){
+			// 			creatList(json_data)
+			// 			// 扫描成功
+			// 			// $(".equip_list").eq(0).show();
+			// 			setTimeout(function(){
+			// 				$(".equip_list").eq(0).show();
+			// 				$("#wifi_ing").hide();
+			// 				$(".codeFail").eq(0).hide();
+			// 				// console.log($(".selectBnt"))
+			// 				addEq();
+			// 			},2000)
+			// 		}
+			// 	}else if(clickNum == 2){//通过wifi 
+			// 		$("#wifi_ing").show();
+			// 		$(".codeFail").eq(0).hide();
+			// 		$(".equip_list").eq(0).hide();
+			// 		creatList(json_data)
+			// 		var temp = true;
+			// 		// $.ajax({
+			// 		// 	type: 'POST',
+			// 		// 	url: '3333',
+			// 		// 	dataType: 'JSON',
+			// 		// 	success:function(data) {
+			// 		// 		console.log("success");
+			// 		// 		console.log(data);
+			// 		// 		// js对象转化成json对象
+			// 		// 		json_data = JSON.stringify(data);
+			// 		// 		$(".equip_list").eq(0).show();
+			// 		// 		$("#wifi_ing").hide();
+			// 		// 		creatList(json_data)
+			// 		// 	}
+			// 		// })
+			// 		setTimeout(function(){
+			// 			$(".equip_list").eq(0).show();
+			// 			$("#wifi_ing").hide();
+			// 			addEq();
+			// 		},5000)
+					
+			// 	}
+			// }
+			
+
+			$.init();
+		})()
+	
+	</script>
+</body>
+</html>

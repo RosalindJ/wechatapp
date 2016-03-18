@@ -1,0 +1,150 @@
+@charset "utf-8";
+html,body{
+	height: 100%;
+	font-size: 18px;
+	font-family: 'Fcf276', "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+	/*max-width: 1366px;*/
+}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;
+}
+body{
+	-webkit-tap-highlight-color	:rgba(0,0,0,0);	/* Remove highlight on tap event*/
+	-moz-tap-highlight-color	:rgba(0,0,0,0);
+	-ms-tap-highlight-color		:rgba(0,0,0,0);
+	tap-highlight-color			:rgba(0,0,0,0);
+	 -webkit-touch-callout: none;  
+	-webkit-user-select: none;  
+	-khtml-user-select: none;  
+	-moz-user-select: none;  
+	-ms-user-select: none;  
+	user-select: none; 
+	/* 上面的css是用来禁止用户选中 */
+}
+/*html,body,div,ul,li,ol,dl,input,hr,nav,button,aside,footer,select,p,em,i,h1,h2,h3,h4,h5,h6{
+	margin: 0;
+	padding: 0;
+}*/
+ul ,ol{
+	list-style: none;
+}
+em,i{
+	font-style: normal;
+}
+table { border-collapse: collapse; border-spacing: 0; }
+table, th, td {
+  vertical-align: middle;
+}
+input,select{
+	outline: none;
+	border: none;
+	/*去掉默认三角形*/
+	-webkit-appearance:none;
+}
+/* Remove annoying border on linked images. */
+a img { border: none; text-decoration:none; }
+h1{
+	font-size: 2.6rem;
+}
+h2{
+	font-size: 2.6rem;
+}
+h3{
+	font-size: 2rem;
+}
+h4{
+	font-size: 1.2rem;
+}
+a{
+	color:#000;
+	text-decoration: none;
+}
+
+/*清除浮动*/
+/* IE 6/7 */
+.clearfix{
+	*zoom:1;
+}
+.clearfix:after{
+	content: "";
+	clear: both;
+	display: block;
+	font-size: 0;
+	width: 0;
+	height: 0;
+	visibility: hidden;
+	overflow: hidden;
+}
+/* 重置安卓Pad下面input焦点状态白底的样式 */
+input{
+   -webkit-user-modify: read-write-plaintext-only;
+   -webkit-tap-highlight-color:#3072af;
+}
+
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner{
+	border:none;padding:0;
+}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Styles */
+}

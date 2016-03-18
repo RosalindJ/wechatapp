@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>兆晶科技首页</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" href="css/index_2.css">
+	<link rel="stylesheet" type="text/css" href="css/commonAnimate.css">
+	<link rel="stylesheet" href="css/animate_2.css">
+	<link rel="stylesheet" type="text/css" href="css/jQfullpage.css">
+	<script type="text/javascript">
+        function browserRedirect() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+            if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+                console.log("phone");
+                window.location.href="product_moblie.html";
+            } else {
+                console.log("pc");
+            }
+        }
+
+        browserRedirect();
+    </script>
+</head>
+<body>
+	<div id="contain" >
+		<!-- 导航条布局 -->
+		<div id="nav">
+			<div class="clearfix">
+				<div class="zhaojing">
+					<a href="javascript:void(0)">兆晶新风</a>
+					<span>引领健康家居智能化</span>
+				</div>
+				<div class="nav_header">
+					<a href="index.html" class="navActive">新风</a>
+					<a href="product.html">中央式新风</a>
+					<a href="trendy.html">小不点</a>
+					<a href="company.html">联系我们</a>
+
+				</div>
+			</div>
+		</div>
+
+		<div id="fullpage">
+			<div id="video_1" class="section" style="background-color:#000;">
+				<img src="img/background-r.jpg" style="  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;">
+				<div class="mask">
+					<video width="100%" controls>
+						<source src="video/video_2.mov" type="video/mp4" />
+						<!-- <source src="video/video_1.mp4" type="video/mp4" /> -->
+						<!-- <source src="video/video_2.mov" type="video/mp4" /> -->
+						<object data="video/video_2.mov" width="100%" height="100%">
+							<embed src="video/video_2.mov" width="100%" height="100%" />
+							缺少插件
+						</object>
+					</video>
+				</div> 
+				
+				<div class="wrapVideo">
+					<div class="play" style="  left: 62%;
+  top: 62%;">
+						<a src="javascript:void(0);" ></a>
+						<div class="words_1">
+						</div>
+					</div>
+				</div>				
+			</div>
+
+			<!-- 中间动态展现一块 -->
+				<!-- 我们是如何生产出好的空气 -->
+			<div class="one section">
+				<div id="text">
+					<h1 class="animated scaleBig">我们是如何生产出好的空气</h1>
+				</div>
+			</div>
+					<!--新风制作最好空气的动效表现  -->
+			<div class="animateBox section" style="height:900px;">
+				<!-- 初中高过滤 -->
+				<div class="page1">
+				
+					<!-- 初效过滤背景 -->
+					<img src="img/bg1.jpg" class="bg1">
+					<div class="germ1 germ oneGerm animate center_1"><img src="img/germ1.png" alt=""></div>
+					<div class="germ2 germ oneGerm animate center_3"><img src="img/germ4.png" alt=""></div>
+					<div class="germ3 germ oneGerm animate center_2"><img src="img/germ2.png" alt=""></div>
+					<div class="germ4 germ oneGerm animate center_4"><img src="img/germ3.png" alt="">
+					</div>
+					<div class="germ5 germ oneGerm animate center_5"><img src="img/germ5.png" alt="">
+					</div> 
+
+					<div class="clear_1 cleargerm animated_2 "><img src="img/clear1.png" alt=""></div>
+					<div class="word_1 words animated"><img src="img/word1.png" alt=""></div>
+					
+					<!-- 中高效过滤背景 -->
+					<img src="img/bg2.jpg" class="bg2">
+					<div class="germ6 germ twoGerm animate center_6">
+						<canvas id="canvas_1" width="40" height="60">
+							你的浏览器版本太低！
+						</canvas>
+					<img src="img/germ7.png" alt="">
+					</div>
+					<div class="clear_2 cleargerm
+					animated_2 "><img src="img/clear2.png" alt=""></div>
+					<div class="word_2 words animated"><img src="img/word2.png" alt=""></div>
+
+
+					<!-- 活性碳过滤背景 -->
+					<img src="img/bg3.jpg" class="bg3">
+					<div class="dust dust1 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust2 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust3 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust4 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust5 animate dust_2"><img src="img/dust.png"></div>
+					<div class="dust dust6 animate dust_2"><img src="img/dust.png"></div>
+					<div class="dust dust7 animate dust_2"><img src="img/dust.png"></div>
+					<div class="dust dust8 animate dust_2"><img src="img/dust.png"></div>
+					<div class="dust dust9 animate dust_3"><img src="img/dust.png"></div>
+					<div class="dust dust10 animate dust_3"><img src="img/dust.png"></div>
+					<div class="dust dust11 animate dust_3"><img src="img/dust.png"></div>
+					<div class="dust dust12 animate dust_3"><img src="img/dust.png"></div>
+					<div class="dust dust13 animate dust_4"><img src="img/dust.png"></div>
+					<div class="dust dust14 animate dust_4"><img src="img/dust.png"></div>
+					<div class="dust dust15 animate dust_4"><img src="img/dust.png"></div>
+					<div class="dust dust16 animate dust_4"><img src="img/dust.png"></div>
+					<div class="dust dust17 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust18 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust19 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust20 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust21 animate dust_1"><img src="img/dust.png"></div>
+					<div class="dust dust22 animate dust_2"><img src="img/dust.png"></div>
+					<div class="clear_3 cleargerm animated_2 "><img src="img/clear3.png" alt=""></div>
+					<div class="word_3 words animated"><img src="img/word3.png" alt=""></div>
+
+					<!-- 负离子 -->
+					<img src="img/bg4.jpg" class="bg4">
+					<div class="machine animated"><img src="img/shebei.png" alt=""></div>
+					
+					<div class="anion anion1 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion2 animated"><img src="img/anion1.png" alt="" ></div>
+					<div class="anion anion3 animated"><img src="img/anion1.png" alt="" ></div>
+					<div class="anion anion4 animated"><img src="img/anion1.png" alt="" ></div>
+					<div class="anion anion5 animated"><img src="img/anion1.png" alt="" ></div>
+					<div class="anion anion6 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion7 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion8 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion9 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion10 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion11 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion12 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion13 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion14 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion15 animated"><img src="img/anion1.png" alt=""></div>
+					<div class="anion anion16 animated"><img src="img/anion1.png" alt="" ></div>
+					<div class="anion_word animated_2"><img src="img/anion_word.png" alt=""></div>
+
+					<!-- 60%湿度 -->
+					<div class="water animated_3"><img src="img/water.png" alt=""></div>
+					<div class="water_word animated_2"><img src="img/water_word.png" alt=""></div>
+	
+					<!-- 温度控制26度 -->
+					<div class="sun"><img src="img/sun.png" alt=""></div>
+					<div class="temper_word animated_2"><img src="img/temper_word.png" alt=""></div>
+
+					<!-- 氧气调节 -->
+					<div class="oxygen oxygen1 "><img src="img/oxygen1.png" alt=""></div>
+					<div class="oxygen oxygen2 "><img src="img/oxygen2.png" alt=""></div>
+					<div class="oxygen oxygen3 "><img src="img/oxygen3.png" alt=""></div>
+					<div class="oxygen oxygen4 "><img src="img/oxygen4.png" alt=""></div>
+					<div class="oxygen oxygen5 "><img src="img/oxygen5.png" alt=""></div>
+					<div class="oxygen oxygen6 "><img src="img/oxygen6.png" alt=""></div>
+					<div class="oxygen oxygen7 "><img src="img/oxygen7.png" alt=""></div>
+					<div class="oxygen oxygen8 "><img src="img/oxygen8.png" alt=""></div>
+					<div class="oxygen oxygen9 "><img src="img/oxygen9.png" alt=""></div>
+					<div class="oxygen oxygen10 "><img src="img/oxygen10.png" alt=""></div>
+					<div class="oxygen oxygen11 "><img src="img/oxygen11.png" alt=""></div>
+					<div class="oxygen oxygen12 "><img src="img/oxygen12.png" alt=""></div>
+					<div class="oxygen oxygen13 "><img src="img/oxygen13.png" alt=""></div>
+					<div class="oxygen oxygen14 "><img src="img/oxygen14.png" alt=""></div>
+					<div class="oxygen oxygen15 "><img src="img/oxygen15.png" alt=""></div>
+					<div class="oxygen oxygen16 "><img src="img/oxygen16.png" alt=""></div>
+					<div class="oxygen oxygen17 "><img src="img/oxygen1.png" alt=""></div>
+					<div class="oxygen oxygen18 "><img src="img/oxygen2.png" alt=""></div>
+					<div class="oxygen oxygen19 "><img src="img/oxygen3.png" alt=""></div>
+					<div class="oxygen oxygen20 "><img src="img/oxygen4.png" alt=""></div>
+					<div class="oxygen oxygen21 "><img src="img/oxygen5.png" alt=""></div>
+					<div class="oxygen oxygen22 "><img src="img/oxygen6.png" alt=""></div>
+					<div class="oxygen_word animated_2"><img src="img/oxygen_word.png" alt=""></div>
+
+					
+				</div>
+				<div class="page2">
+					<!-- 好空气 -->
+					<img src="img/bg5.jpg" alt="" class="bg5">
+					<div class="freshAirWord animated_2"><img src="img/freshAir.png"></div>
+				</div>
+				<!--  -->
+				<div class="animateList">
+					<span class="animateListActive"></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			
+
+			<!-- 视频2布局 -->
+			<!-- <div id="video_2" class="section">
+				<img src="img/background-v.png">
+				<div class="mask">
+					<video src="video/MV720p二稿.mp4" width="100%" controls>
+						<object data="video/MV720p二稿.mp4" width="100%" height="100%">
+							<embed src="video/MV720p二稿.mp4" width="100%" height="100%" />
+							缺少插件
+						</object>
+					</video>
+				</div>
+				
+				<div class="wrapVideo">
+					<div class="play">
+						<a src="javascript:void(0);" ></a>
+						<div class="words_1">
+							<p class="p_1">关于过年回家买净化器这件事</p>
+						</div>
+					</div>
+				</div>
+				
+			</div> -->
+			<!-- 底部联系页面 -->
+			<div id="foort">
+				<div class="contact">	
+					<a href="company.html">公司简介</a>
+					<a href="company.html">联系我们</a>			
+					<a href="company.html">新浪微博</a>
+					<a href="company.html">官方微信</a>	
+				</div>
+				<p>Copyright © 2016 广州市兆晶科技有限公司</p>
+			</div>
+		</div>
+
+	</div>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="js/jQfullpage.js"></script>
+	<script type="text/javascript" src="js/fragment.js"></script>
+	<script src="js/index_6.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+html,body{
+  height: 100%;
+  background-color: #f4f4f4;  
+}
+.wrap{
+	margin: 0 auto;
+	color: #999;
+}
+p{
+  margin: 0;
+}
+/*返回*/
+a.backBtn{
+  color:#999;
+  margin-left: 0.75rem;
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  display: inline-block;
+  background: none;
+}
+/*修改头部默认样式*/
+.bar{
+  padding-left: 0;
+  padding-right: 0;
+  height: 45px;
+  background-color: #f4f4f4;
+}
+.bar-nav ~ .content {
+  top: 45px;
+}
+.bar .icon{
+  padding: 0;
+}
+/*icon的字体大小*/
+.bar .icon.iconFS {
+  font-size: 16px;
+}
+/*按钮*/
+a{
+    display: inline-block;
+    background: url(../img/icons.png) no-repeat;
+    background-size:11.5rem 17.5rem;
+    vertical-align: middle;
+}
+.list-block{
+  margin:0;
+}
+.list-block ul:before{
+  content: initial;
+}
+/*共用的 li */
+.list-block ul{
+  border-top: 1px solid #f0f2f2;
+}
+
+/*设定开机时间 设定关机时间*/
+#openTime , #closeTime{
+  padding:0 0.75rem;
+  background-color: #fff;
+}
+#closeTime{
+  margin-top: 20px;
+}
+.openTitle,.closeTitle{
+  float: left;
+   font-size: 0.8rem;
+  color: #333; 
+   margin: 0.4rem 0;
+}
+/*添加时间*/
+.addTimeBnt{
+  background-position: -9.5rem -8.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  float: right;
+}
+.row.no-gutter{
+    padding: 0.8rem 0;
+}
+/*设定的时间*/
+.time{
+  display: inline-block;
+  color: #000;
+  vertical-align: middle;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+.time:before{
+  content: "";
+  display: inline-block;
+  background: url(../img/icons.png) no-repeat;
+  background-size: 11.5rem 17.5rem;
+  background-position: -1rem -14.9rem;
+  width: 1.4rem;
+  height: 1.6rem;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.prompt{
+   display: inline-block;
+   vertical-align: middle;
+  font-size: 0.6rem;
+}
+/*关闭——开启按钮*/
+.on_off{
+  background-position: -15px -211px;
+  width: 52px;
+  height: 32px;
+}
+.item-after{
+  text-align: right;
+}
+.list-block .item-input{
+  margin-top: 0.2rem;
+}
+/*开启设置*/
+.label-switch input[type="checkbox"]:checked + .checkbox{
+   background:#03d1ef;
+}

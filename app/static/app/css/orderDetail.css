@@ -1,0 +1,110 @@
+.wrap{
+	margin: 0 auto;
+	color: #666;
+  background-color: #fff;
+}
+
+/*返回*/
+a.backBtn{
+  color:#999;
+  margin-left: 0.75rem;
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+  display: inline-block;
+}
+/*修改头部默认样式*/
+.bar{
+  padding-left: 0;
+  padding-right: 0;
+  height: 45px;
+  background-color: #f4f4f4;
+}
+.bar-nav ~ .content {
+  top: 45px;
+}
+.bar .icon{
+  padding: 0;
+}
+/*icon的字体大小*/
+.bar .icon.iconFS {
+  font-size: 16px;
+}
+/*列表*/
+.list-block{
+  margin: 0;
+}
+.list-block .item-content{
+  padding-left: 0;
+  font-size:0.7rem;
+}
+.list-block .item-inner:after,.list-block ul:after{
+  content: initial;
+}
+/*订单详情*/
+#detailList{
+	padding:0 0.75rem;
+}
+#detailList li{
+    border-bottom: 1px solid #E8E8E8;  
+}
+.list-block .item-inner{
+  padding-right: 0;
+}
+/*滤网名称*/
+#productText .productName{
+  display: inline-block;
+  vertical-align:middle;
+  /*float: left !important;*/
+  width: 66%;
+}
+.productName span{
+  font-size: 0.6rem;
+}
+/*滤网图片*/
+.netImg{
+  max-width: 140px;
+  width: 30%;
+  display: inline-block;
+  vertical-align:middle;
+}
+
+h2{
+  line-height: 36px;
+  font-size:0.8rem;
+  color: #333;
+  font-weight: 400;
+}
+/*收货信息*/
+.list-block .item-text{
+    width: 100%;
+    height: inherit;
+    padding-top: 0.4rem;
+    padding-bottom: 0.35rem;
+    font-size:0.7rem;
+    color: #666;
+}
+/*收货人，电话*/
+#name,#tel{
+	color: #333;
+}
+#tel{
+  float: right;
+}
+/*收货地址*/
+#address{
+	color: #333;
+  margin: 8px 0 0;
+}
+/*购买滤网合计费用*/
+.amountBox{
+	color: #666;
+  float: right;
+  margin-right:1rem;
+  font-size:0.7rem;
+  padding-top: 0.4rem;
+    padding-bottom: 1rem;
+}
+#amount{
+  color:#f65f15;	
+}

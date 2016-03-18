@@ -1,0 +1,38 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{# ... #}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="table-responsive">
+    <table class="table table-condensed  table-striped table-hover">
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>电话</th>
+          <th>时间</th>
+        </tr>
+      </thead>
+      <tbody>
+      <h1></h1>
+      {% for i in presells.items %}
+          <tr>
+              <td>{{ i.username }}</td>
+              <td>{{ i.phone }}</td>
+	      <td>{{ i.created_time | datetimefilter }}</td>
+            </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+{{render_pagination(presells)}}
+{% endblock %}

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>兆晶新风机（卧室）</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/base.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='app/css/sm.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/install_index.css') }}">
+</head>
+<body>
+	<div class="page-group">
+        <div class="page page-current">
+        <!-- tab 模式 -->
+	        <nav class="bar bar-tab">
+                <div class="tab-item external">
+                	<a href="javascript:void(0);">
+                		<i class="icon onOff active1"></i>
+                    	<span class="tab-label activeColor">开关</span>
+                    </a>
+                </div>
+                <div class="tab-item external">
+               		<a href="javascript:void(0);">
+               			<i class="icon auto"></i>
+                    	<span class="tab-label">自动</span>
+                    </a>
+                </div>
+                <div class="tab-item external">
+                	<a href="javascript:void(0);">
+                		<i class="icon sleeping"></i>
+                    	<span class="tab-label">睡眠</span>
+                    </a>
+                </div>
+            </nav>
+            <!-- content -->
+         	<div class="content install_bg">
+         		<!-- 头部 -->
+         		<header>
+         			<a href="javascript:void(0);" class="icon icon-left pull-left backBtn"></a>
+				  	<a href="javascript:void(0);" class="icon icon-settings pull-right iconInstall"></a>
+				  	<h1>自动模式</h1>
+				</header>
+				<!-- 运行检测 -->
+				<div class="jiance">
+					<img src="{{ url_for('static',filename='app/img/dust.png') }}" alt="" class="dust">
+					<img src="{{ url_for('static',filename='app/img/machineRun.png') }}" alt="" class="machineRun">
+				</div>
+				<!-- 列表 -->
+				<!-- <div class="list-block">
+				    <ul class="clearfix">
+				      	<li class="item-content">
+				        	<div class="item-inner">
+				          		<div class="item-title">
+				          			<p>温度&#8451;(设定/室内)</p>
+									<p><span>25</span>/<span>28</span></p>
+				          		</div>
+				       	 	</div>
+				      	</li>
+				      	<li class="item-content">
+					        <div class="item-inner">
+						        <div class="item-title">
+						        	<p>湿度%(设定/室内)</p>
+									<p><span>45</span>/<span>50</span></p>
+								</div>
+					        </div>
+				      	</li>
+				      	<li class="item-content">
+				        	<div class="item-inner">
+				          		<div class="item-title">
+									<p>PM2.5(设定/室内)</p>
+									<p><span>20</span>/<span>200</span></p>
+				          		</div>
+				       	 	</div>
+				      	</li>
+				      	<li class="item-content">
+					        <div class="item-inner">
+						        <div class="item-title">
+						        	<p>滤网剩余寿命(天)</p>
+									<p class="screenTime">3</p>
+						        </div>
+					        </div>
+				      	</li>
+				      	<li class="item-content">
+				        	<div class="item-inner">
+				          		<div class="item-title">
+									<p>位置</p>
+									<p>广州</p>
+				          		</div>
+				       	 	</div>
+				      	</li>
+				      	<li class="item-content">
+					        <div class="item-inner">
+						        <div class="item-title">
+						        	<p>空气质量</p>
+									<p>良</p>
+						        </div>
+					        </div>
+				      	</li>
+				    </ul>
+				</div> -->
+				<div class="shezhiContent">
+					<img src="{{ url_for('static',filename='app/img/lendon.png') }}" alt="">
+					<div class="airContent">
+						<ul class="installContent clearfix">
+							<li>
+								<p>温度&#8451;(设定/室内)</p>
+								<p><span>25</span>/<span>28</span></p>
+							</li>
+							<li>
+								<p>湿度%(设定/室内)</p>
+								<p><span>45</span>/<span>50</span></p>
+							</li>
+							<li>
+								<p>PM2.5(设定/室内)</p>
+								<p><span>20</span>/<span>200</span></p>
+							</li>
+							<li class="filterScreen">
+								<p>滤网剩余寿命(天)</p>
+								<p class="screenTime">3</p>
+							</li>
+							<li>
+								<p>位置</p>
+								<p>广州</p>
+							</li>
+							<li>
+								<p>空气质量</p>
+								<p>良</p>
+							</li>
+						</ul>
+						<div class="airCity">您正呼吸着伦敦的空气</div>
+					</div>
+					
+				</div>	
+         	</div>
+     	</div>
+    </div>
+
+	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
+	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+	<script>
+		(function(){
+			var airConHeight = $(".airContent").height();
+			$(".shezhiContent img").height(airConHeight);
+            //  点击返回
+			$(".backBtn").click(function(){
+	        	window.history.back();
+	        })
+            //  点击设置
+	        $(".iconInstall").click(function(){
+	        	window.location.href = "setup";
+	        })
+			$.init();
+		})();
+	</script>
+</body>
+</html>

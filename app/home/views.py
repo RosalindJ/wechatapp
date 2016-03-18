@@ -171,7 +171,11 @@ def equipment():
     machineJson = [{'productId':4534,'proName':"兆晶新风机(卧室)","proImgUrl":"app/img/equip.png","controller":"李霞"},
                    {'productId':6789,'proName':"兆晶新风机(客厅)","proImgUrl":"app/img/equip.png","controller":"李大健"},
                    {'productId':1190,'proName':"兆晶新风机(客厅)","proImgUrl":"app/img/equip.png","controller":"李霞"}]
-    return render_template('testing_app1/equipment.html',machineJson=machineJson)
+    url = request.url
+    print(url)
+    sign = Helper.jsapi_sign(url)
+    sign["appId"] = WxPayConf_pub.APPID
+    return render_template('testing_app1/equipment.html',machineJson=machineJson,sign=sign)
 
 # 设备操作
 @app.route('/testing_app1/install')

@@ -14,16 +14,18 @@
          	<div class="content">
          	 	<div class="list-block equipList">
 				    <ul>
-					    <li class="item-content">
-					        <div class="item-media"><img src="{{ url_for('static',filename='app/img/equip.png') }}"></div>
+				    	{% for i in machineJson %}
+				    	<li class="item-content" data-productId="{{ i.productId }}">
+					        <div class="item-media"><img src="{{ url_for('static',filename=i.proImgUrl) }}"></div>
 					        <div class="item-inner">
 					          	<div class="item-title">
-					          		<p>兆晶新风机（卧室)</p>
-									<span>李霞控制</span>
+					          		<p>{{ i.proName }}</p>
+									<span>{{ i.controller }}控制</span>
 								</div>
 					          	<div class="item-after"><span class="icon icon-right iconFS"></span></div>
 					        </div>
 					    </li>
+                    	{% endfor %}
 				    </ul>
 				</div>
 				<div id="fixed_foort" class="row">
@@ -37,6 +39,8 @@
     </div>
 	<script src="{{ url_for('static',filename="app/js/zepto.js") }}"></script>
 	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {% include 'weixin/scanQRCode.html' %}
 	<script type="text/javascript">
 		(function(){
 			// 视口的高度
@@ -45,36 +49,20 @@
 			var foort_height = $("#fixed_foort").height();
 			// 添加的设备的高度
 			$(".equipList").eq(0).height(allHeight - foort_height);
-			var json_data;//json数据
-			// 发送请求，获取到添加设备的数据
-			$.ajax({
-				type: 'POST',
-				url: 'SSS.php',
-				dataType: 'JSON',
-				success:function(data) {
-					console.log(data);
-					// js对象转化成json对象
-					json_data = JSON.stringify(data);
-					// 创建设备
-					creatList(json_data);
-				}
-			})
-			// 创建li,设备的函数
-			function creatList(arr){
-				console.log(arr + ' 长度 '+ arr.length)
-				for (var i = 0; i < arr.length; i++){
-					var newLi = $('<li class="item-content"><div class="item-media"><img src="'+arr[i].imgSrc+'"></div><div class="item-inner"><div class="item-title"><p>'+arr[i].roomMachine+'</p><span>'+arr[i].controller+'</span></div><div class="item-after"><span class="icon icon-right iconFS"></span></div></div> </li>');
-					$(".equipList ul").append(newLi);
-				}
-			}
 
 			// 点击
 			$(".item-content").click(function() {
-				window.location.href = "install_index.html";
+				document.cookie = "productId="+ $(this).attr("data-productId");
+				// $.cookie('productId', 'the_value'); // 存储 cookie
+				console.log($(this).attr("data-productId"));
+						window.location.href = "install";
+
 			});
 				
 			$.init();
 		})()
 	</script>
+{#   二维码以及WiFi按钮处理#}
+    <script src="{{ url_for('static', filename='app/js/equipmentList.js')}}"></script>
 </body>
 </html>

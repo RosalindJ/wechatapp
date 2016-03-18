@@ -1,7 +1,6 @@
 /**
  * Created by tangmeirong on 16/3/17.
  */
-
     $(".codeBnt").click(function(event) {
         console.log("点击了")
         wx.ready(function () {

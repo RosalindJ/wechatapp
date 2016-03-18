@@ -30,9 +30,30 @@
 					<div class="list-block">
 						<ul id="openTimeList">
 							<!-- 具体的开机时间 -->
+							<li>
+								<!-- 设定的时间 -->
+								<div class="item-title-row row no-gutter ">
+									<div class="item-title col-80">
+										<span class="time">{{ getTime.openTime.onTime }}</span>
+										<div class="prompt">
+											<p><span class="hour">{{ getTime.openTime.betweenTimeH }}</span>小时<span class="minute">{{ getTime.openTime.betweenTimeM }}</span>分钟</p>
+											<span class="count">{{ getTime.openTime.repeatTime }}</span>
+										</div>
+									</div>
+									<div class="item-after col-20">
+										<!-- 关闭——开启按钮 -->
+										<div class="item-input">
+											<label class="label-switch">
+												<input type="checkbox" class="databox">
+												<div class="checkbox data" data-select="{{ getTime.openTime.Tselect }}"></div>
+											</label>
+										</div>
+									</div>
+								</div>
+							</li>
 						</ul>
 					</div>
-					
+
 				</div>
 				<!-- 设定关机时间 -->
 				<div id="closeTime">
@@ -44,6 +65,27 @@
 					<div class="list-block">
 						<ul id="closeTimeList">
 							<!-- 具体的关机时间 -->
+							<li>
+								<!-- 设定的时间 -->
+								<div class="item-title-row row no-gutter ">
+									<div class="item-title col-80">
+										<span class="time">{{ getTime.closeTime.offTime }}</span>
+										<div class="prompt">
+											<p><span class="hour">{{ getTime.closeTime.betweenTimeH }}</span>小时<span class="minute">{{ getTime.closeTime.betweenTimeM }}</span>分钟</p>
+											<span class="count">{{ getTime.closeTime.repeatTime }}</span>
+										</div>
+									</div>
+									<div class="item-after col-20">
+										<!-- 关闭——开启按钮 -->
+										<div class="item-input">
+											<label class="label-switch">
+												<input type="checkbox" class="databox">
+												<div class="checkbox data" data-select="{{ getTime.closeTime.Tselect }}"></div>
+											</label>
+										</div>
+									</div>
+								</div>
+							</li>
 						</ul>
 					</div>
 					

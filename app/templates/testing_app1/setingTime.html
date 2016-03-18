@@ -26,9 +26,9 @@
 						<p>时间</p>
 						<div class="timeBox">
 							<input type="time" value="07:31" id="times">
-						</div>	
+						</div>
 					</div>
-				
+
 				<!-- 设置重复 -->
 				<div id="recurBox">
 					<p>重复</p>
@@ -40,7 +40,7 @@
 						<span id="four" class="col-10 day">四</span>
 						<span id="five" class="col-10 day">五</span>
 						<span id="six" class="col-10 day">六</span>
-					</div>	
+					</div>
 				</div>
 				<!-- 保存按钮 -->
 				<div class="row fixed_foort">
@@ -54,7 +54,7 @@
     <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
 	<script type="text/javascript">
 	(function($){
-		
+
 		$("#dayBox").on("click","span",function(e){
 			// 控制点击，tem为-1未选，否则为选中
 			var tem = e.target.className.indexOf("activeDay");
@@ -62,7 +62,7 @@
 				e.target.className = ""+e.target.className+" activeDay";
 			}else{
 				e.target.className = "col-10 day";
-			}			
+			}
 		})
 
 		// 点击返回，返回上一级
@@ -78,25 +78,25 @@
 					str += $(".activeDay").eq(i).html();
 				}
 				// 判断临时存储，timeType为open,说明设置的是开机时间，否则为关机时间
-				if(sessionStorage.timeType == "open"){
-					var URL = "/setingOpen";
-				}else{
-					var URL = "/setingClose";
-				}
+{#				if(sessionStorage.timeType == "openTime"){#}
+{#					var URL = "/setingOpenT";#}
+{#				}else{#}
+{#					var URL = "/setingCloseT";#}
+{#				}#}
 				// ajax
+
 				$.ajax({
 					type:"POST",
-					url:URL,
-					data:"time=" + $("#times").val() + "&recur=" + str,
+					url:"/testing_app1/setingTime",
+					data:"timeType="+sessionStorage.timeType+"&time=" + $("#times").val() + "&recur=" + str,
 					success:function(){
 						window.location.href="setTime";
-						console.log("data");
 					},
 					error:function(){
 						console.log("error");
 					}
 				})
-			
+
 		})
 	})(Zepto)
 	</script>

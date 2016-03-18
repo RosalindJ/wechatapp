@@ -118,20 +118,13 @@ def index():
 #def get_data():
 #    test_gevent.pool_test('小米 空气进化器', 1000, pages=1)
 
+
 #测试首页
 @app.route('/testing_app1/wxIndex')
 def wxIndex():
     return render_template('testing_app1/wxIndex.html')
 
-@app.route('/testing_app1/addEquipment')
-def addEquipment():
-    return render_template('testing_app1/addEquipment.html')
-
-@app.route('/testing_app1/equipment')
-def equipment():
-    return render_template('testing_app1/equipment.html')
-
-#
+#设备进入
 @app.route('/testing_app1/equipmentIndex',methods=["GET","POST"])
 def equipmentList():
     if request.method == 'GET':
@@ -160,31 +153,197 @@ def equipmentList():
             return 'yes'
         return 'no'
 
-# 设备设置
+#二维码扫描或wifi成功进入
+@app.route('/testing_app1/addEquipment',methods=["GET","POST"])
+def addEquipment():
+    if request.method == 'GET':
+        machineIdName = [{'productId':4534},{'productId':6789},{'productId':1190}]
+        return render_template('testing_app1/addEquipment.html',machineIdName=machineIdName)
+    if request.method == 'POST':
+        print(request.form)
+        # 将获得的数据产品的ID,添加到绑定设备的列表里,绑定设备的列表需要有产品的ID和产品图片.
+        return ""
+
+#已绑定的设备列表
+@app.route('/testing_app1/equipment')
+def equipment():
+    #从用户产品数据库,取出所拥有的产品id,名称以及图片路径,控制者
+    machineJson = [{'productId':4534,'proName':"兆晶新风机(卧室)","proImgUrl":"app/img/equip.png","controller":"李霞"},
+                   {'productId':6789,'proName':"兆晶新风机(客厅)","proImgUrl":"app/img/equip.png","controller":"李大健"},
+                   {'productId':1190,'proName':"兆晶新风机(客厅)","proImgUrl":"app/img/equip.png","controller":"李霞"}]
+    return render_template('testing_app1/equipment.html',machineJson=machineJson)
+
+# 设备操作
 @app.route('/testing_app1/install')
 def install():
-    return render_template('testing_app1/install_index.html')
-# 产品介绍
-@app.route('/testing_app1/introduce')
-def introduce():
-    return render_template('testing_app1/introduce.html')
+    productId = request.cookies.get('productId')
+    # 获取productId下面的产品设置的信息
+    machineModel = {'productId':productId,'model':"睡眠","temperOut":"25","temperRoom":"32","dampOut":"45","dampRoom":"60",'PMOut':"20","PMRoom":"200","netTime":"20","position":"广州","airQuality":"良","airPosition":"伦敦","locationImg":"app/img/lendon.png"}
+    # print(machineModel)
+    return render_template('testing_app1/install_index.html',machineModel = machineModel)
 
+# 一键滤网
 @app.route('/testing_app1/net')
 def net():
     someday = {"work":86,"no_work":21}
     return render_template('testing_app1/net.html',someday=someday)
 
+#滤网列表
 @app.route('/testing_app1/netList')
 def netList():
     #从用户产品数据库,取出所拥有的产品id,名称以及图片路径
     orderJson = [{'productId':4534,'proName':"兆晶新风机(卧室)","proImgUrl":"app/img/equip.png"},{'productId':6789,'proName':"兆晶新风机(客厅)","proImgUrl":"app/img/netImg.jpg"},{'productId':1190,'proName':"兆晶新风机(客厅)","proImgUrl":"app/img/netImg.jpg"}]
     return render_template('testing_app1/netList.html',orderJson=orderJson)
 
+#下订单
+@app.route('/testing_app1/ordering',methods=["GET","POST"])
+def ordering():
+    if request.method == 'GET':
+        net_proId = request.cookies.get('net_proId')
+        print(net_proId)
+        # 根据从cookie得到产品的id,匹配相对应的滤网id,从滤网取出数据
+        netData = {}
+        netData["netId"] = "990"  #滤网的id
+        netData["netImg"] = "app/img/netImg.jpg"  #滤网的图片url
+        netData["pro_name"] = "高效过滤网"  #滤网名称
+        netData["pro_type"] = "适配x100"   #滤网适配类型说明
+        netData["price"] = "100"   #滤网单价
+        netData["sendWay"] = "包邮"   #滤网配送方式
+        # 获取用户的信息
+        userMessage = {}
+        userMessage["name"] = "李大建"   #用户名
+        userMessage["tel"] = "11352146590"  #用户联系电话
+        userMessage["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #用户地址
+        return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage)
+
+    if request.method == 'POST':
+        print(request.form)
+        orderings = {}
+        # 这里是返回数据的收集
+        orderings["netId"] = str(request.form.get('netId', ''))  #滤网id
+        orderings["price"] = str(request.form.get('price', ''))  #滤网单价
+        orderings["quantity"] = str(request.form.get('quantity', ''))  #购买滤网的数量
+        orderings["sendWay"] = str(request.form.get('sendWay', ''))  #配送方式
+        orderings["name"] = str(request.form.get('name', ''))  #收货人
+        orderings["tel"] = str(request.form.get('tel', ''))  #收货人电话号码
+        orderings["address"] = str(request.form.get('address', ''))  #收货地址
+        orderings["time"] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())) #当前时间
+        orderings["message"] = str(request.form.get('message', ''))  #留言内容
+        orderings["amount"] = str(request.form.get('amount', ''))  #总金额
+        print(orderings)
+        if orderings:
+            return 'yes'
+        return 'no'
+
+# 个人
+@app.route('/testing_app1/personal',methods=["GET","POST"])
+def personal():
+    if request.method == 'GET':
+        perInfor1 = {"headUrl":"app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"","addressCity":"广东 广州 天河区","fullAddress":"林和西路耀中广场B座910"}
+        return render_template('testing_app1/personal.html',perInfor1 = perInfor1)
+    if request.method == 'POST':
+        print(request.form)
+        yourTel = str(request.form.get('yourTel'))
+        addressCity = str(request.form.get('addressCity'))
+        fullAddress = str(request.form.get('fullAddress'))
+        # 放到个人列表中,有电话号码,省市区,详细地址
+        # 可以比较三个值中的数据和返回过来的数据有没有差别,如果有就更新到数据库中
+        return ""
+
+# 设置电话和地址
+@blueprint.route('/getPersonal', methods=['GET', 'POST'])
+def getPersonal():
+    if request.method == 'POST':
+        perInfor = {"headUrl":"app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"13580467147","addressCity":"广东 广州 天河区","fullAddress":"林和西路耀中广场B座910"}
+        return json.dumps(perInfor)
+
+# 设置
+@app.route('/testing_app1/setup', methods=['GET', 'POST'])
+def setup():
+    if request.method == 'GET':
+        abnormalData1 = {"id":"renew","select":"true"},{"id":"unusual","select":"false"}
+        return render_template('testing_app1/setup.html',abnormalData1 = abnormalData1)
+    if request.method == 'POST':
+        print(request.form)
+        # 更换滤网提醒与异常提醒
+        # 异常id : unusual ,当select为false,不提示
+        # 更换滤网提醒id : renew ,当select为false,不提示
+        id = str(request.form.get('id'))
+        select = str(request.form.get('select'))
+        # 存到数据库中
+        return ""
+
+# 产品介绍
+@app.route('/testing_app1/introduce')
+def introduce():
+    return render_template('testing_app1/introduce.html')
+
+#设置时间
+@app.route('/testing_app1/setTime', methods=['GET', 'POST'])
+def setTime():
+    if request.method == 'GET':
+         # 开机时间和关机时间
+        # openTime = [{"onTime":"17:35","betweenTimeH":"1","betweenTimeM":"15","repeatTime":"仅一次","Tselect":"false"},{"onTime":"17:35","betweenTimeH":"1","betweenTimeM":"15","repeatTime":"仅一次","Tselect":"false"}]
+        getTime = {"openTime":{"onTime":"17:35","betweenTimeH":"1","betweenTimeM":"15","repeatTime":"仅一次","Tselect":"false"},
+                   "closeTime":{"offTime":"17:35","betweenTimeH":"1","betweenTimeM":"15","repeatTime":"重复","Tselect":"true"}}
+        print(getTime)
+        return render_template('testing_app1/setTime.html',getTime = getTime)
+
+    # 是否开启开关机时间
+    if request.method == 'POST':
+        print(request.form)
+        timeId = str(request.form.get('timeId'))
+        Tselect = str(request.form.get('Tselect'))
+        # timeId是开机时间还是关机时间,如果timeId的值为openTimeList就是开机,否则为关机
+        # 此处需要放到数据库中的是Tselect的值,将Tselect的值更改到开机或者关机的表里(具体放到开机还是关机根据timeId定)
+        return ""
+
+#正在设置时间
+@app.route('/testing_app1/setingTime',methods=['GET', 'POST'])
+def setingTime():
+    if request.method == 'GET':
+        return render_template('testing_app1/setingTime.html')
+    if request.method == 'POST':
+        print(request.form)
+        #根据timeType判断,是openTime,则设置的是开机时间,否是关机时间
+        timeType = str(request.form.get('timeType'))
+        time = str(request.form.get('time'))
+        recur = str(request.form.get('recur'))
+        # 将time存到开机时间的offTime里
+        # recur 记录重复的天数,也要放进去,
+        return ""
+
+
+#设置参数
+@app.route('/testing_app1/setParameter')
+def setParameter():
+    return render_template('testing_app1/setParameter.html')
+
+#初始化参数
+@blueprint.route('/getParameter', methods=['GET', 'POST'])
+def getParameter():
+    if request.method == 'POST':
+        # 返回的数据包含:最大值,最小值,最适宜或者用户设置的(一共3*3=9个)
+        parameter = {"temper":{"temMax":35,"temMin":16,"temfit":25},"damp":{"dampMax":90,"dampMin":0,"dampfit":60},"co2":{"co2Max":35,"co2Min":16,"co2fit":25}}
+        return json.dumps(parameter)
+
+#获取参数
+@blueprint.route('/setParameter', methods=['GET', 'POST'])
+def setParameter():
+    if request.method == 'POST':
+        print(request.form)
+        temfit = str(request.form.get('temfit'))
+        dampfit = str(request.form.get('dampfit'))
+        co2fit = str(request.form.get('co2fit'))
+
+        # 覆盖到用户设置的参数表中
+        return "yes"
+
 #订单查询
 @app.route('/testing_app1/order',methods=['GET', 'POST'])
 def order():
-    # orderJson = [{'orderNum':453499,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新风x100","adapterodel":"sdhh水电费","quantity":1,"sumMoney":360},{'orderNum':11111111,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':222222,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':33333333,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':4444444,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':555555,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':666666,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':777777,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':8888888,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':999999,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':100000,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540}]
-    orderJson = {}
+    orderJson = [{'orderNum':453499,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新风x100","adapterodel":"sdhh水电费","quantity":1,"sumMoney":360},{'orderNum':11111111,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':222222,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':33333333,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':4444444,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':555555,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':666666,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':777777,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':8888888,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':999999,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':100000,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540}]
+    # orderJson = {}
     print(len(orderJson))
     page={} #判断数据库是否有数据,有数据的话,page2显示,否则page1显示
     if orderJson:
@@ -219,7 +378,6 @@ def order():
         print(orderData)
         return json.dumps(orderData)
 
-
 # 之前的订单详情
 @app.route('/testing_app1/orderdetail')
 def orderdetail():
@@ -245,185 +403,5 @@ def orderdetail():
     netData["pro_type"] = "适配x100"   #滤网适配类型
     return render_template('testing_app1/orderDetail.html',orderings=orderings,netData=netData)
 
-#下订单的详情
-@app.route('/testing_app1/ordering')
-def ordering():
-    net_proId = request.cookies.get('net_proId')
-    print(net_proId)
-    # 根据从cookie得到产品的id,匹配相对应的滤网id,从滤网取出数据
-    netData = {}
-    netData["netId"] = "990"  #滤网的id
-    netData["netImg"] = "app/img/netImg.jpg"  #滤网的图片url
-    netData["pro_name"] = "高效过滤网"  #滤网名称
-    netData["pro_type"] = "适配x100"   #滤网适配类型说明
-    netData["price"] = "100"   #滤网单价
-    netData["sendWay"] = "包邮"   #滤网配送方式
-    # 获取用户的信息
-    userMessage = {}
-    userMessage["name"] = "李大建"   #用户名
-    userMessage["tel"] = "11352146590"  #用户联系电话
-    userMessage["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #用户地址
-    return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage)
 
-@app.route('/testing_app1/personal')
-def personal():
-    return render_template('testing_app1/personal.html')
-
-@app.route('/testing_app1/setingTime')
-def setingTime():
-    return render_template('testing_app1/setingTime.html')
-
-@app.route('/testing_app1/setParameter')
-def setParameter():
-    return render_template('testing_app1/setParameter.html')
-
-@app.route('/testing_app1/setTime')
-def setTime():
-    return render_template('testing_app1/setTime.html')
-
-@app.route('/testing_app1/setup')
-def setup():
-    return render_template('testing_app1/setup.html')
-
-# 滤网使用时间,我觉得这里可以进行修改,不需要前端发送ajax
-# @blueprint.route('/netTime', methods=['GET', 'POST'])
-# def netTime1():
-#     objJson = {'usedTime':66,'remainTime':21}
-#     if request.method == 'GET':
-#          return json.dumps(objJson)
-#     if request.method == 'POST':
-#         return json.dumps(objJson)
-
-# order
-# @blueprint.route('/order', methods=['GET', 'POST'])
-# def order():
-#     orderJson = {'orderNum':4534,'tradingStatus':"交易成功","netImgUrl":"static/app/img/netImg.jpg","netName":"兆晶新风x100","adapterodel":"sdhh水电费","quantity":1,"sumMoney":360},{'orderNum':4456534,'tradingStatus':"交易成功","netImgUrl":"static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540}
-#     if request.method == 'GET':
-#          return json.dumps(orderJson)
-#     if request.method == 'POST':
-#         return json.dumps(orderJson)
-
-# netList
-# @blueprint.route('/netList', methods=['GET', 'POST'])
-# def netList_h():
-#     orderJson = {'productId':4534,'proName':"兆晶新风机(卧室)","proImgUrl":"/static/app/img/equip.png"},{'productId':6789,'proName':"兆晶新风机(客厅)","proImgUrl":"/static/app/img/netImg.jpg"}
-#     if request.method == 'GET':
-#          return json.dumps(orderJson)
-#     if request.method == 'POST':
-#         return json.dumps(orderJson)
-
-# 订单生成,详细信息
-@blueprint.route('/orderingDetail', methods=['GET', 'POST'])
-def orderingDetail():
-    if request.method == 'POST':
-        print(request.form)
-        orderings = {}
-        # 这里是返回数据的收集
-        orderings["netId"] = str(request.form.get('netId', ''))  #滤网id
-        orderings["price"] = str(request.form.get('price', ''))  #滤网单价
-        orderings["quantity"] = str(request.form.get('quantity', ''))  #购买滤网的数量
-        orderings["sendWay"] = str(request.form.get('sendWay', ''))  #配送方式
-        orderings["name"] = str(request.form.get('name', ''))  #收货人
-        orderings["tel"] = str(request.form.get('tel', ''))  #收货人电话号码
-        orderings["address"] = str(request.form.get('address', ''))  #收货地址
-        orderings["time"] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())) #当前时间
-        orderings["message"] = str(request.form.get('message', ''))  #留言内容
-        orderings["amount"] = str(request.form.get('amount', ''))  #总金额
-        print(orderings)
-        if orderings:
-            return 'yes'
-        return 'no'
-
-
-# 异常提醒(获得)
-@blueprint.route('/abnormalWarn', methods=['GET', 'POST'])
-def abnormalWarn1():
-    if request.method == 'POST':
-        print(request.form)
-        abnormalId = str(request.form.get('id'))
-        print(abnormalId)
-        abnormalData1 = {"id":abnormalId,"select":"true"}
-        return json.dumps(abnormalData1)
-        # return request.form.get('select')
-        # return request.form.get('select');
-
-# 更新滤网提醒
-@blueprint.route('/netChangeW', methods=['GET', 'POST'])
-def netChangeW():
-    if request.method == 'POST':
-        print(request.form)
-        select = str(request.form.get('select'))
-        abnormalId = str(request.form.get('id'))
-        print(select + abnormalId)
-        return "hello"
-        # return request.form.get('select')
-        # return request.form.get('select');
-
-#获取已设置的时间 开机时间
-@blueprint.route('/openTimeList', methods=['GET', 'POST'])
-def openTimeList():
-    if request.method == 'POST':
-        ss = ""
-
-        # 判断数据库中有没有时间的数据,
-        if(ss):
-            return ss
-
-
-#获取已设置的时间 关机时间
-@blueprint.route('/closeTimeList', methods=['GET', 'POST'])
-def closeTimeList():
-    if request.method == 'POST':
-        return "sdf"
-
-
-#设置时间 开机时间
-@blueprint.route('/setingOpen', methods=['GET', 'POST'])
-def setingOpen():
-    if request.method == 'POST':
-        print(request.form)
-        time = str(request.form.get('time'))
-        recur = str(request.form.get('recur'))
-        print(time + recur)
-        return "yes"
-
-#设置时间 关机时间
-@blueprint.route('/setingClose', methods=['GET', 'POST'])
-def setingClose():
-    if request.method == 'POST':
-        print(request.form)
-        time = str(request.form.get('time'))
-        recur = str(request.form.get('recur'))
-        print(time + recur)
-        return "yes"
-
-
-#设置参数
-@blueprint.route('/getParameter', methods=['GET', 'POST'])
-def getParameter():
-    if request.method == 'POST':
-        # 返回的数据包含:最大值,最小值,最适宜或者用户设置的(一共3*3=9个)
-
-        parameter = {"temper":{"temMax":35,"temMin":16,"temfit":25},"damp":{"dampMax":90,"dampMin":0,"dampfit":60},"co2":{"co2Max":35,"co2Min":16,"co2fit":25}}
-        return json.dumps(parameter)
-
-#获取参数
-@blueprint.route('/setParameter', methods=['GET', 'POST'])
-def setParameter():
-    if request.method == 'POST':
-        print(request.form)
-        temfit = str(request.form.get('temfit'))
-        dampfit = str(request.form.get('dampfit'))
-        co2fit = str(request.form.get('co2fit'))
-
-        # 覆盖到用户设置的参数表中
-
-        return "yes"
-
-# 设置电话和地址
-@blueprint.route('/getPersonal', methods=['GET', 'POST'])
-def getPersonal():
-    if request.method == 'POST':
-        perInfor = {"headUrl":"static/app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"13580467147","addressCity":"广东 广州 天河区","fullAddress":"林和西路耀中广场B座910"}
-        return json.dumps(perInfor)
 

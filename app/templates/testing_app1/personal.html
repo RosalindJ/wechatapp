@@ -20,7 +20,7 @@
 					        <div class="item-inner">
 					          	<div class="item-title headWord">头像</div>
 					          	<div class="item-media headImg">
-					          		<img src="{{ url_for("static",filename="app/img/head.png") }}">
+					          		<img src="{{ url_for("static",filename=perInfor1.headUrl) }}">
 					          	</div>
 					        </div>
 					    </li>
@@ -28,14 +28,14 @@
 				      	<li class="item-content">
 				        	<div class="item-inner">
 				          		<div class="item-title">昵称</div>
-				          		<div class="item-after nickname"><!-- 李大健 --></div>
+				          		<div class="item-after nickname">{{ perInfor1.nickName }}<!-- 李大健 --></div>
 				        	</div>
 				      	</li>
 				      	<!-- 设备 -->
 				      	<li class="item-content">
 				        	<div class="item-inner">
 				          		<div class="item-title">设备</div>
-				          		<div class="item-after machineN"><!-- 0台 --></div>
+				          		<div class="item-after machineN">{{ perInfor1.machine }}台<!-- 0台 --></div>
 				        	</div>
 				      	</li>
 				      	<!-- 电话 -->
@@ -53,15 +53,15 @@
 				          		<div class="item-title">地址</div>
 				          		<div class="item-after address">
 				          			<div class="dizhi">
-				          				<!-- <input type="text" id='city-picker' class="city" value="广东 广州 天河区" />
-				          				<input type="text" class="fullAddress" value="林和西路耀中广场B座910"> -->
+				          				<input type="text" id='city-picker' class="city" placeholder="请选择地址"/>
+				          				<input type="text" class="fullAddress" placeholder="请输入详细地址"/>
 				          			</div>
 				          		</div>
 				        	</div>
 				     	</li>
 				    </ul>
 				</div>
-				<!-- 添加设备按钮 -->
+				<!-- 保存按钮 -->
 				<div id="sheBtn" class="row fixed_foort">
 					<a href="javascript:void(0);" class="col-66 button button-fill addBtn">保存</a>
 				</div>
@@ -75,6 +75,7 @@
 		(function(){
 			// 请求数据
 			var json_data;//json对象
+
 			var strTel = null,telFirst,telLast;//电话号码，号码的前三位，号码的后四位
 			$.ajax({
 				type: "POST",
@@ -85,101 +86,122 @@
 					json_data = JSON.parse(data);
 					console.log(json_data)
 					// 头像的图片
-					$(".headImg img").eq(0).attr("src",json_data.headUrl)
-					// var createImg = $('<img src="'+json_data.headUrl+'">');
-					// $(".headImg").append(createImg);
+					// $(".headImg img").eq(0).attr("src",json_data.headUrl)
 					// 昵称
-					$(".nickname").html(json_data.nickName);
+					// $(".nickname").html(json_data.nickName);
 					// 设备数量
-					$(".machineN").html(json_data.machine + "台");
+					// $(".machineN").html(json_data.machine + "台");
 					// 电话号码
 					if(json_data.yourTel){
 						strTel = json_data.yourTel;
 						telFirst = strTel.slice(0,3);//号码的前三位
 						telLast = strTel.slice(7,11);//号码的最后四位
 						// console.log($(this).val() + "  1-3 " + telFirst + "  7-11 " + telLast);
-						$(".inputTel").val(telFirst + "****" + telLast)
+						$(".inputTel").val(telFirst + "****" + telLast);
 					}
 					// 地址
-					var creatAddress = $('<input type="text" id="city-picker" class="city" value="'+json_data.addressCity+'" /><input type="text" class="fullAddress" value="'+json_data.fullAddress+'">');
-					$(".dizhi").html(creatAddress);
-					
+					if(json_data.addressCity){
+						// 将省市区变成数组形式
+						var arrCity = json_data.addressCity.split(" ");
+						// console.log(arrCity);
+						// 省市区
+						$("#city-picker").cityPicker({
+						    toolbarTemplate: '<header class="bar bar-nav">\
+						    <button class="button button-link pull-right close-picker">确定</button>\
+						    <h1 class="title">选择地址</h1>\
+						    </header>',
+						    value:[arrCity[0],arrCity[1],arrCity[2]]
+						});
+					}else{
+						// 省市区
+						$("#city-picker").cityPicker({
+						    toolbarTemplate: '<header class="bar bar-nav">\
+						    <button class="button button-link pull-right close-picker">确定</button>\
+						    <h1 class="title">选择地址</h1>\
+						    </header>'
+						});
+					}
+					// 详细地址
+					if(json_data.fullAddress){
+						$(".fullAddress").val(json_data.fullAddress);
+					}
 				}
 			})
-			// 省市区
-			$("#city-picker").cityPicker({
-			    toolbarTemplate: '<header class="bar bar-nav">\
-			    <button class="button button-link pull-right close-picker">确定</button>\
-			    <h1 class="title">选择地址</h1>\
-			    </header>'
-			});
 
 			// 电话
 			// 电话号码的正则
 			var regTel = /^[1][358][0-9]{9}$/;
-
+			var telRe;
+			// replace(//s/g,"")
 			// 输入号码失去焦点
 			$(".inputTel").blur(function(){
-				if(regTel.test($(this).val().trim())){
+				telRe = $(this).val().replace(/\s/g,"");
+				$(this).val(telRe)
+				console.log(telRe+ "telRe")
+				if(telRe == strTel){
+					$(this).val(telRe);
+					$(".telphone").parents(".item-content").removeClass('telActive');
+				}else{
+					strTel = telRe;
+				}
+				if(regTel.test(telRe)){
 					// strTel = $(this).val();
 					// telFirst = strTel.slice(0,3);//号码的前三位
 					// telLast = strTel.slice(7,11);//号码的最后四位
 					// // console.log($(this).val() + "  1-3 " + telFirst + "  7-11 " + telLast);
 					// $(this).val(telFirst + "****" + telLast)
+					strTel = telRe;
 					$(".telphone").parents(".item-content").removeClass('telActive');
-				}else if($(this).val() == ""){
+				}else if(telRe == ""){
 					$(".telphone").parents(".item-content").removeClass('telActive');
 				}else{
 					$(this).focus();
+					strTel = telRe;
+
 				}
 			});
+
+			$(".inputTel").on("input",function(){
+				telRe = $(this).val().replace(/\s/g,"");
+				$(".telphone").parents(".item-content").addClass('telActive');
+			})
 			// 输入号码聚焦
 			$(".inputTel").focus(function(){
+				telRe = $(this).val().replace(/\s/g,"");
 				$(".telphone").parents(".item-content").addClass('telActive');
-				if(strTel){
-					if(regTel.test(strTel)){
+				if(strTel && regTel.test(strTel)){
+					if(telRe != strTel){
 						$(this).val(strTel);
 					}else{
-						strTel = $(this).val();
+						strTel = telRe;
 					}
-					
-				}else{
-					console.log("strTel = null")
 				}
-				// if($(this).val()){
-				// 	if(regTel.test(strTel)){//当strTel有正确的手机号码值时
-				// 		$(this).val(strTel);
-				// 	}
-				// }else{
-				// 	strTel = $(this).val();
-				// }
-				// console.log($(this).val()+"sdf" + strTel)
-				// $(".telphone").parents(".item-content").addClass('telActive');
-				// if(regTel.test($(this).val().trim())){
-				// 	if($(this).val()){
-				// 		$(this).val(strTel);
-				// 	}
-				// }
-				
-			})
-			// $(".inputTel").focus(function(){
-			// 	$(".telphone").parents(".item-content").addClass('telActive');
-			// 	if(regTel.test($(this).val().trim())){
-					
-			// 		if($(this).val()){
-			// 			$(this).val(strTel);
-			// 		}
-			// 	}
-				
-			// });
-			
-			// 保存按钮
-			// window.addEventLinstener("input",function(){
-			// 	if($(".input").val())
-			// },false)
-			// if(){//页面修改了，就出现保存按钮
 
-			// }
+			})
+
+			// 保存按钮
+			$("input").change(function(){
+				console.log($(this).val())
+				console.log("change");
+				if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != json_data.yourTel) || ($(".city").val() != json_data.addressCity) || ($(".fullAddress").val() != json_data.fullAddress)){
+					$(".fixed_foort").show();
+				}
+
+			})
+			// var sendData;
+			$("#sheBtn").click(function() {
+
+				// 发送修改信息之后请求
+				$.ajax({
+					url: '/testing_app1/personal',
+					type: 'POST',
+					data: "yourTel=" + strTel + "&addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val(),
+					success:function(){
+						location.reload();
+					}
+				})
+
+			});
 		})();
 	</script>
 </body>

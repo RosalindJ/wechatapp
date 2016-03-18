@@ -15,7 +15,6 @@
 					$("#moisture").val(json_data.damp.dampfit);
 
 					// 调用四个方法
-
 					$.fn.addNum(".add",".fill",0,1,json_data.temper.temMax);
 					$.fn.addNum(".add",".fill",1,1,json_data.damp.dampMax);
 					$.fn.addNum(".add",".fill",2,1,json_data.co2.co2Max);

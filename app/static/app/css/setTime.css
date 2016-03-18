@@ -50,7 +50,7 @@ a{
   content: initial;
 }
 /*共用的 li */
-.list-block ul{
+.list-block ul li{
   border-top: 1px solid #f0f2f2;
 }
 

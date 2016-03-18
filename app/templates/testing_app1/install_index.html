@@ -38,7 +38,7 @@
          		<header>
          			<a href="javascript:void(0);" class="icon icon-left pull-left backBtn"></a>
 				  	<a href="javascript:void(0);" class="icon icon-settings pull-right iconInstall"></a>
-				  	<h1>自动模式</h1>
+				  	<h1>{{ machineModel.model }}模式</h1>
 				</header>
 				<!-- 运行检测 -->
 				<div class="jiance">
@@ -46,91 +46,39 @@
 					<img src="{{ url_for('static',filename='app/img/machineRun.png') }}" alt="" class="machineRun">
 				</div>
 				<!-- 列表 -->
-				<!-- <div class="list-block">
-				    <ul class="clearfix">
-				      	<li class="item-content">
-				        	<div class="item-inner">
-				          		<div class="item-title">
-				          			<p>温度&#8451;(设定/室内)</p>
-									<p><span>25</span>/<span>28</span></p>
-				          		</div>
-				       	 	</div>
-				      	</li>
-				      	<li class="item-content">
-					        <div class="item-inner">
-						        <div class="item-title">
-						        	<p>湿度%(设定/室内)</p>
-									<p><span>45</span>/<span>50</span></p>
-								</div>
-					        </div>
-				      	</li>
-				      	<li class="item-content">
-				        	<div class="item-inner">
-				          		<div class="item-title">
-									<p>PM2.5(设定/室内)</p>
-									<p><span>20</span>/<span>200</span></p>
-				          		</div>
-				       	 	</div>
-				      	</li>
-				      	<li class="item-content">
-					        <div class="item-inner">
-						        <div class="item-title">
-						        	<p>滤网剩余寿命(天)</p>
-									<p class="screenTime">3</p>
-						        </div>
-					        </div>
-				      	</li>
-				      	<li class="item-content">
-				        	<div class="item-inner">
-				          		<div class="item-title">
-									<p>位置</p>
-									<p>广州</p>
-				          		</div>
-				       	 	</div>
-				      	</li>
-				      	<li class="item-content">
-					        <div class="item-inner">
-						        <div class="item-title">
-						        	<p>空气质量</p>
-									<p>良</p>
-						        </div>
-					        </div>
-				      	</li>
-				    </ul>
-				</div> -->
 				<div class="shezhiContent">
-					<img src="{{ url_for('static',filename='app/img/lendon.png') }}" alt="">
+					<img src="{{ url_for('static',filename=machineModel.locationImg) }}" alt="">
 					<div class="airContent">
 						<ul class="installContent clearfix">
 							<li>
 								<p>温度&#8451;(设定/室内)</p>
-								<p><span>25</span>/<span>28</span></p>
+								<p><span>{{ machineModel.temperOut }}</span>/<span>{{ machineModel.temperRoom }}</span></p>
 							</li>
 							<li>
 								<p>湿度%(设定/室内)</p>
-								<p><span>45</span>/<span>50</span></p>
+								<p><span>{{ machineModel.dampOut }}</span>/<span>{{ machineModel.dampRoom }}</span></p>
 							</li>
 							<li>
 								<p>PM2.5(设定/室内)</p>
-								<p><span>20</span>/<span>200</span></p>
+								<p><span>{{ machineModel.PMOut }}</span>/<span>{{ machineModel.PMRoom }}</span></p>
 							</li>
 							<li class="filterScreen">
 								<p>滤网剩余寿命(天)</p>
-								<p class="screenTime">3</p>
+								<p class="screenTime">{{ machineModel.netTime }}</p>
 							</li>
 							<li>
 								<p>位置</p>
-								<p>广州</p>
+								<p>{{ machineModel.position }}</p>
 							</li>
 							<li>
 								<p>空气质量</p>
-								<p>良</p>
+								<p>{{ machineModel.airQuality }}</p>
 							</li>
 						</ul>
-						<div class="airCity">您正呼吸着伦敦的空气</div>
+						<div class="airCity">您正呼吸着{{ machineModel.airPosition }}的空气</div>
 					</div>
-					
-				</div>	
+
+				</div>
          	</div>
      	</div>
     </div>
@@ -149,6 +97,9 @@
 	        $(".iconInstall").click(function(){
 	        	window.location.href = "setup";
 	        })
+	        $(".screenTime").click(function() {
+                window.location.href = "net";
+	        });
 			$.init();
 		})();
 	</script>

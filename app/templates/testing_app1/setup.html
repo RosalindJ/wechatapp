@@ -51,7 +51,7 @@
 									<div class="item-input">
 							              <label class="label-switch">
 							                <input type="checkbox">
-							                <div class="checkbox" id="unusual" data-select="false"></div>
+							                <div class="checkbox" id="unusual" data-select="{{ abnormalData1[0].select }}"></div>
 							              </label>
 							        </div>
 								</div>
@@ -67,7 +67,7 @@
 									</div>
 				    			</div>
 			    			</a>
-			    			
+
 			    		</li>
 			    		<!-- 售后服务设定 -->
 			    		<li>
@@ -79,7 +79,7 @@
 									</div>
 				    			</div>
 			    			</a>
-			    			
+
 			    		</li>
 			    		<!-- 滤网更换提醒 -->
 			    		<li>
@@ -92,7 +92,7 @@
 									<div class="item-input">
 							            <label class="label-switch">
 							             	<input type="checkbox">
-							              	<div class="checkbox" id="renew" data-select="false"></div>
+							              	<div class="checkbox" id="renew" data-select="{{ abnormalData1[1].select }}"></div>
 							             </label>
 							        </div>
 								</div>
@@ -124,6 +124,26 @@
 		$(".setserver").eq(0).on("click",function(){
 			window.location.href = "personal";
 		});
+
+		// 异常提醒
+		// console.log(sdf)
+		if ($("#unusual").attr("data-select") == "true") {
+			$("#unusual").siblings('input').prop('checked',"true");
+			console.log("checked");
+		}else{
+			$("#unusual").siblings('input').prop('checked',"");
+			console.log("no-checked");
+		}
+		// 滤网更换提醒
+		if ($("#renew").attr("data-select") == "true") {
+			$("#renew").siblings('input').prop('checked',"true");
+			console.log("checked");
+		}else{
+			$("#renew").siblings('input').prop('checked',"");
+			console.log("no-checked");
+		}
+		//
+
 		// ajax,向服务器发送数据
 		function ajax(URL,ID,data_select){
 			$.ajax({
@@ -138,19 +158,32 @@
 				}
 			})
 		}
-		
-		function isSelect(element,url){
+
+        //点击开关 设置data-selcet,data-selcet和开关绑定在一起
+		function isSelect(element){
 			$(element).on("click",function(){
 				if($(element).attr("data-select") == "true"){
 					$(element).attr("data-select",false);
+
 				}else{
 					$(element).attr("data-select",true);
+					console.log("checked");
 				}
-				ajax(url,$(element).attr("id"),$(element).attr("data-select"));
+				ajax("/testing_app1/setup",$(element).attr("id"),$(element).attr("data-select"));
 			})
 		}
-		isSelect("#renew","/netChangeW");
-		isSelect("#unusual","/abnormalWarn");
+		// $('.label-switch input').live('change',function (e) {
+		//     e.preventDefault();
+		//     if ($(".label-switch input").eq(0).is(":checked")){
+		//     	// console.log("checked");
+		//       // $('input[type=checkbox]').prop('checked',true);
+		//     } else {
+		//       // $('input[type=checkbox]').prop('checked',false);
+		//     }
+		// })
+		isSelect("#unusual");
+		isSelect("#renew");
+
 	}(Zepto))
 	</script>
 </body>

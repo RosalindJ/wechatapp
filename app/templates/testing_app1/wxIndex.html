@@ -39,11 +39,11 @@
 </head>
 <body>
     <ul class="wrapBtn row">
-        <li class="col-33">设备</li>
-        <li class="col-33">一键滤网</li>
+        <li class="machine col-33">设备</li>
+        <li class="net col-33">一键滤网</li>
         <li class="my col-33">我的</li>
     </ul>
-    <div class="innerBtn row clearfix">
+    <div class="innerBtn sss row clearfix">
         <ul class="col-33">
             <li>反馈</li>
             <li>订单</li>
@@ -65,6 +65,32 @@
             $(window).on("click",function(){
                 $(".innerBtn").hide();
             })
+
+            $(".machine").click(function(){
+			    window.location.href = "equipmentIndex";
+		    })
+
+		    $(".net").click(function(){
+	        	window.location.href = "net";
+	        })
+
+            //  点击设置
+	        $(".my").click(function() {
+	        	$(".sss").show();
+	        });
+
+	        $(".sss li").eq(1).click(function(event) {
+
+	        	window.location.href = "order";
+	        });
+	        $(".sss li").eq(2).click(function(event) {
+
+	        	window.location.href = "setup";
+	        });
+	        $(".sss li").eq(3).click(function(event) {
+
+	        	window.location.href = "personal";
+	        });
         })(Zepto)
     </script>
 </body>

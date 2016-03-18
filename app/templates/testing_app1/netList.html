@@ -49,7 +49,7 @@
 {#                sessionStorage.net_proId = e.currentTarget.attributes["data-productId"].nodeValue;#}
                 //获取产品的id,存储在cookie中,为滤网下单做准备,也为了减少ajax的使用
                 setCookie("net_proId",e.currentTarget.attributes["data-productId"].nodeValue,1);
-                window.location.href = 'ordering';
+                window.location.href = '/testing_app1/ordering';
             })
 			$.init();
 		})()

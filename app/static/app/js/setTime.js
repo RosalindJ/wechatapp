@@ -2,7 +2,7 @@
 		// 点击返回上一级
 		$(".backBtn").eq(0).on("click",function(){
 			// window.history.back();
-			window.location.href = "setup";
+			window.location.href = "/testing_app1/setup";
 		});
 		// 时间设定的开关
 		for(var i = 0,len = $(".data").length; i < len;i++){
@@ -26,7 +26,7 @@
 						// 点击关机设定按钮，暂存timeType为closeTime
 						sessionStorage.timeType = "closeTime";
 					}
-					window.location.href = "setingTime";
+					window.location.href = "/testing_app1/setingTime";
 				})
 			})(i);
 		}

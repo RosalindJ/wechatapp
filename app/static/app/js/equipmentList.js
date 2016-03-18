@@ -21,7 +21,7 @@
                             success: function (data) {
                                 console.log(data);
                                 if(data == 'yes'){
-                                    window.location.href = "addEquipment";
+                                    window.location.href = "/testing_app1/addEquipment";
                                 }else{
                                     //数据没有成功接收
                                     $(".page").eq(2).addClass("page-current").siblings().removeClass("page-current");

@@ -12,7 +12,8 @@
                 success: function (res) {
                     var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
                     //这里还需要对扫描结果进行判断,符合了才发送ajax,目前还不知道产品二维码的结果格式什么的,所以还没做判断
-                    result="11111111111";
+                    //result="11111111111";
+                    alert(result);
                     var reg = /^[0-9]{11}$/g;
                     if (reg.test(result)) {
                         $.ajax({

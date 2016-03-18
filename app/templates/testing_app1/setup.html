@@ -107,7 +107,7 @@
 	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
     <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
 	<script type="">
-	(function($){
+{#	(function($){#}
 		// 跳转到产品介绍页面
 		$(".introduce").eq(0).on("click",function(){
 			window.location.href = "/testing_app1/introduce";
@@ -185,7 +185,7 @@
 		isSelect("#unusual");
 		isSelect("#renew");
 
-	}(Zepto))
+{#	}(Zepto))#}
 	</script>
 </body>
 </html>

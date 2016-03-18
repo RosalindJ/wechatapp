@@ -1,1 +1,0 @@
-var isShowList=true;$(".button").on("click",function(){if(isShowList){isShowList=false;$(".hideList").slideDown()}else{isShowList=true;$(".hideList").slideUp()}});$(window).on("click",function(a){$(".hideList").slideUp();isShowList=true});$("#nav").on("click",function(a){a.stopPropagation()});

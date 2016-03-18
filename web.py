@@ -6,7 +6,7 @@ import flask
 sys.path.insert(0, os.path.realpath(os.path.join(
     os.path.dirname(__file__), '../../')))
 
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 
 from werkzeug.routing import BaseConverter
 

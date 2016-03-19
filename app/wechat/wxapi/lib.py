@@ -123,6 +123,8 @@ class BaseHttpClient(object):
             return self.postXml(None, url, second)
 
     def postXml(self, xml, url, second=30):
+        print("liblib")
+        print(self.include_ssl)
         if self.include_ssl:
             return self.postXmlSSL(xml, url, second, cert=False)
         else:

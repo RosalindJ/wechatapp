@@ -98,6 +98,7 @@ class Common_util_pub(object):
             else:
                 xml.append("<{0}><![CDATA[{1}]]></{0}>".format(k, v))
         xml.append("</xml>")
+        print("".join(xml))
         return "".join(xml)
 
     def xmlToArray(self, xml):
@@ -106,6 +107,7 @@ class Common_util_pub(object):
 
     def postXmlCurl(self, xml, url, second=30):
         """以post方式提交xml到对应的接口url"""
+        print("30")
         return HttpClient().postXml(xml, url, second=second)
 
     def postXmlSSLCurl(self, xml, url, second=30):
@@ -202,6 +204,7 @@ class Wxpay_client_pub(Common_util_pub):
     def postXml(self):
         """post请求xml"""
         xml = self.createXml()
+        print("urlurl")
         self.response = self.postXmlCurl(xml, self.url, self.curl_timeout)
         return self.response
 
@@ -250,7 +253,9 @@ class UnifiedOrder_pub(Wxpay_client_pub):
     def getPrepayId(self):
         """获取prepay_id"""
         self.postXml()
+        print("PrepayId_postXml")
         self.result = self.xmlToArray(self.response)
+        print("self.result")
         prepay_id = self.result["prepay_id"]
         return prepay_id
 

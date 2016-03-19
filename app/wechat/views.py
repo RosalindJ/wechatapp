@@ -110,10 +110,13 @@ def oauth_base():
     unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
     # 交易类型
     unifiedOrder.setParameter("trade_type","JSAPI")
-
+    print("aaa")
     prepay_id = unifiedOrder.getPrepayId()
+    print("bbb")
     JsApi_pub.setPrepayId(prepay_id)
+    print("ccc")
     jsApiParameters = JsApi_pub.getParameters()
+    print("ddd")
     return render_template("pay/base_openid.html",parameters=jsApiParameters)
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])

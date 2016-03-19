@@ -96,7 +96,7 @@ def oauth_base():
     # 用户标识
     # UnifiedOrder_pub.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
     # 商品描述
-    UnifiedOrder_pub.setParameter("body","贡献一分钱")
+    # UnifiedOrder_pub.setParameter("body","贡献一分钱")
     # 订单号自定义,此处举例
     timeStamp = int(time.time())
     out_trade_no = WxPayConf_pub["APPID"]+timeStamp
@@ -109,9 +109,9 @@ def oauth_base():
     UnifiedOrder_pub.setParameter("trade_type","JSAPI")
 
     prepay_id = UnifiedOrder_pub.getPrepayId()
-    JsApi_pub.setPrepayId()
+    JsApi_pub.setPrepayId(prepay_id)
     jsApiParameters = JsApi_pub.getParameters()
-    return render_template("pay/base_openid.html",jsApiParameters=jsApiParameters)
+    return render_template("pay/base_openid.html",parameters=jsApiParameters)
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

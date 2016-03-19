@@ -96,8 +96,8 @@ def oauth_base():
 
     unifiedOrder = UnifiedOrder_pub()
     # 用户标识
-    # unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
-    unifiedOrder.setParameter("openid",resp)
+    unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
+    # unifiedOrder.setParameter("openid",resp)
     # 商品描述
     unifiedOrder.setParameter("body","贡献一分钱")
     # 订单号自定义,此处举例

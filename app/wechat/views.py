@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #from .. import app
-from flask import request, Response, render_template
+from flask import request, Response, render_template,redirect
 from flask import g
 
 from .wxapi import handler as HD
@@ -85,14 +85,10 @@ def oauth():
 
 # 自己加上去的
 @blueprint.route('/oauth_base', methods=['GET', 'POST'])
-@ans_base
+# @ans_base
 def oauth_base():
     """网页授权获取用户信息"""
-    # resp = Response(g.openid)
-    # print(g.openid)
-    resp = "yes"
-    # resp.set_cookie('openid', Helper.sign_cookie(g.openid))
-    return resp
+    return redirect(WeixinHelper.oauth2_base(request.url))
 # 自己加上去的
 # @blueprint.route('/oauth_base', methods=['GET', 'POST'])
 # def pay():

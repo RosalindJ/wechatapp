@@ -87,7 +87,7 @@ import time
 from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
 # 自己加上去的
 @blueprint.route('/oauth_base', methods=['GET', 'POST'])
-@sns_userinfo_callback
+@sns_userinfo
 def oauth_base():
     """网页授权获取用户信息"""
     resp = Response(g.openid)

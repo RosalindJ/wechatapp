@@ -86,11 +86,11 @@ def oauth():
 # 自己加上去的
 @blueprint.route('/oauth_base', methods=['GET', 'POST'])
 @ans_base
-# @sns_userinfo_callback(userinfo_process)
 def oauth_base():
     """网页授权获取用户信息"""
-    resp = Response(g.openid)
-    print(g.openid)
+    # resp = Response(g.openid)
+    # print(g.openid)
+    resp = "yes"
     # resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 # 自己加上去的

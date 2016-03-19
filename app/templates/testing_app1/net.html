@@ -25,7 +25,7 @@
 {#                    这个是不用ajax的写法#}
 					<p>滤网已为你工作<span>{{ someday.work }}</span>天了<br>建议<span>{{ someday.no_work }}</span>天后让它告老还乡吧。</p>
 					<!-- 一键更换滤网按钮 -->
-					<a href="javascript:void(0);" class="col-66 button button-fill changeNetBnt">一键更换滤网</a >
+					<a href="/testing_app1/netList" class="col-66 button button-fill changeNetBnt">一键更换滤网</a >
 				</div>	
 			</div>
 		</div>
@@ -57,9 +57,9 @@
                 var fixed_ft = $(".fixed_foort").eq(0).height();
                 var netImg = $("#netImg");
                 netImg.height(allHeight - fixed_ft);
-                $(".changeNetBnt").eq(0).on("click",function(){
-                    window.location.href = "/testing_app1/netList";
-                })
+{#                $(".changeNetBnt").eq(0).on("click",function(){#}
+{#                    window.location.href = "/testing_app1/netList";#}
+{#                })#}
             })
         }(Zepto))
 	</script>

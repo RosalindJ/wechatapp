@@ -99,7 +99,8 @@ def oauth_base():
     # UnifiedOrder_pub.setParameter("body","贡献一分钱")
     # 订单号自定义,此处举例
     timeStamp = int(time.time())
-    out_trade_no = WxPayConf_pub["APPID"]+timeStamp
+    # out_trade_no = WxPayConf_pub["APPID"]+timeStamp
+    out_trade_no = timeStamp
     UnifiedOrder_pub.setParameter("out_trade_no",out_trade_no)
     # 总金额
     UnifiedOrder_pub.setParameter("total_fee","1")

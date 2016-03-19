@@ -88,9 +88,9 @@ def ans_base(callback=None):
             # openid = request.cookies.get('openid')
             # userinfo = None
             # if not openid:
-                code = request.args.get("code")
-                if not code:
-                    return redirect(WeixinHelper.oauth2_base(request.url))
+            code = request.args.get("code")
+            if not code:
+                return redirect(WeixinHelper.oauth2_base(request.url))
             #     else:
             #         data = json.loads(WeixinHelper.getAccessTokenByCode(code))
             #         openid = data["openid"]
@@ -107,7 +107,7 @@ def ans_base(callback=None):
             #     g.user = callback(openid, userinfo)
             # response = func()
             # return response
-            return func()
+            return func(*args, **kwargs)
 
         return inner
 

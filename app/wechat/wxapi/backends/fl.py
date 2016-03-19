@@ -96,14 +96,15 @@ def ans_base(callback=None):
                     openid = data["openid"]
                     # userinfo = json.loads(WeixinHelper.getSnsapiUserInfo(
                     #     access_token, openid))
+                    userinfo = {"status":"yes"}
             else:
                 ok, openid = Helper.check_cookie(openid)
                 if not ok:
                     return redirect("/")
             g.openid = openid
             if callable(callback):
-                status = "yes"
-                g.user = callback(openid,status)
+                # status = "yes"
+                g.user = callback(openid, userinfo)
             response = func()
             return response
 

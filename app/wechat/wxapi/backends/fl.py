@@ -102,7 +102,8 @@ def ans_base(callback=None):
                     return redirect("/")
             g.openid = openid
             if callable(callback):
-                g.user = callback(openid)
+                status = "yes"
+                g.user = callback(openid,status)
             response = func()
             return response
 

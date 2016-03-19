@@ -4,7 +4,7 @@ from flask import request, Response, render_template
 from flask import g
 
 from .wxapi import handler as HD
-from .wxapi.backends.fl import (Helper, sns_userinfo)
+from .wxapi.backends.fl import (Helper, sns_userinfo,ans_base)
 from .wxapi import (WeixinHelper, WxPayConf_pub)
 
 from . import blueprint
@@ -83,6 +83,20 @@ def oauth():
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 
+# 自己加上去的
+@blueprint.route('/oauth_base', methods=['GET', 'POST'])
+@ans_base
+# @sns_userinfo_callback(userinfo_process)
+def oauth_base():
+    """网页授权获取用户信息"""
+    resp = Response(g.openid)
+    print(g.openid)
+    # resp.set_cookie('openid', Helper.sign_cookie(g.openid))
+    return resp
+# 自己加上去的
+# @blueprint.route('/oauth_base', methods=['GET', 'POST'])
+# def pay():
+#     return render_template("")
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

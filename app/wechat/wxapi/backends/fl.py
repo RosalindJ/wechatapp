@@ -79,3 +79,33 @@ def sns_userinfo_callback(callback=None):
 
 
 sns_userinfo = sns_userinfo_callback()
+
+# 自己加上去
+def ans_base(callback=None):
+    def wrap(func):
+        @wraps(func)
+        def inner(*args, **kwargs):
+            openid = request.cookies.get('openid')
+            userinfo = None
+            if not openid:
+                code = request.args.get("code")
+                if not code:
+                    return redirect(WeixinHelper.oauth2_base(request.url))
+                else:
+                    data = json.loads(WeixinHelper.getAccessTokenByCode(code))
+                    openid = data["openid"]
+                    # userinfo = json.loads(WeixinHelper.getSnsapiUserInfo(
+                    #     access_token, openid))
+            else:
+                ok, openid = Helper.check_cookie(openid)
+                if not ok:
+                    return redirect("/")
+            g.openid = openid
+            if callable(callback):
+                g.user = callback(openid, userinfo)
+            response = func()
+            return response
+
+        return inner
+
+    return wrap

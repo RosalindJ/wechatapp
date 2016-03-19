@@ -4,7 +4,7 @@ from flask import request, Response, render_template,redirect
 from flask import g
 
 from .wxapi import handler as HD
-from .wxapi.backends.fl import (Helper, sns_userinfo,ans_base)
+from .wxapi.backends.fl import (Helper, sns_userinfo,sns_userinfo_callback)
 from .wxapi import (WeixinHelper, WxPayConf_pub)
 
 from . import blueprint
@@ -83,17 +83,35 @@ def oauth():
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 
+import time
+from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
 # 自己加上去的
 @blueprint.route('/oauth_base', methods=['GET', 'POST'])
-# @ans_base
+@sns_userinfo_callback
 def oauth_base():
     """网页授权获取用户信息"""
-    print(request.url)
-    return redirect(WeixinHelper.oauth2_base(request.url))
-# 自己加上去的
-# @blueprint.route('/oauth_base', methods=['GET', 'POST'])
-# def pay():
-#     return render_template("")
+    resp = Response(g.openid)
+    print(g.openid)
+    resp.set_cookie('openid', Helper.sign_cookie(g.openid))
+    # 用户标识
+    UnifiedOrder_pub.setParameter("openid",resp)
+    # 商品描述
+    UnifiedOrder_pub.setParameter("body","贡献一分钱")
+    # 订单号自定义,此处举例
+    timeStamp = int(time.time())
+    out_trade_no = WxPayConf_pub["APPID"]+timeStamp
+    UnifiedOrder_pub.setParameter("out_trade_no",out_trade_no)
+    # 总金额
+    UnifiedOrder_pub.setParameter("total_fee","1")
+    # 收货地址,这里的NOTIFY——URL根据需要是否使用共享收货地址而定
+    UnifiedOrder_pub.setParameter("notify_url",WxPayConf_pub["NOTIFY_URL"])
+    # 交易类型
+    UnifiedOrder_pub.setParameter("trade_type","JSAPI")
+
+    prepay_id = UnifiedOrder_pub.getPrepayId()
+    JsApi_pub.setPrepayId()
+    jsApiParameters = JsApi_pub.getParameters()
+    return render_template("pay/base_openid.html",jsApiParameters=jsApiParameters)
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

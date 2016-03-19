@@ -94,7 +94,7 @@ def oauth_base():
     print(g.openid)
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     # 用户标识
-    UnifiedOrder_pub.setParameter("openid",resp)
+    UnifiedOrder_pub.setParameter("openid",g.openid)
     # 商品描述
     UnifiedOrder_pub.setParameter("body","贡献一分钱")
     # 订单号自定义,此处举例

@@ -4,7 +4,7 @@ from flask import request, Response, render_template
 from flask import g
 
 from .wxapi import handler as HD
-from .wxapi.backends.fl import (Helper, sns_userinfo_callback)
+from .wxapi.backends.fl import (Helper, sns_userinfo)
 from .wxapi import (WeixinHelper, WxPayConf_pub)
 
 from . import blueprint
@@ -74,10 +74,12 @@ def userinfo_process(openid, userinfo):
 
 
 @blueprint.route('/oauth', methods=['GET', 'POST'])
-@sns_userinfo_callback(userinfo_process)
+@sns_userinfo
+# @sns_userinfo_callback(userinfo_process)
 def oauth():
     """网页授权获取用户信息"""
     resp = Response(g.openid)
+    print(g.openid)
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 

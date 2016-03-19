@@ -88,6 +88,7 @@ def oauth():
 # @ans_base
 def oauth_base():
     """网页授权获取用户信息"""
+    print(request.url)
     return redirect(WeixinHelper.oauth2_base(request.url))
 # 自己加上去的
 # @blueprint.route('/oauth_base', methods=['GET', 'POST'])

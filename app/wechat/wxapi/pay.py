@@ -92,7 +92,7 @@ class Common_util_pub(object):
     def arrayToXml(self, arr):
         """array转xml"""
         xml = ["<xml>"]
-        for k, v in arr.iteritems():
+        for k, v in arr.items():
             if v.isdigit():
                 xml.append("<{0}>{1}</{0}>".format(k, v))
             else:
@@ -196,6 +196,7 @@ class Wxpay_client_pub(Common_util_pub):
         self.parameters["mch_id"] = WxPayConf_pub.MCHID  #商户号
         self.parameters["nonce_str"] = self.createNoncestr()  #随机字符串
         self.parameters["sign"] = self.getSign(self.parameters)  #签名
+        print(self.parameters)
         return self.arrayToXml(self.parameters)
 
     def postXml(self):
@@ -243,6 +244,7 @@ class UnifiedOrder_pub(Wxpay_client_pub):
         self.parameters["spbill_create_ip"] = "127.0.0.1"  #终端ip
         self.parameters["nonce_str"] = self.createNoncestr()  #随机字符串
         self.parameters["sign"] = self.getSign(self.parameters)  #签名
+        print(self.parameters)
         return self.arrayToXml(self.parameters)
 
     def getPrepayId(self):

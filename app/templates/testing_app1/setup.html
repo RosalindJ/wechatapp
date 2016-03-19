@@ -59,7 +59,7 @@
 			    		</li>
 			    		<!-- 参数设置 -->
 			    		<li>
-			    			<a href="javascript:void(0);" class="setParameter">
+			    			<a href="http://www.join-clima.com/testing_app1/setParameter" class="setParameter">
 			    				<div class="item-title-row row no-gutter">
 				    				<div class="tem-title text col-80">
 										<p>参数设置</p>
@@ -107,7 +107,7 @@
 	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
     <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
 	<script type="">
-{#	(function($){#}
+	(function($){
 		// 跳转到产品介绍页面
 		$(".introduce").eq(0).on("click",function(){
 			window.location.href = "/testing_app1/introduce";
@@ -117,10 +117,10 @@
 			window.location.href = "/testing_app1/setTime";
 		});
 		// 跳转到参数设置页面
-		$(".setParameter").eq(0).on("click",function(){
-            alert("yes");
-			window.location.href = "/testing_app1/setParameter";
-		});
+{#		$(".setParameter").eq(0).on("click",function(){#}
+{#            alert("yes");#}
+{#			window.location.href = "/testing_app1/setParameter";#}
+{#		});#}
 		// 跳转到售后服务设定页面
 		$(".setserver").eq(0).on("click",function(){
 			window.location.href = "/testing_app1/personal";
@@ -185,7 +185,7 @@
 		isSelect("#unusual");
 		isSelect("#renew");
 
-{#	}(Zepto))#}
+	}(Zepto))
 	</script>
 </body>
 </html>

@@ -37,9 +37,9 @@
 			}
 		})
 		// 点击返回
-		$(".backBtn").eq(0).on("click",function(){
-			window.history.back();
-		})	
+		//$(".backBtn").eq(0).on("click",function(){
+		//	window.history.back();
+		//})
 
 		var barHeight = $(".bar-nav ~ .content").offset().top;
 		var tem = $(window).height() - barHeight;

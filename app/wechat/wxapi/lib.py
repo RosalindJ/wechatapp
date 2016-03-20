@@ -126,6 +126,8 @@ class BaseHttpClient(object):
         print("liblib")
         print(self.include_ssl)
         if self.include_ssl:
+            print(url)
+            print(second)
             return self.postXmlSSL(xml, url, second, cert=False)
         else:
             raise NotImplementedError("please implement postXML")

@@ -102,7 +102,8 @@ def oauth_base():
     unifiedOrder.setParameter("body","hello")
     # 订单号自定义,此处举例
     timeStamp = str(time.time())
-    out_trade_no = WxPayConf_pub.APPID+timeStamp
+    print(timeStamp)
+    out_trade_no = timeStamp
     unifiedOrder.setParameter("out_trade_no",out_trade_no)
     # 总金额
     unifiedOrder.setParameter("total_fee","1")

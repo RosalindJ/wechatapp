@@ -185,6 +185,9 @@ class RequestsClient(BaseHttpClient):
     include_ssl = True
 
     def postXmlSSL(self, xml, url, second=30, cert=True, post=True):
+        print("195ssl")
+        print(cert)
+        print(post)
         if cert:
             cert_config = (WxPayConf_pub.SSLCERT_PATH,
                            WxPayConf_pub.SSLKEY_PATH)

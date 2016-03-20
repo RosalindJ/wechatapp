@@ -194,10 +194,11 @@ class RequestsClient(BaseHttpClient):
         else:
             cert_config = None
         if post:
-
+            print("request")
             res = requests.post(url, data=xml, timeout=30, cert=cert_config)
         else:
             res = requests.get(url, timeout=second, cert=cert_config)
+        print("requestsss")
         return res.content
 
 

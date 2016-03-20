@@ -218,6 +218,8 @@ class Wxpay_client_pub(Common_util_pub):
         """获取结果，默认不使用证书"""
         self.postXml()
         self.result = self.xmlToArray(self.response)
+        print("getresult")
+        print(self.result)
         return self.result
 
 
@@ -255,7 +257,8 @@ class UnifiedOrder_pub(Wxpay_client_pub):
         self.postXml()
         print("PrepayId_postXml")
         self.result = self.xmlToArray(self.response)
-        print("self.result")
+        print("self.resultggggg")
+        print(self.result)
         prepay_id = self.result["prepay_id"]
         return prepay_id
 

@@ -17,7 +17,7 @@ class WxPayConf_pub(object):
     #接口配置token
     TOKEN = 'fjgirieuwkx245223341jdnff'
     #受理商ID，身份标识
-    MCHID = "18883487"
+    MCHID = "1311104601"
     #商户支付密钥Key。审核通过后，在微信发送的邮件中查看
     KEY = "48888888888888888888888888888886"
 

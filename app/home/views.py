@@ -178,13 +178,21 @@ def equipment():
     return render_template('testing_app1/equipment.html',machineJson=machineJson,sign=sign)
 
 # 设备操作
-@app.route('/testing_app1/install')
+@app.route('/testing_app1/install', methods=['GET', 'POST'])
 def install():
-    productId = request.cookies.get('productId')
-    # 获取productId下面的产品设置的信息
-    machineModel = {'productId':productId,'model':"睡眠","temperOut":"25","temperRoom":"32","dampOut":"45","dampRoom":"60",'PMOut':"20","PMRoom":"200","netTime":"20","position":"广州","airQuality":"良","airPosition":"伦敦","locationImg":"app/img/lendon.png"}
-    # print(machineModel)
-    return render_template('testing_app1/install_index.html',machineModel = machineModel)
+    if request.method == 'GET':
+        productId = request.cookies.get('productId')
+        # 获取productId下面的产品设置的信息
+        # 如果onOff=true,那么就是设备开启,需要设置是什么模式,如果为false那么就是自动模式
+        machineModel = {'productId':productId,"onOff":"true",'model':"睡眠","temperOut":"25","temperRoom":"32","dampOut":"45","dampRoom":"60",
+                        'PMOut':"20","PMRoom":"200","netTime":"20","position":"广州","airQuality":"良","airPosition":"伦敦","locationImg":"app/img/lendon.png"}
+        # print(machineModel)
+        return render_template('testing_app1/install_index.html',machineModel = machineModel)
+    if request.method == 'POST':
+        # 注意这是第几个设备,有productId.
+        # 将返回来的数据放到数据库中,更新onOff,model,并且设备设置成返回的数据的模式,还有开设备还是关设备
+        print(request.form)
+        return ""
 
 # 一键滤网
 @app.route('/testing_app1/net')
@@ -240,26 +248,20 @@ def ordering():
         return 'no'
 
 # 个人
-@app.route('/testing_app1/personal',methods=["GET","POST"])
+@app.route('/testing_app1/personal', methods=['GET', 'POST'])
 def personal():
     if request.method == 'GET':
-        perInfor1 = {"headUrl":"app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"","addressCity":"广东 广州 天河区","fullAddress":"林和西路耀中广场B座910"}
+        perInfor1 = {"headUrl":"app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"13580467147",
+                 "addressCity":"广东 广州 天河区", "fullAddress":"林和西路耀中广场B座910"}
         return render_template('testing_app1/personal.html',perInfor1 = perInfor1)
     if request.method == 'POST':
-        print(request.form)
-        yourTel = str(request.form.get('yourTel'))
-        addressCity = str(request.form.get('addressCity'))
-        fullAddress = str(request.form.get('fullAddress'))
-        # 放到个人列表中,有电话号码,省市区,详细地址
-        # 可以比较三个值中的数据和返回过来的数据有没有差别,如果有就更新到数据库中
-        return ""
-
-# 设置电话和地址
-@blueprint.route('/getPersonal', methods=['GET', 'POST'])
-def getPersonal():
-    if request.method == 'POST':
-        perInfor = {"headUrl":"app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"13580467147","addressCity":"广东 广州 天河区","fullAddress":"林和西路耀中广场B座910"}
-        return json.dumps(perInfor)
+            print(request.form)
+            yourTel = str(request.form.get('yourTel'))
+            addressCity = str(request.form.get('addressCity'))
+            fullAddress = str(request.form.get('fullAddress'))
+            # 放到个人列表中,有电话号码,省市区,详细地址
+            # 可以比较三个值中的数据和返回过来的数据有没有差别,如果有就更新到数据库中
+            return ""
 
 # 设置
 @app.route('/testing_app1/setup', methods=['GET', 'POST'])
@@ -318,31 +320,24 @@ def setingTime():
         return ""
 
 
-#设置参数
+
+#获取参数
 @app.route('/testing_app1/setParameter', methods=['GET', 'POST'])
 def setParameter():
     if request.method == 'GET':
-        return render_template('testing_app1/setParameter.html')
-
-#初始化参数
-@blueprint.route('/getParameter', methods=['GET', 'POST'])
-def getParameter():
-    if request.method == 'POST':
         # 返回的数据包含:最大值,最小值,最适宜或者用户设置的(一共3*3=9个)
-        parameter = {"temper":{"temMax":35,"temMin":16,"temfit":25},"damp":{"dampMax":90,"dampMin":0,"dampfit":60},"co2":{"co2Max":35,"co2Min":16,"co2fit":25}}
-        return json.dumps(parameter)
-
-#获取参数
-@blueprint.route('/setParameter', methods=['GET', 'POST'])
-def setParameter():
+        parameter = {"temper":{"temMax":35,"temMin":16,"temfit":25},
+                     "damp":{"dampMax":90,"dampMin":0,"dampfit":60},
+                     "co2":{"co2Max":35,"co2Min":16,"co2fit":25}}
+        return render_template('testing_app1/setParameter.html',parameter=parameter)
     if request.method == 'POST':
         print(request.form)
         temfit = str(request.form.get('temfit'))
         dampfit = str(request.form.get('dampfit'))
         co2fit = str(request.form.get('co2fit'))
-
         # 覆盖到用户设置的参数表中
         return "yes"
+
 
 #订单查询
 @app.route('/testing_app1/order',methods=['GET', 'POST'])

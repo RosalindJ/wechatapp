@@ -10,7 +10,6 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='app/css/setParameter.css') }}">
 </head>
 <body>
-
 	<div class="page-group">
 		<div class="page">
 			<header class="bar bar-nav">
@@ -32,11 +31,11 @@
 									<div class="box item-after">
 										<!-- 减少按钮 -->
 										<span class="reduce">-</span>
-										<input type="tel" id="temperature" class="fill">	
-										<!-- 单位 -->			
-										<span class="unit">℃</span>	
+										<input type="tel" id="temperature" class="fill" value="{{ parameter.temper.temfit }}">
+										<!-- 单位 -->
+										<span class="unit">℃</span>
 										<!-- 增加按钮 -->
-										<span class="add">+</span>					
+										<span class="add">+</span>
 									</div>
 								<!-- </div> -->
 							</div>
@@ -49,11 +48,11 @@
 									<div class="box item-after">
 										<!-- 减少按钮 -->
 										<span class="reduce">-</span>
-										<input type="tel" id="moisture" class="fill">	
-										<!-- 单位 -->			
-										<span class="unit">%</span>		
+										<input type="tel" id="moisture" class="fill" value="{{ parameter.damp.dampfit }}">
+										<!-- 单位 -->
+										<span class="unit">%</span>
 										<!-- 增加按钮 -->
-										<span class="add">+</span>					
+										<span class="add">+</span>
 									</div>
 								<!-- </div> -->
 							</div>
@@ -66,11 +65,11 @@
 									<div class="box clearfix item-after">
 										<!-- 减少按钮 -->
 										<span class="reduce">-</span>
-										<input type="tel" id="carbon" class="fill">	
+										<input type="tel" id="carbon" class="fill" value="{{ parameter.co2.co2fit }}">
 										<!-- 单位 -->
-										<span class="unit">%</span>					
+										<span class="unit">%</span>
 										<!-- 增加按钮 -->
-										<span class="add">+</span>					
+										<span class="add">+</span>
 									</div>
 								<!-- </div> -->
 							</div>
@@ -88,5 +87,78 @@
 	<script src="{{ url_for('static',filename="app/js/sm.js") }}"></script>
     <script src="{{ url_for('static',filename="app/js/sm-extend.js") }}"></script>
 	<script type="text/javascript" src="{{ url_for('static',filename="app/js/setParameter.js") }}"></script>
+	<script>
+		// 增加数值
+		$.fn.addNum = function(e_1,e_2,index,spacing,max){
+			$(e_1).eq(index).on("click",function(){
+				var temp = Number($(e_2).eq(index).val())+spacing;
+					if(temp > max){
+						temp = max;
+					}
+				$(e_2).eq(index).val(temp);
+			})
+		}
+
+		//减少数值
+		$.fn.reduceNum = function(e_1,e_2,index,spacing,min){
+			$(e_1).eq(index).on("click",function(){
+				var temp = Number($(e_2).eq(index).val())-spacing;
+					if(temp < min){
+						temp = min;
+					}
+				$(e_2).eq(index).val(temp);
+			})
+		}
+
+		// 判断输入的只能是数字
+		$.fn.inputNumber = function(e_1,index,max,min){
+			var reg = /^[0-9]*$/;
+			$(e_1).eq(index).on("input",function(){
+				if(!reg.test($(this).val())){
+					var len = $(this).val().length-1;
+					while(!reg.test($(this).val().slice(0,len))){
+							len--;
+					}
+					if(len <= 0){
+						$(this).val("");
+					}else {
+						$(this).val($(this).val().slice(0,len));
+					}
+				}
+			})
+		};
+
+		// 控制输入的值，不能小于最小值，不能大于最大值
+		$.fn.controlNumber = function(e_1,index,max,min){
+			$(e_1).eq(index).blur(function(){
+				if($(this).val() < min){
+					$(this).val(min);
+				}else if($(this).val() > max){
+					$(this).val(max);
+				}
+			});
+		}
+		// 调用四个方法
+		// 加
+		$.fn.addNum(".add",".fill",0,1,{{ parameter.temper.temMax }});
+		$.fn.addNum(".add",".fill",1,1,{{ parameter.damp.dampMax }});
+		$.fn.addNum(".add",".fill",2,1,{{ parameter.co2.co2Max }});
+
+		// 减
+		$.fn.reduceNum(".reduce",".fill",0,1,{{ parameter.temper.temMin }});
+		$.fn.reduceNum(".reduce",".fill",1,1,{{ parameter.damp.dampMin }});
+		$.fn.reduceNum(".reduce",".fill",2,1,{{ parameter.co2.co2Min }});
+
+		// 输入
+		$.fn.inputNumber(".fill",0);
+		$.fn.inputNumber(".fill",1);
+		$.fn.inputNumber(".fill",2);
+
+		// 控制输入的值
+		$.fn.controlNumber(".fill",0,{{ parameter.temper.temMax }},{{ parameter.temper.temMin }});
+		$.fn.controlNumber(".fill",1,{{ parameter.damp.dampMax }},{{ parameter.damp.dampMin }});
+		$.fn.controlNumber(".fill",2,{{ parameter.co2.co2Max }},{{ parameter.co2.co2Min }});
+
+	</script>
 </body>
 </html>

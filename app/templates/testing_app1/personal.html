@@ -73,66 +73,51 @@
 	<script src="http://g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="UTF-8"></script>
 	<script>
 		(function(){
-			// 请求数据
-			var json_data;//json对象
 
+			// 电话号码
 			var strTel = null,telFirst,telLast;//电话号码，号码的前三位，号码的后四位
-			$.ajax({
-				type: "POST",
-				url:"/getPersonal",
-				success:function(data){
-					// js对象转化成json对象
-					console.log(data)
-					json_data = JSON.parse(data);
-					console.log(json_data)
-					// 头像的图片
-					// $(".headImg img").eq(0).attr("src",json_data.headUrl)
-					// 昵称
-					// $(".nickname").html(json_data.nickName);
-					// 设备数量
-					// $(".machineN").html(json_data.machine + "台");
-					// 电话号码
-					if(json_data.yourTel){
-						strTel = json_data.yourTel;
-						telFirst = strTel.slice(0,3);//号码的前三位
-						telLast = strTel.slice(7,11);//号码的最后四位
-						// console.log($(this).val() + "  1-3 " + telFirst + "  7-11 " + telLast);
-						$(".inputTel").val(telFirst + "****" + telLast);
-					}
-					// 地址
-					if(json_data.addressCity){
-						// 将省市区变成数组形式
-						var arrCity = json_data.addressCity.split(" ");
-						// console.log(arrCity);
-						// 省市区
-						$("#city-picker").cityPicker({
-						    toolbarTemplate: '<header class="bar bar-nav">\
-						    <button class="button button-link pull-right close-picker">确定</button>\
-						    <h1 class="title">选择地址</h1>\
-						    </header>',
-						    value:[arrCity[0],arrCity[1],arrCity[2]]
-						});
-					}else{
-						// 省市区
-						$("#city-picker").cityPicker({
-						    toolbarTemplate: '<header class="bar bar-nav">\
-						    <button class="button button-link pull-right close-picker">确定</button>\
-						    <h1 class="title">选择地址</h1>\
-						    </header>'
-						});
-					}
-					// 详细地址
-					if(json_data.fullAddress){
-						$(".fullAddress").val(json_data.fullAddress);
-					}
-				}
-			})
+			yourTel = "{{ perInfor1.yourTel }}";
+			if(yourTel){
+				strTel = yourTel;
+				telFirst = strTel.slice(0,3);//号码的前三位
+				telLast = strTel.slice(7,11);//号码的最后四位
+				$(".inputTel").val(telFirst + "****" + telLast);
+			}
+
+			// 地址  省市区
+			var addressCity = "{{ perInfor1.addressCity }}";
+			if(addressCity){
+				// 将省市区变成数组形式
+				var arrCity = addressCity.split(" ");
+				// console.log(arrCity);
+				// 省市区
+				$("#city-picker").cityPicker({
+				    toolbarTemplate: '<header class="bar bar-nav">\
+				    <button class="button button-link pull-right close-picker">确定</button>\
+				    <h1 class="title">选择地址</h1>\
+				    </header>',
+				    value:[arrCity[0],arrCity[1],arrCity[2]]
+				});
+			}else{
+				// 省市区
+				$("#city-picker").cityPicker({
+				    toolbarTemplate: '<header class="bar bar-nav">\
+				    <button class="button button-link pull-right close-picker">确定</button>\
+				    <h1 class="title">选择地址</h1>\
+				    </header>'
+				});
+			}
+
+			// 详细地址
+			var fullAddress = "{{ perInfor1.fullAddress }}";
+			if(fullAddress){
+				$(".fullAddress").val(fullAddress);
+			}
 
 			// 电话
 			// 电话号码的正则
 			var regTel = /^[1][358][0-9]{9}$/;
 			var telRe;
-			// replace(//s/g,"")
 			// 输入号码失去焦点
 			$(".inputTel").blur(function(){
 				telRe = $(this).val().replace(/\s/g,"");
@@ -160,7 +145,7 @@
 
 				}
 			});
-
+			// 输入电话号码
 			$(".inputTel").on("input",function(){
 				telRe = $(this).val().replace(/\s/g,"");
 				$(".telphone").parents(".item-content").addClass('telActive');
@@ -181,16 +166,30 @@
 
 			// 保存按钮
 			$("input").change(function(){
-				console.log($(this).val())
-				console.log("change");
-				if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != json_data.yourTel) || ($(".city").val() != json_data.addressCity) || ($(".fullAddress").val() != json_data.fullAddress)){
+				if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) || ($(".city").val() != addressCity) || ($(".fullAddress").val() != fullAddress)){
 					$(".fixed_foort").show();
 				}
 
 			})
 			// var sendData;
 			$("#sheBtn").click(function() {
-
+				// 验证电话号码
+				// if(regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel){
+				// 	sendData = "yourTel=" + $(".inputTel").val();
+				// }
+				// else if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) && addressCity != $(".city").val()){
+				// 	sendData = "yourTel=" + $(".inputTel").val() + "&addressCity=" + $(".city").val();
+				// }else if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) && fullAddress != $(".fullAddress").val()){
+				// 	sendData = "yourTel=" + $(".inputTel").val() + "&fullAddress=" + $(".fullAddress").val();
+				// }else if(addressCity != $(".city").val()){
+				// 	sendData = "addressCity=" + $(".city").val();
+				// }else if(addressCity != $(".city").val() && fullAddress != $(".fullAddress").val()){
+				// 	sendData = "addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val();
+				// }else if(fullAddress != $(".fullAddress").val()){
+				// 	sendData = "fullAddress=" + $(".fullAddress").val();
+				// }else if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) && addressCity != $(".city").val() && fullAddress != $(".fullAddress").val()){
+					// sendData = "yourTel=" + $(".inputTel").val() + "&addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val();
+				// }
 				// 发送修改信息之后请求
 				$.ajax({
 					url: '/testing_app1/personal',

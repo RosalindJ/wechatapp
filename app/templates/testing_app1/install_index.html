@@ -15,8 +15,8 @@
 	        <nav class="bar bar-tab">
                 <div class="tab-item external">
                 	<a href="javascript:void(0);">
-                		<i class="icon onOff active1"></i>
-                    	<span class="tab-label activeColor">开关</span>
+                		<i class="icon onOff"></i>
+                    	<span class="tab-label">开关</span>
                     </a>
                 </div>
                 <div class="tab-item external">
@@ -38,7 +38,7 @@
          		<header>
          			<a href="javascript:void(0);" class="icon icon-left pull-left backBtn"></a>
 				  	<a href="javascript:void(0);" class="icon icon-settings pull-right iconInstall"></a>
-				  	<h1>{{ machineModel.model }}模式</h1>
+				  	<h1><span>{{ machineModel.model }}</span>模式</h1>
 				</header>
 				<!-- 运行检测 -->
 				<div class="jiance">
@@ -65,6 +65,7 @@
 							<li class="filterScreen">
 								<p>滤网剩余寿命(天)</p>
 								<p class="screenTime">{{ machineModel.netTime }}</p>
+
 							</li>
 							<li>
 								<p>位置</p>
@@ -77,8 +78,16 @@
 						</ul>
 						<div class="airCity">您正呼吸着{{ machineModel.airPosition }}的空气</div>
 					</div>
-
+					<div class="rosebox">
+						<h2>是否更换滤网</h2>
+						<p>滤网还能用{{ machineModel.netTime }}天，马上更换滤网？</p>
+						<div class="screenButton clearfix">
+							<a href="javascript:void(0);" class="sure">确定</a>
+							<a href="javascript:void(0);" class="cancel">取消</a>
+						</div>
+					</div>
 				</div>
+				<div class="mask"></div>
          	</div>
      	</div>
     </div>
@@ -89,17 +98,121 @@
 		(function(){
 			var airConHeight = $(".airContent").height();
 			$(".shezhiContent img").height(airConHeight);
+
             //  点击返回
 			$(".backBtn").click(function(){
 	        	window.history.back();
 	        })
+
             //  点击设置
 	        $(".iconInstall").click(function(){
-	        	window.location.href = "/testing_app1/setup";
+	        	window.location.href = "setup";
 	        })
-	        $(".screenTime").click(function() {
-                window.location.href = "/testing_app1/net";
+
+	        // 点击滤网
+	        $(".screenTime").click(function(e) {
+	        	e.stopPropagation();
+				$(".mask").show();
+				$(".rosebox").show();
+				// 弹框的宽设为内容的宽度
+				var contentWidth = $(".shezhiContent").width();
+				var contentHeight = $(".rosebox").height();
+				console.log(contentHeight)
+				// 弹框的宽设为内容的宽度,top为中间位置
+				$(".rosebox").css({
+					width:contentWidth,
+					marginTop:(-contentHeight/2)
+				});
 	        });
+
+	        // 点击确定进入购买滤网页面
+			$(".sure").click(function(e){
+				e.stopPropagation();
+				window.location.href = "/testing_app1/ordering"
+			})
+
+			// 点击取消
+			$(".cancel").click(function(){
+				$(".rosebox").hide();
+				$(".mask").hide();
+			})
+
+			// 点击导航栏 切换模式
+
+			var flag = {{ machineModel.onOff }};//开关
+			var model = "{{ machineModel.model }}";//模式
+
+			if(flag == true){//开启开关
+				$(".bar-tab a").eq(0).children('i').addClass('active1').siblings('span').addClass('activeColor');
+				if(model == "自动"){
+					$(".bar-tab a").eq(1).children('i').addClass('active2').siblings('span').addClass('activeColor');
+				}else if(model == "睡眠"){
+					$(".bar-tab a").eq(2).children('i').addClass('active3').siblings('span').addClass('activeColor');
+				}
+			}else{//关闭开关
+				$(".bar-tab a").eq(0).children('i').removeClass('active1').siblings('span').removeClass('activeColor');
+				$(".bar-tab a").eq(1).children('i').removeClass('active2').siblings('span').removeClass('activeColor');
+				$(".bar-tab a").eq(2).children('i').removeClass('active3').siblings('span').removeClass('activeColor');
+			}
+
+			// 点击开关
+			$(".bar-tab a").eq(0).click(function() {
+				if(flag == true){//关闭开关
+					flag = false;
+					model = "自动";
+					$("header h1 span").html(model);
+					$(".bar-tab a").eq(0).children('i').removeClass('active1').siblings('span').removeClass('activeColor');
+					$(".bar-tab a").eq(1).children('i').removeClass('active2').siblings('span').removeClass('activeColor');
+					$(".bar-tab a").eq(2).children('i').removeClass('active3').siblings('span').removeClass('activeColor');
+					sendAjax();
+				}else{//开启开关
+					model = "自动";
+					$("header h1 span").html(model);
+					$(".bar-tab a").eq(1).children('i').addClass('active2').siblings('span').addClass('activeColor');
+					$(".bar-tab a").eq(0).children('i').addClass('active1').siblings('span').addClass('activeColor');
+					flag = true;
+					sendAjax();
+				}
+			});
+
+			// 点击自动
+			$(".bar-tab a").eq(1).click(function() {
+				if(flag == true){
+					model = "自动";
+					$(".bar-tab a").eq(2).children('i').removeClass('active3').siblings('span').removeClass('activeColor');
+					$(this).children('i').addClass('active2').siblings('span').addClass('activeColor');
+					$("header h1 span").html(model);
+					sendAjax();
+				}
+			});
+
+			// 点击睡眠
+			$(".bar-tab a").eq(2).click(function() {
+				if(flag == true){
+					model = "睡眠";
+					$(".bar-tab a").eq(1).children('i').removeClass('active2').siblings('span').removeClass('activeColor');
+					$(this).children('i').addClass('active3').siblings('span').addClass('activeColor');
+					$("header h1 span").html(model)
+					// 发送请求，更改模式
+					sendAjax();
+				}
+			});
+
+
+			function sendAjax(){
+				$.ajax({
+					url: '/testing_app1/install',
+					type: 'POST',
+					data: "onOff=" + flag + "&model=" + model,
+					success:function(data){
+						console.log("success")
+					},
+					error:function(){
+						console.log("error")
+					}
+				})
+			}
+
 			$.init();
 		})();
 	</script>

@@ -218,6 +218,7 @@ class Wxpay_client_pub(Common_util_pub):
         """获取结果，默认不使用证书"""
         self.postXml()
         self.result = self.xmlToArray(self.response)
+        print(self.response)
         print("getresult")
         print(self.result)
         return self.result

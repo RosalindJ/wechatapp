@@ -258,6 +258,7 @@ class UnifiedOrder_pub(Wxpay_client_pub):
         self.postXml()
         print("PrepayId_postXml")
         self.result = self.xmlToArray(self.response)
+        print(self.response)
         print("self.resultggggg")
         print(self.result)
         prepay_id = self.result["prepay_id"]

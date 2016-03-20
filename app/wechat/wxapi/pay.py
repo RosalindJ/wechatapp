@@ -107,7 +107,7 @@ class Common_util_pub(object):
 
     def postXmlCurl(self, xml, url, second=30):
         """以post方式提交xml到对应的接口url"""
-        print("30")
+        print("httpClient_lib diff")
         return HttpClient().postXml(xml, url, second=second)
 
     def postXmlSSLCurl(self, xml, url, second=30):

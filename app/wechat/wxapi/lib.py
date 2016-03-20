@@ -132,7 +132,7 @@ class BaseHttpClient(object):
         else:
             raise NotImplementedError("please implement postXML")
 
-    def postXmlSSL(self, xml, url, second=30, cert=True, post=True):
+    def postXmlSSL(self, xml, url, second, cert=True, post=True):
         print("ssl")
         raise NotImplementedError("please implement postXMLSSL")
 

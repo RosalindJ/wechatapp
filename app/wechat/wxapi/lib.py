@@ -159,6 +159,7 @@ class CurlClient(BaseHttpClient):
 
     def postXmlSSL(self, xml, url, second=30, cert=True, post=True):
         """使用证书"""
+        print("hh")
         self.curl.setopt(pycurl.URL, url)
         self.curl.setopt(pycurl.TIMEOUT, second)
         #设置证书

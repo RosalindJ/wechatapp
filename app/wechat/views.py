@@ -99,7 +99,7 @@ def oauth_base():
     unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
     # unifiedOrder.setParameter("openid",resp)
     # 商品描述
-    unifiedOrder.setParameter("body","贡献一分钱")
+    unifiedOrder.setParameter("body","hello")
     # 订单号自定义,此处举例
     timeStamp = str(time.time())
     out_trade_no = WxPayConf_pub.APPID+timeStamp

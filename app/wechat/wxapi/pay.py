@@ -175,7 +175,7 @@ class JsApi_pub(Common_util_pub):
         jsApiObj["signType"] = "MD5"
         jsApiObj["paySign"] = self.getSign(jsApiObj)
         # self.parameters = json.dumps(jsApiObj)
-
+        self.parameters = jsApiObj
         return self.parameters
 
 

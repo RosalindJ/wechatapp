@@ -13,7 +13,6 @@
  * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
  */
 function wxPay(data){
-    alert("di");
     wx.ready(function () {
         /*调起微信扫一扫接口*/
         wx.chooseWXPay({
@@ -24,10 +23,11 @@ function wxPay(data){
             paySign: ''+data["paySign"]+'', // 支付签名
             success: function (res) {
             // 支付成功后的回调函数
-            alert(res.errMsg);
+                alert(res.errMsg);
+                //这里支付成功后,返回的是chooseWxPay:ok
             },
             cancel:function(res) {
-                alert(res);
+                alert(res.errMsg);
             }
     });
     })

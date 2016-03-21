@@ -37,11 +37,6 @@
 						success:function(data){
 							console.log(data);
 							data = JSON.parse(data);
-							console.log(data["timeStamp"]);
-							console.log(data["nonceStr"]);
-							console.log(data["package"]);
-							console.log(data["signType"]);
-							console.log(data["paySign"]);
 							wxPay(data);
 						},
 						error:function(){

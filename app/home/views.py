@@ -209,7 +209,7 @@ def netList():
     return render_template('testing_app1/netList.html',orderJson=orderJson)
 
 #下订单
-@app.route('/testing_app1/ordering',methods=["GET","POST"])
+@app.route('/testing_app1/ordering/',methods=["GET","POST"])
 def ordering():
     if request.method == 'GET':
         net_proId = request.cookies.get('net_proId')

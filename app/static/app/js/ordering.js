@@ -31,7 +31,7 @@
 					// 发出ajax请求，将数据传递给服务器
 					$.ajax({
 						type:"POST",
-						url:"/testing_app1/ordering",
+						url:"/testing_app1/ordering/",
 						// 产品编号,数量，合计价格，收货人，地址，电话,留言,金额
 						data:"netId="+$("#pro_name").attr("data-netid")+"&price="+$("#price").html()+"&quantity="+$("#num").val()+"&sendWay="+$("#sendWay").html()+"&name="+$("#name").val()+"&tel="+$("#tel").val()+"&address="+$("#street").val()+"&message="+$("#message").val()+"&amount="+$("#amount").html(),
 						success:function(data){

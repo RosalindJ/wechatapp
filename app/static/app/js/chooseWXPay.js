@@ -24,10 +24,10 @@ function wxPay(data){
             success: function (res) {
             // 支付成功后的回调函数
             alert(res.errMsg);
-        },
-        error:function(res) {
-            alert(res);
-        }
+            },
+            cancel:function(res) {
+                alert(res);
+            }
     });
     })
 

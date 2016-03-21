@@ -1,5 +1,5 @@
-(function($){
-	$(document).on("ready",function(){
+//(function($){
+//	$(document).on("ready",function(){
 		// 点击返回上一级
 		$(".backBtn").eq(0).on("click",function(){
 			window.history.back();
@@ -16,7 +16,7 @@
 		$("#message").on("blur",function(){
 			if(!$(this).val()){
 				$("#messBox").height("1rem");
-			}				
+			}
 		});
 
 
@@ -24,6 +24,7 @@
 		// 控制多次提交订单
 		var control = true;
 		$(".payBnt").eq(0).on("click",function(){
+			console.log("点击了")
 			if(control){
 				//判断合计金额是否大于0
 				if(Number($("#amount").html()) > 0 && $("#name").val() && $("#tel").val() && $("#street").val()){
@@ -31,14 +32,10 @@
 					$.ajax({
 						type:"POST",
 						url:"/testing_app1/ordering",
-						// 产品编号,数量，合计价格，收货人，地址，电话,留言
+						// 产品编号,数量，合计价格，收货人，地址，电话,留言,金额
 						data:"netId="+$("#pro_name").attr("data-netid")+"&price="+$("#price").html()+"&quantity="+$("#num").val()+"&sendWay="+$("#sendWay").html()+"&name="+$("#name").val()+"&tel="+$("#tel").val()+"&address="+$("#street").val()+"&message="+$("#message").val()+"&amount="+$("#amount").html(),
 						success:function(data){
-							if(data == 'yes'){
-								console.log("success");
-								alert("亲,成功付款");
-								control = false;
-							}
+							console.log(data);
 						},
 						error:function(){
 							console.log("error");
@@ -49,11 +46,11 @@
 				}
 
 			}else{
-				console.log("已经下单成功");
-				alert("亲,成功付款");
-			}		
+				//console.log("已经下单成功");
+				//alert("亲,成功付款");
+			}
 		})
-	
+
 		// 调用SUI Moblie 的省市区选择器
 		//$("#city-picker").cityPicker({
 		//	toolbarTemplate: '<header class="bar bar-nav">\
@@ -76,12 +73,11 @@
 				if(tem < min){
 					tem = 0;
 				}
-				$(e_2).val(tem);	
-				$(e_4).html(Number($(e_3).html())*tem);			
+				$(e_2).val(tem);
+				$(e_4).html(Number($(e_3).html())*tem);
 			})
 		}
 		$.fn.addNum("#add","#num","#price","#amount",1);
 		$.fn.reduceNum("#reduce","#num","#price","#amount",1,0);
-	})	
-}(Zepto));
-	  
+//	})
+//}(Zepto));

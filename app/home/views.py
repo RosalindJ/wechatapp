@@ -258,30 +258,30 @@ def ordering():
         # print(g.openid)
         # resp.set_cookie('openid', Helper.sign_cookie(g.openid))
 
-        unifiedOrder = UnifiedOrder_pub()
-        # 用户标识
-        unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
-        # unifiedOrder.setParameter("openid",resp)
-        # 商品描述
-        unifiedOrder.setParameter("body","hello")
-        # 订单号自定义,此处举例
-        # timeStamp = str(time.time())
-        # print(timeStamp)
-        out_trade_no = "1728488032176388"
-        unifiedOrder.setParameter("out_trade_no",out_trade_no)
-        # 总金额
-        unifiedOrder.setParameter("total_fee","1")
-        # 收货地址,这里的NOTIFY——URL根据需要是否使用共享收货地址而定
-        unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
-        # 交易类型
-        unifiedOrder.setParameter("trade_type","JSAPI")
-        prepay_id = unifiedOrder.getPrepayId()
-
-        JsApi = JsApi_pub()
-        JsApi.setPrepayId(prepay_id)
-        jsApiParameters = JsApi.getParameters()
-        Parameters = json.loads(jsApiParameters)
-        print(Parameters)
+        # unifiedOrder = UnifiedOrder_pub()
+        # # 用户标识
+        # unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
+        # # unifiedOrder.setParameter("openid",resp)
+        # # 商品描述
+        # unifiedOrder.setParameter("body","hello")
+        # # 订单号自定义,此处举例
+        # # timeStamp = str(time.time())
+        # # print(timeStamp)
+        # out_trade_no = "1728488032176388"
+        # unifiedOrder.setParameter("out_trade_no",out_trade_no)
+        # # 总金额
+        # unifiedOrder.setParameter("total_fee","1")
+        # # 收货地址,这里的NOTIFY——URL根据需要是否使用共享收货地址而定
+        # unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
+        # # 交易类型
+        # unifiedOrder.setParameter("trade_type","JSAPI")
+        # prepay_id = unifiedOrder.getPrepayId()
+        #
+        # JsApi = JsApi_pub()
+        # JsApi.setPrepayId(prepay_id)
+        # jsApiParameters = JsApi.getParameters()
+        # Parameters = json.loads(jsApiParameters)
+        # print(Parameters)
 
 
         if orderings:

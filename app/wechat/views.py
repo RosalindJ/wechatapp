@@ -91,9 +91,9 @@ import json
 @sns_userinfo
 def oauth_base():
     """网页授权获取用户信息"""
-    resp = Response(g.openid)
-    print(g.openid)
-    resp.set_cookie('openid', Helper.sign_cookie(g.openid))
+    # resp = Response(g.openid)
+    # print(g.openid)
+    # resp.set_cookie('openid', Helper.sign_cookie(g.openid))
 
     unifiedOrder = UnifiedOrder_pub()
     # 用户标识

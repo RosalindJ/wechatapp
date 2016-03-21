@@ -85,6 +85,7 @@ def oauth():
 
 import time
 from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
+import json
 # 自己加上去的
 @blueprint.route('/oauth_base', methods=['GET', 'POST'])
 @sns_userinfo
@@ -122,7 +123,9 @@ def oauth_base():
     jsApiParameters = JsApi.getParameters()
     print("ddd")
     print(jsApiParameters)
-    return render_template("pay/base_openid.html",jsApiParameters=jsApiParameters)
+    Parameters = json.loads(jsApiParameters)
+    print(Parameters)
+    return render_template("pay/base_openid.html",jsApiParameters=Parameters)
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

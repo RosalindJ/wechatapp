@@ -156,6 +156,8 @@ class JsApi_pub(Common_util_pub):
 
     def setPrepayId(self, prepayId):
         """设置prepay_id"""
+        print("prepayId")
+        print(prepayId)
         self.prepay_id = prepayId
 
     def setCode(self, code):

@@ -114,6 +114,7 @@ def oauth_base():
     print("aaa")
     prepay_id = unifiedOrder.getPrepayId()
     print("bbb")
+    print(prepay_id)
     JsApi_pub.setPrepayId(prepay_id)
     print("ccc")
     jsApiParameters = JsApi_pub.getParameters()

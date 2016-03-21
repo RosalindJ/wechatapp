@@ -98,7 +98,6 @@ class Common_util_pub(object):
             else:
                 xml.append("<{0}><![CDATA[{1}]]></{0}>".format(k, v))
         xml.append("</xml>")
-        print("".join(xml))
         return "".join(xml)
 
     def xmlToArray(self, xml):
@@ -107,7 +106,6 @@ class Common_util_pub(object):
 
     def postXmlCurl(self, xml, url, second=30):
         """以post方式提交xml到对应的接口url"""
-        print("httpClient_lib diff")
         return HttpClient().postXml(xml, url, second=second)
 
     def postXmlSSLCurl(self, xml, url, second=30):
@@ -156,8 +154,6 @@ class JsApi_pub(Common_util_pub):
 
     def setPrepayId(self, prepayId):
         """设置prepay_id"""
-        print("prepayId")
-        print(prepayId)
         self.prepay_id = prepayId
 
     def setCode(self, code):
@@ -199,13 +195,11 @@ class Wxpay_client_pub(Common_util_pub):
         self.parameters["mch_id"] = WxPayConf_pub.MCHID  #商户号
         self.parameters["nonce_str"] = self.createNoncestr()  #随机字符串
         self.parameters["sign"] = self.getSign(self.parameters)  #签名
-        print(self.parameters)
         return self.arrayToXml(self.parameters)
 
     def postXml(self):
         """post请求xml"""
         xml = self.createXml()
-        print("urlurl")
         self.response = self.postXmlCurl(xml, self.url, self.curl_timeout)
         return self.response
 
@@ -219,9 +213,6 @@ class Wxpay_client_pub(Common_util_pub):
         """获取结果，默认不使用证书"""
         self.postXml()
         self.result = self.xmlToArray(self.response)
-        print(self.response)
-        print("getresult")
-        print(self.result)
         return self.result
 
 
@@ -251,17 +242,12 @@ class UnifiedOrder_pub(Wxpay_client_pub):
         self.parameters["spbill_create_ip"] = "127.0.0.1"  #终端ip
         self.parameters["nonce_str"] = self.createNoncestr()  #随机字符串
         self.parameters["sign"] = self.getSign(self.parameters)  #签名
-        print(self.parameters)
         return self.arrayToXml(self.parameters)
 
     def getPrepayId(self):
         """获取prepay_id"""
         self.postXml()
-        print("PrepayId_postXml")
         self.result = self.xmlToArray(self.response)
-        print(self.response)
-        print("self.resultggggg")
-        print(self.result)
         prepay_id = self.result["prepay_id"]
         return prepay_id
 

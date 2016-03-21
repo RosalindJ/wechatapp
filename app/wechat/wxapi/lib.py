@@ -123,17 +123,12 @@ class BaseHttpClient(object):
             return self.postXml(None, url, second)
 
     def postXml(self, xml, url, second=30):
-        print("liblib")
-        print(self.include_ssl)
         if self.include_ssl:
-            print(url)
-            print(second)
             return self.postXmlSSL(xml, url, second, cert=False)
         else:
             raise NotImplementedError("please implement postXML")
 
     def postXmlSSL(self, xml, url, second, cert=True, post=True):
-        print("ssl")
         raise NotImplementedError("please implement postXMLSSL")
 
 
@@ -159,7 +154,6 @@ class CurlClient(BaseHttpClient):
 
     def postXmlSSL(self, xml, url, second=30, cert=True, post=True):
         """使用证书"""
-        print("hh")
         self.curl.setopt(pycurl.URL, url)
         self.curl.setopt(pycurl.TIMEOUT, second)
         #设置证书
@@ -185,22 +179,16 @@ class RequestsClient(BaseHttpClient):
     include_ssl = True
 
     def postXmlSSL(self, xml, url, second=30, cert=True, post=True):
-        print("195ssl")
-        print(cert)
-        print(post)
         if cert:
             cert_config = (WxPayConf_pub.SSLCERT_PATH,
                            WxPayConf_pub.SSLKEY_PATH)
         else:
             cert_config = None
         if post:
-            print("request")
-            print(xml)
             res = requests.post(url, data=xml, timeout=30, cert=cert_config)
             # requests.post("https://api.mch.weixin.qq.com/pay/unifiedorder ", data=xmlutf, timeout=30, cert=cert_config)
         else:
             res = requests.get(url, timeout=second, cert=cert_config)
-        print("requestsss")
         return res.content
 
 

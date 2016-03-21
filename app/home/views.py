@@ -229,7 +229,7 @@ def ordering():
         userMessage["tel"] = "11352146590"  #用户联系电话
         userMessage["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #用户地址
 
-        # 微信接口config
+        # 微信config
         url = request.url
         print(url)
         sign = Helper.jsapi_sign(url)
@@ -269,7 +269,7 @@ def ordering():
         # print(timeStamp)
         out_trade_no = "1728488032176388"
         unifiedOrder.setParameter("out_trade_no",out_trade_no)
-        # 总金额,这里的金额是上面的总金额
+        # 总金额
         unifiedOrder.setParameter("total_fee","1")
         # 收货地址,这里的NOTIFY——URL根据需要是否使用共享收货地址而定
         unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
@@ -280,10 +280,13 @@ def ordering():
         JsApi = JsApi_pub()
         JsApi.setPrepayId(prepay_id)
         jsApiParameters = JsApi.getParameters()
-        # Parameters = json.loads(jsApiParameters)
-        print(jsApiParameters)
+        Parameters = json.loads(jsApiParameters)
+        print(Parameters)
 
-        return 'yes'
+
+        if orderings:
+            return 'yes'
+        return 'no'
 
 # 个人
 @app.route('/testing_app1/personal', methods=['GET', 'POST'])

@@ -36,6 +36,7 @@
 						data:"netId="+$("#pro_name").attr("data-netid")+"&price="+$("#price").html()+"&quantity="+$("#num").val()+"&sendWay="+$("#sendWay").html()+"&name="+$("#name").val()+"&tel="+$("#tel").val()+"&address="+$("#street").val()+"&message="+$("#message").val()+"&amount="+$("#amount").html(),
 						success:function(data){
 							console.log(data);
+							wxPay(data);
 						},
 						error:function(){
 							console.log("error");

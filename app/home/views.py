@@ -283,9 +283,7 @@ def ordering():
         # Parameters = json.loads(jsApiParameters)
         print(jsApiParameters)
 
-        # if orderings:
-        return jsApiParameters
-        # return 'no'
+        return 'yes'
 
 # 个人
 @app.route('/testing_app1/personal', methods=['GET', 'POST'])

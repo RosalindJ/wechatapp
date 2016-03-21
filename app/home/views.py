@@ -10,8 +10,6 @@ import json
 import time
 from app.wechat.wxapi import WxPayConf_pub
 from  app.wechat.wxapi.backends.fl import Helper
-from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
-import json
 
 @blueprint.route('/')
 def hello_world():
@@ -229,12 +227,10 @@ def ordering():
         userMessage["tel"] = "11352146590"  #用户联系电话
         userMessage["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #用户地址
 
-        # 微信config
         url = request.url
         print(url)
         sign = Helper.jsapi_sign(url)
         sign["appId"] = WxPayConf_pub.APPID
-
         return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage,sign=sign)
 
     if request.method == 'POST':
@@ -252,38 +248,6 @@ def ordering():
         orderings["message"] = str(request.form.get('message', ''))  #留言内容
         orderings["amount"] = str(request.form.get('amount', ''))  #总金额
         print(orderings)
-
-        # """网页授权获取用户信息"""
-        # resp = Response(g.openid)
-        # print(g.openid)
-        # resp.set_cookie('openid', Helper.sign_cookie(g.openid))
-
-        # unifiedOrder = UnifiedOrder_pub()
-        # # 用户标识
-        # unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
-        # # unifiedOrder.setParameter("openid",resp)
-        # # 商品描述
-        # unifiedOrder.setParameter("body","hello")
-        # # 订单号自定义,此处举例
-        # # timeStamp = str(time.time())
-        # # print(timeStamp)
-        # out_trade_no = "1728488032176388"
-        # unifiedOrder.setParameter("out_trade_no",out_trade_no)
-        # # 总金额
-        # unifiedOrder.setParameter("total_fee","1")
-        # # 收货地址,这里的NOTIFY——URL根据需要是否使用共享收货地址而定
-        # unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
-        # # 交易类型
-        # unifiedOrder.setParameter("trade_type","JSAPI")
-        # prepay_id = unifiedOrder.getPrepayId()
-        #
-        # JsApi = JsApi_pub()
-        # JsApi.setPrepayId(prepay_id)
-        # jsApiParameters = JsApi.getParameters()
-        # Parameters = json.loads(jsApiParameters)
-        # print(Parameters)
-
-
         if orderings:
             return 'yes'
         return 'no'

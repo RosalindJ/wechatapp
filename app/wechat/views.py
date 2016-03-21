@@ -86,7 +86,7 @@ def oauth():
 import time
 from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
 import json
-# 自己加上去的
+# 自己加上去的 测试支付使用的
 @blueprint.route('/oauth_base/', methods=['GET', 'POST'])
 # @sns_userinfo
 def oauth_base():
@@ -112,17 +112,11 @@ def oauth_base():
     unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
     # 交易类型
     unifiedOrder.setParameter("trade_type","JSAPI")
-    print("aaa")
     prepay_id = unifiedOrder.getPrepayId()
-    print("bbb")
-    print(prepay_id)
 
     JsApi = JsApi_pub()
     JsApi.setPrepayId(prepay_id)
-    print("ccc")
     jsApiParameters = JsApi.getParameters()
-    print("ddd")
-    print(jsApiParameters)
     Parameters = json.loads(jsApiParameters)
     print(Parameters)
 

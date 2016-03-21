@@ -115,13 +115,14 @@ def oauth_base():
     prepay_id = unifiedOrder.getPrepayId()
     print("bbb")
     print(prepay_id)
-    
+
     JsApi = JsApi_pub()
     JsApi.setPrepayId(prepay_id)
     print("ccc")
     jsApiParameters = JsApi.getParameters()
     print("ddd")
-    return render_template("pay/base_openid.html",parameters=jsApiParameters)
+    print(jsApiParameters)
+    return render_template("pay/base_openid.html",jsApiParameters=jsApiParameters)
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

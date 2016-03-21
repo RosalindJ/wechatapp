@@ -122,7 +122,7 @@ def oauth_base():
     jsApiParameters = JsApi.getParameters()
     print("ddd")
     print(jsApiParameters)
-    return render_template("pay/base_openid.html",jsApiParameters=jsApiParameters.encode('utf-8'))
+    return render_template("pay/base_openid.html",jsApiParameters=jsApiParameters)
 
 @blueprint.route('/favicon.ico', methods=['GET', 'POST'])
 def favicon():

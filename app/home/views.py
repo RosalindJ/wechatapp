@@ -4,7 +4,7 @@
 import datetime
 from app import app
 from flask import request, redirect, render_template
-from app.models import Product, Shop, Detail, Presell
+# from app.models import Product, Shop, Detail, Presell
 from . import blueprint
 import json
 import time
@@ -226,11 +226,6 @@ def ordering():
         userMessage["name"] = "李大建"   #用户名
         userMessage["tel"] = "11352146590"  #用户联系电话
         userMessage["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #用户地址
-
-        # url = request.url
-        # print(url)
-        # sign = Helper.jsapi_sign(url)
-        # sign["appId"] = WxPayConf_pub.APPID
         return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage)
 
     if request.method == 'POST':

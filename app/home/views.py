@@ -227,11 +227,11 @@ def ordering():
         userMessage["tel"] = "11352146590"  #用户联系电话
         userMessage["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #用户地址
 
-        url = request.url
-        print(url)
-        sign = Helper.jsapi_sign(url)
-        sign["appId"] = WxPayConf_pub.APPID
-        return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage,sign=sign)
+        # url = request.url
+        # print(url)
+        # sign = Helper.jsapi_sign(url)
+        # sign["appId"] = WxPayConf_pub.APPID
+        return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage)
 
     if request.method == 'POST':
         print(request.form)

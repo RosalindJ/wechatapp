@@ -31,7 +31,7 @@
 					$.ajax({
 						type:"POST",
 						url:"/testing_app1/ordering",
-						// 产品编号,数量，合计价格，收货人，地址，电话,金额,留言
+						// 产品编号,数量，合计价格，收货人，地址，电话,留言
 						data:"netId="+$("#pro_name").attr("data-netid")+"&price="+$("#price").html()+"&quantity="+$("#num").val()+"&sendWay="+$("#sendWay").html()+"&name="+$("#name").val()+"&tel="+$("#tel").val()+"&address="+$("#street").val()+"&message="+$("#message").val()+"&amount="+$("#amount").html(),
 						success:function(data){
 							if(data == 'yes'){
@@ -49,8 +49,8 @@
 				}
 
 			}else{
-				//console.log("已经下单成功");
-				//alert("亲,成功付款");
+				console.log("已经下单成功");
+				alert("亲,成功付款");
 			}		
 		})
 	

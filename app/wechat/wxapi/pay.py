@@ -174,7 +174,7 @@ class JsApi_pub(Common_util_pub):
         jsApiObj["package"] = "prepay_id={0}".format(self.prepay_id)
         jsApiObj["signType"] = "MD5"
         jsApiObj["paySign"] = self.getSign(jsApiObj)
-        self.parameters = json.dumps(jsApiObj)
+        # self.parameters = json.dumps(jsApiObj)
 
         return self.parameters
 

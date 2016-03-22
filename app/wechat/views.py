@@ -146,31 +146,3 @@ def share(template=None):
     sign["appId"] = WxPayConf_pub.APPID
     print(sign)
     return render_template(template, sign=sign)
-
-
-    JsApi = JsApi_pub()
-    JsApi.setPrepayId(prepay_id)
-    jsApiParameters = JsApi.getParameters()
-    Parameters = json.loads(jsApiParameters)
-    print(Parameters)
-
-    url = request.url
-    print(url)
-    sign = Helper.jsapi_sign(url)
-    sign["appId"] = WxPayConf_pub.APPID
-    return render_template("pay/base_openid.html",jsApiParameters=Parameters,sign=sign)
-
-@blueprint.route('/favicon.ico', methods=['GET', 'POST'])
-def favicon():
-    return ''
-
-
-@blueprint.route('/share/<path:template>', methods=['GET', 'POST'])
-def share(template=None):
-    print(template)
-    url = request.url
-    print(url)
-    sign = Helper.jsapi_sign(url)
-    sign["appId"] = WxPayConf_pub.APPID
-    print(sign)
-    return render_template(template, sign=sign)

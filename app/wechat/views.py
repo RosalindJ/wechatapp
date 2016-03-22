@@ -84,10 +84,22 @@ def oauth():
     return resp
 
 
-@blueprint.route('/dfdf')
-def a():
-    print(request.data)
-    return 'sdfsdf'
+@blueprint.route('/favicon.ico', methods=['GET', 'POST'])
+def favicon():
+    return ''
+
+
+@blueprint.route('/share/<path:template>', methods=['GET', 'POST'])
+def share(template=None):
+    print(template)
+    url = request.url
+    print(url)
+    sign = Helper.jsapi_sign(url)
+    sign["appId"] = WxPayConf_pub.APPID
+    print(sign)
+    return render_template(template, sign=sign)
+
+
 
 import time
 from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
@@ -132,17 +144,51 @@ def oauth_base():
     sign["appId"] = WxPayConf_pub.APPID
     return render_template("pay/base_openid.html",jsApiParameters=Parameters,sign=sign)
 
-@blueprint.route('/favicon.ico', methods=['GET', 'POST'])
-def favicon():
-    return ''
+from app.wechat.wxapi import Notify_pub
+from app.wechat.wxapi.log import Log_
+@blueprint.route('/notify_url/', methods=['GET', 'POST'])
+def notify_url():
+    # 使用通用通知接口
+    notify = Notify_pub()
+
+    #存储微信的回调
+    xml ="" #$GLOBALS['HTTP_RAW_POST_DATA']
+    notify.saveData(xml)
+
+     #验证签名，并回应微信
+    #对后台通知交互时，如果微信收到商户的应答不是成功或超时，微信认为通知失败，
+    #微信会通过一定的策略（如30分钟共8次）定期重新发起通知
+    #尽可能提高通知的成功率，但微信不保证通知最终能成功。
+    if notify.checkSign() == False :
+        notify.setReturnParameter("return_code","FAIL")
+        notify.setReturnParameter("return_msg","签名失败")
+    else:
+        notify.setReturnParameter("return_code","SUCCESS")
+
+    returnXml = notify.returnXml()
+    print(returnXml)
+
+    #商户根据实际情况设置相应的处理流程，此处仅作举例
+    #以log文件形式记录回调信息
+    log = Log_()
+    log_name = "" #log文件路径
+    log.log_result(log_name,"[接收到的notify通知]:\n"+xml+"\n")
+    if notify.checkSign() == True:
+        if notify.data["return_code"] == "FAIL":
+            log.log_result(log_name,'[通信出错]:\n'+xml+"\n")
+        elif notify.data["result_code"] == "FAIL":
+            log.log_result(log_name,'[业务出错]:\n'+xml+"\n")
+        else:
+            log.log_result(log_name,"[支付成功]:\n"+xml+"\n")
 
 
-@blueprint.route('/share/<path:template>', methods=['GET', 'POST'])
-def share(template=None):
-    print(template)
-    url = request.url
-    print(url)
-    sign = Helper.jsapi_sign(url)
-    sign["appId"] = WxPayConf_pub.APPID
-    print(sign)
-    return render_template(template, sign=sign)
+        #商户自行增加处理流程
+        #例如：更新订单状态
+        #例如：数据库操作
+        #例如：推送支付完成信息
+
+
+
+
+
+

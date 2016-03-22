@@ -186,6 +186,7 @@ class RequestsClient(BaseHttpClient):
             cert_config = None
         if post:
             print(xml)
+            print(type(xml))
             res = requests.post(url, data=xml, timeout=30, cert=cert_config)
             # requests.post("https://api.mch.weixin.qq.com/pay/unifiedorder", data=xmlutf, timeout=30, cert=cert_config)
         else:

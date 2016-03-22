@@ -263,7 +263,7 @@ def ordering():
         # 订单号自定义,此处举例
         # timeStamp = str(time.time())
         # print(timeStamp)
-        out_trade_no = "17284880321763445"  #这个订单号已经支付成功了
+        out_trade_no = "17284880321763000"  #这个订单号已经支付成功了
         unifiedOrder.setParameter("out_trade_no",out_trade_no)
         # 总金额
         unifiedOrder.setParameter("total_fee","1")

@@ -83,6 +83,12 @@ def oauth():
     resp.set_cookie('openid', Helper.sign_cookie(g.openid))
     return resp
 
+
+@blueprint.route('/dfdf')
+def a():
+    print(request.data)
+    return 'sdfsdf'
+
 import time
 from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
 import json
@@ -104,7 +110,7 @@ def oauth_base():
     # 订单号自定义,此处举例
     # timeStamp = str(time.time())
     # print(timeStamp)
-    out_trade_no = "1728488032176388"
+    out_trade_no = "1728488032176355"
     unifiedOrder.setParameter("out_trade_no",out_trade_no)
     # 总金额
     unifiedOrder.setParameter("total_fee","1")

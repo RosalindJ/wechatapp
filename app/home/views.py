@@ -267,7 +267,7 @@ def ordering():
         unifiedOrder.setParameter("out_trade_no",out_trade_no)
         # 总金额
         unifiedOrder.setParameter("total_fee","1")
-        # 收货地址,这里的NOTIFY——URL根据需要是否使用共享收货地址而定
+        # 微信回调的地址
         unifiedOrder.setParameter("notify_url",WxPayConf_pub.NOTIFY_URL)
         # 交易类型
         unifiedOrder.setParameter("trade_type","JSAPI")

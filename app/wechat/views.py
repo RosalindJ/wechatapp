@@ -144,6 +144,7 @@ def oauth_base():
     sign["appId"] = WxPayConf_pub.APPID
     return render_template("pay/base_openid.html",jsApiParameters=Parameters,sign=sign)
 
+# 测试微信回调使用的
 from app.wechat.wxapi import Notify_pub
 from app.wechat.wxapi.log import Log_
 @blueprint.route('/notify_url/', methods=['GET', 'POST'])
@@ -152,7 +153,7 @@ def notify_url():
     notify = Notify_pub()
 
     #存储微信的回调
-    xml ="" #$GLOBALS['HTTP_RAW_POST_DATA']
+    xml = request.form #$GLOBALS['HTTP_RAW_POST_DATA']
     notify.saveData(xml)
 
      #验证签名，并回应微信
@@ -171,7 +172,7 @@ def notify_url():
     #商户根据实际情况设置相应的处理流程，此处仅作举例
     #以log文件形式记录回调信息
     log = Log_()
-    log_name = "" #log文件路径
+    log_name = "./notify_url.log" #log文件路径
     log.log_result(log_name,"[接收到的notify通知]:\n"+xml+"\n")
     if notify.checkSign() == True:
         if notify.data["return_code"] == "FAIL":

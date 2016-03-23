@@ -149,7 +149,7 @@ from app.wechat.wxapi import Notify_pub
 from app.wechat.wxapi.log import Log_
 @blueprint.route('/notify_url/', methods=['GET', 'POST'])
 def notify_url():
-    使用通用通知接口
+    #使用通用通知接口
     notify = Notify_pub()
 
     #存储微信的回调

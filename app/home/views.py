@@ -14,7 +14,7 @@ from app.wechat.wxapi import JsApi_pub,UnifiedOrder_pub,WxPayConf_pub
 
 @blueprint.route('/')
 def hello_world():
-    return 'Hello World!'
+    return redirect('http://1.joinapp.applinzi.com/')
 
 @blueprint.route('/zhangjuan')
 def hello_world1111():

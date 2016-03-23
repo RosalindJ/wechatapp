@@ -259,7 +259,8 @@ def ordering():
         unifiedOrder.setParameter("openid","oIJFBwhI__1d-BRuJPs8ubS81KyI")
         # unifiedOrder.setParameter("openid",resp)
         # 商品描述
-        unifiedOrder.setParameter("body","高效滤网")
+        # unifiedOrder.setParameter("body","高效滤网")
+        unifiedOrder.setParameter("body","ggg")
         # 订单号自定义,此处举例
         # timeStamp = str(time.time())
         # print(timeStamp)

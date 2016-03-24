@@ -154,6 +154,7 @@ def notify_url():
 
     #存储微信的回调
     xml = request.form #$GLOBALS['HTTP_RAW_POST_DATA']
+    print(xml)
     notify.saveData(xml)
 
     #验证签名，并回应微信

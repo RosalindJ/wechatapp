@@ -65,5 +65,13 @@
 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     {% include 'weixin/jsapi.html' %}
     <script src="{{ url_for('static', filename='app/js/equipmentList.js')}}"></script>
+    <script>
+        (function($){
+            // 点击返回
+            $(".backBtn").eq(0).on("click",function(){
+                window.history.back();
+            })
+        })(Zepto)
+    </script>
 </body>
 </html>

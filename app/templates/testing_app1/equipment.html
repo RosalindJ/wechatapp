@@ -11,7 +11,13 @@
 <body>
 	<div class="page-group">
         <div class="page page-current">
-         	<div class="content">
+        	<div id="fixed_foort" class="bar bar-footer row" style="height: 150px">
+				<!-- 二维码通道按钮 -->
+				<a href="javascript:void(0);" class="col-66 button button-fill addBtn codeBnt">扫二维码添加设备</a>
+				<!-- WiFi通道按钮 -->
+				<a href="javascript:void(0);" class="col-66 button button-fill addBtn wifiBnt">通过WiFi添加设备</a>
+			</div>
+         	<div class="content">       		
          	 	<div class="list-block equipList">
 				    <ul>
 				    	{% for i in machineJson %}
@@ -25,15 +31,30 @@
 					          	<div class="item-after"><span class="icon icon-right iconFS"></span></div>
 					        </div>
 					    </li>
+					    <li class="item-content" data-productId="{{ i.productId }}">
+					        <div class="item-media"><img src="{{ url_for('static',filename=i.proImgUrl) }}"></div>
+					        <div class="item-inner">
+					          	<div class="item-title">
+					          		<p>{{ i.proName }}</p>
+									<span>{{ i.controller }}控制</span>
+								</div>
+					          	<div class="item-after"><span class="icon icon-right iconFS"></span></div>
+					        </div>
+					    </li>
+					    <li class="item-content" data-productId="{{ i.productId }}">
+					        <div class="item-media"><img src="{{ url_for('static',filename=i.proImgUrl) }}"></div>
+					        <div class="item-inner">
+					          	<div class="item-title">
+					          		<p>{{ i.proName }}</p>
+									<span>{{ i.controller }}控制</span>
+								</div>
+					          	<div class="item-after"><span class="icon icon-right iconFS"></span></div>
+					        </div>
+					    </li>
                     	{% endfor %}
 				    </ul>
 				</div>
-				<div id="fixed_foort" class="row">
-					<!-- 二维码通道按钮 -->
-					<a href="javascript:void(0);" class="col-66 button button-fill addBtn codeBnt">扫二维码添加设备</a>
-					<!-- WiFi通道按钮 -->
-					<a href="javascript:void(0);" class="col-66 button button-fill addBtn wifiBnt">通过WiFi添加设备</a>
-				</div>
+				
          	</div>
         </div>
     </div>
@@ -48,21 +69,20 @@
 			// 按钮的高度
 			var foort_height = $("#fixed_foort").height();
 			// 添加的设备的高度
-			$(".equipList").eq(0).height(allHeight - foort_height);
+			$(".content").eq(0).height(allHeight - foort_height);
 
 			// 点击
 			$(".item-content").click(function() {
 				document.cookie = "productId="+ $(this).attr("data-productId");
-				// $.cookie('productId', 'the_value'); // 存储 cookie
 				console.log($(this).attr("data-productId"));
-						window.location.href = "/testing_app1/install";
+				window.location.href = "/testing_app1/install";
 
 			});
 				
 			$.init();
 		})()
 	</script>
-{#   二维码以及WiFi按钮处理#}
+   <!-- 二维码以及WiFi按钮处理 -->
     <script src="{{ url_for('static', filename='app/js/equipmentList.js')}}"></script>
 </body>
 </html>

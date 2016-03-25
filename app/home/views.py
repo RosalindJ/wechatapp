@@ -439,4 +439,6 @@ def orderdetail():
     return render_template('testing_app1/orderDetail.html',orderings=orderings,netData=netData)
 
 
-
+@app.route('/testing_app1/weixinbug')
+def wxbug():
+    return render_template('testing_app1/weixinbug.html')

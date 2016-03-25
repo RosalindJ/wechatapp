@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style>
+		#test-div {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+}
+	</style>
+</head>
+<body>
+	<div id="test-div"></div>
+	<script>
+		
+		var div = document.getElementById('test-div');
+
+div.addEventListener('touchstart', function(e) {
+    var e = e || window.event;
+    
+    console.log(e.touches);
+    console.log(e.touches[0].target);
+    console.log(e.touches[0].identifier);
+    console.log(e.touches[0].clientY);
+}, false)
+	</script>
+</body>
+</html>

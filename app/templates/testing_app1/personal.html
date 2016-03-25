@@ -42,7 +42,59 @@
 				      	<li class="item-content">
 				        	<div class="item-inner">
 				          		<div class="item-title">电话</div>
-				          		<div class="item-after telphone">
+				          		<div class="item-after telphone1">
+				          		</div>
+				        	</div>
+				      	</li>
+				      	<!-- 地址 -->
+				      	<li class="item-content noBottom">
+				        	<div class="item-inner">
+				          		<div class="item-title">地址</div>
+				          		<div class="item-after address1">
+				          			<div class="dizhi">
+				          				<p>{{ perInfor1.addressCity }}</p>
+				          				<p>{{ perInfor1.fullAddress }}</p>
+				          			</div>
+				          		</div>
+				        	</div>
+				     	</li>
+				    </ul>
+				</div>
+         	</div>
+     	</div>
+     	<div class="page">
+         	<div class="content">
+         	<!-- 个人列表 -->
+         		<div class="list-block">
+				    <ul>
+				    	<!-- 头像 -->
+				      	<li class="item-content">
+					        <div class="item-inner">
+					          	<div class="item-title headWord">头像</div>
+					          	<div class="item-media headImg">
+					          		<img src="{{ url_for("static",filename=perInfor1.headUrl) }}">
+					          	</div>
+					        </div>
+					    </li>
+							<!-- 昵称 -->
+				      	<li class="item-content">
+				        	<div class="item-inner">
+				          		<div class="item-title">昵称</div>
+				          		<div class="item-after nickname">{{ perInfor1.nickName }}<!-- 李大健 --></div>
+				        	</div>
+				      	</li>
+				      	<!-- 设备 -->
+				      	<li class="item-content">
+				        	<div class="item-inner">
+				          		<div class="item-title">设备</div>
+				          		<div class="item-after machineN">{{ perInfor1.machine }}台<!-- 0台 --></div>
+				        	</div>
+				      	</li>
+				      	<!-- 电话 -->
+				      	<li class="item-content">
+				        	<div class="item-inner">
+				          		<div class="item-title">电话</div>
+				          		<div class="item-after telphone2">
 				          			<input type="tel" class="inputTel" placeholder="请输入电话">
 				          		</div>
 				        	</div>
@@ -51,7 +103,7 @@
 				      	<li class="item-content noBottom">
 				        	<div class="item-inner">
 				          		<div class="item-title">地址</div>
-				          		<div class="item-after address">
+				          		<div class="item-after address2">
 				          			<div class="dizhi">
 				          				<input type="text" id='city-picker' class="city" placeholder="请选择地址"/>
 				          				<input type="text" class="fullAddress" placeholder="请输入详细地址"/>
@@ -73,22 +125,32 @@
 	<script src="http://g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="UTF-8"></script>
 	<script>
 		(function(){
+			//判断是从哪个页面进入的，如果是设置页面那就可以设置号码和地址
+			if(sessionStorage.getItem("whichPage") == "setup"){
+				$(".page").eq(1).addClass('page-current').siblings().removeClass('page-current');
+				sessionStorage.setItem("whichPage","");
+			}else{
+				$(".page").eq(0).addClass('page-current').siblings().removeClass('page-current');
+			}
 
 			// 电话号码
 			var strTel = null,telFirst,telLast;//电话号码，号码的前三位，号码的后四位
 			yourTel = "{{ perInfor1.yourTel }}";
 			if(yourTel){
-				strTel = yourTel;
-				telFirst = strTel.slice(0,3);//号码的前三位
-				telLast = strTel.slice(7,11);//号码的最后四位
-				$(".inputTel").val(telFirst + "****" + telLast);
+				// strTel = yourTel;
+				telFirst = yourTel.slice(0,3);//号码的前三位
+				telLast = yourTel.slice(7,11);//号码的最后四位
+				$(".telphone1").html(telFirst + "****" + telLast)
+				$(".telphone2 .inputTel").val(yourTel);
 			}
 
 			// 地址  省市区
 			var addressCity = "{{ perInfor1.addressCity }}";
+			console.log(addressCity)
 			if(addressCity){
 				// 将省市区变成数组形式
 				var arrCity = addressCity.split(" ");
+				$(".city").val(addressCity);
 				// console.log(arrCity);
 				// 省市区
 				$("#city-picker").cityPicker({
@@ -117,89 +179,48 @@
 			// 电话
 			// 电话号码的正则
 			var regTel = /^[1][358][0-9]{9}$/;
-			var telRe;
-			// 输入号码失去焦点
+			// var telRe;
+			// // 输入号码失去焦点
 			$(".inputTel").blur(function(){
-				telRe = $(this).val().replace(/\s/g,"");
-				$(this).val(telRe)
-				console.log(telRe+ "telRe")
-				if(telRe == strTel){
-					$(this).val(telRe);
-					$(".telphone").parents(".item-content").removeClass('telActive');
-				}else{
-					strTel = telRe;
-				}
-				if(regTel.test(telRe)){
-					// strTel = $(this).val();
-					// telFirst = strTel.slice(0,3);//号码的前三位
-					// telLast = strTel.slice(7,11);//号码的最后四位
-					// // console.log($(this).val() + "  1-3 " + telFirst + "  7-11 " + telLast);
-					// $(this).val(telFirst + "****" + telLast)
-					strTel = telRe;
-					$(".telphone").parents(".item-content").removeClass('telActive');
-				}else if(telRe == ""){
-					$(".telphone").parents(".item-content").removeClass('telActive');
-				}else{
-					$(this).focus();
-					strTel = telRe;
-
-				}
+				$(".telphone2").parents(".item-content").removeClass('telActive');
 			});
-			// 输入电话号码
-			$(".inputTel").on("input",function(){
-				telRe = $(this).val().replace(/\s/g,"");
-				$(".telphone").parents(".item-content").addClass('telActive');
-			})
+			
 			// 输入号码聚焦
 			$(".inputTel").focus(function(){
-				telRe = $(this).val().replace(/\s/g,"");
-				$(".telphone").parents(".item-content").addClass('telActive');
-				if(strTel && regTel.test(strTel)){
-					if(telRe != strTel){
-						$(this).val(strTel);
-					}else{
-						strTel = telRe;
+				$(".telphone2").parents(".item-content").addClass('telActive');
+			})
+			// 只能输入中文
+			var reg = /^[0-9]*$/;
+			$(".inputTel").on("input",function(){
+				if(!reg.test($(this).val())){
+					var len = $(this).val().length-1;
+					while(!reg.test($(this).val().slice(0,len))){
+							len--;
+					}
+					if(len <= 0){
+						$(this).val("");
+					}else {
+						$(this).val($(this).val().slice(0,len));
 					}
 				}
-
+				$(".telphone2").parents(".item-content").addClass('telActive');
 			})
-
-			// 保存按钮
-			$("input").change(function(){
-				if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) || ($(".city").val() != addressCity) || ($(".fullAddress").val() != fullAddress)){
-					$(".fixed_foort").show();
+			$(".addBtn").click(function() {
+				// 发送修改信息之后请求				
+				if(regTel.test($(".inputTel").val())){
+					$.showIndicator();
+					$.ajax({
+						url: '/testing_app1/personal',
+						type: 'POST',
+						data: "yourTel=" + $(".inputTel").val() + "&addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val(),
+						success:function(){
+							$.hideIndicator();
+							location.reload();
+						}
+					})
+				}else{
+					$(".inputTel").focus();
 				}
-
-			})
-			// var sendData;
-			$("#sheBtn").click(function() {
-				// 验证电话号码
-				// if(regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel){
-				// 	sendData = "yourTel=" + $(".inputTel").val();
-				// }
-				// else if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) && addressCity != $(".city").val()){
-				// 	sendData = "yourTel=" + $(".inputTel").val() + "&addressCity=" + $(".city").val();
-				// }else if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) && fullAddress != $(".fullAddress").val()){
-				// 	sendData = "yourTel=" + $(".inputTel").val() + "&fullAddress=" + $(".fullAddress").val();
-				// }else if(addressCity != $(".city").val()){
-				// 	sendData = "addressCity=" + $(".city").val();
-				// }else if(addressCity != $(".city").val() && fullAddress != $(".fullAddress").val()){
-				// 	sendData = "addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val();
-				// }else if(fullAddress != $(".fullAddress").val()){
-				// 	sendData = "fullAddress=" + $(".fullAddress").val();
-				// }else if((regTel.test($(".inputTel").val()) && $(".inputTel").val() != yourTel) && addressCity != $(".city").val() && fullAddress != $(".fullAddress").val()){
-					// sendData = "yourTel=" + $(".inputTel").val() + "&addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val();
-				// }
-				// 发送修改信息之后请求
-				$.ajax({
-					url: '/testing_app1/personal',
-					type: 'POST',
-					data: "yourTel=" + strTel + "&addressCity=" + $(".city").val() + "&fullAddress=" + $(".fullAddress").val(),
-					success:function(){
-						location.reload();
-					}
-				})
-
 			});
 		})();
 	</script>

@@ -233,6 +233,7 @@ def ordering():
         sign = Helper.jsapi_sign(url)
         sign["appId"] = WxPayConf_pub.APPID
         return render_template('testing_app1/ordering.html',netData=netData,userMessage=userMessage,sign=sign)
+
     if request.method == 'POST':
         print(request.form)
         orderings = {}

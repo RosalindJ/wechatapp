@@ -59,7 +59,7 @@
 	max-height: none;
 }
 /*设置电话的高度*/
-.list-block .item-after.telphone{
+.list-block .item-after.telphone1,.list-block .item-after.telphone2{
   max-height:1.4rem;
 }
 /*修改电话号码*/
@@ -69,45 +69,19 @@
   font-size: 0.8rem;
   color:#333;
   padding: 2px 0;
-  display: block;
-  /*border:1px solid red;*/
-
-}
-.item-content .item-after .inputTel{
-  /*border:1px solid red;*/
-  /*display: none;*/
-}
-.item-content .item-after div.telNum{
-  /*display: none;*/
 }
 /*地址*/
 .dizhi{
-  /*position: relative;*/
-  /*width: 100%;*/
-  /*text-align: right;*/
+  width: 100%;
 }
-.address{
-  /*width: 52.1875%;*/
+.address1,.address2{
+  text-align: right;
+  width: 78%;
 }
-.address p{
+.address1 .dizhi p{
   margin: 0;
   text-align: right;
 }
-.city2,.fullAddress2{
-  /*display: none;*/
-}
-/*.item-content .item-after .city{
-  position: absolute;
-  right:0;
-  top:0;
-  color: transparent;
-}*/
-/*.item-content .item-after .fullAddress{
-  position: absolute;
-  right:0;
-  color: red;
-  bottom:0;
-}*/
 /*保存按钮*/
 a.button.addBtn{
   height: 60px;
@@ -120,11 +94,8 @@ a.button.addBtn{
   float: none;
 }
 .fixed_foort{
-  padding:0.5rem 0 1rem 0;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 12.7%;
-  margin: auto;
-  display: none;
+  margin: 20% auto;
+}
+.picker-item{
+  padding:0;
 }

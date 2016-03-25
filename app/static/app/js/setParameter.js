@@ -17,6 +17,7 @@
 				url:"/testing_app1/setParameter",
 				data:"temfit=" + $("#temperature").val()+"&dampfit=" + $("#moisture").val() + "&co2fit=" + $("#carbon").val(),
 				success:function(){
+					alert("success");
 					console.log("success");
 				},
 				error:function(){

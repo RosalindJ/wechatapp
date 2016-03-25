@@ -49,6 +49,10 @@ a.backBtn{
 .timeBox{
   text-align: center;
 }
+.timeBox input#times{
+  text-align: center;
+  display: inline-block;
+}
 /*设置重复*/
 #recurBox{
   padding:0.5rem 0.75rem 0.6rem;

@@ -39,6 +39,7 @@
 				// timeId,应该放到html内，然后设置display：none
 				data:"timeId=" + id +"&Tselect=" + data_select,
 				success:function(){
+					alert("success");
 					console.log("success");
 				},
 				error:function(){
@@ -51,7 +52,6 @@
 		function isSelect(element){
 			$(element).on("click",function(){
 				if($(this).attr("data-select") == "true"){
-
 					$(this).attr("data-select",false);
 				}else{
 					$(this).attr("data-select",true);

@@ -44,7 +44,7 @@
 				</div>
 				<!-- 保存按钮 -->
 				<div class="row fixed_foort">
-						<a href=" " class="col-66 button button-fill saveBtn">保存</a >
+						<a href="javascript:void(0);" class="col-66 button button-fill saveBtn">保存</a>
 				</div>
 			</div>
 		</div>
@@ -78,22 +78,20 @@
 					str += $(".activeDay").eq(i).html();
 				}
 				// 判断临时存储，timeType为open,说明设置的是开机时间，否则为关机时间
-{#				if(sessionStorage.timeType == "openTime"){#}
-{#					var URL = "/setingOpenT";#}
-{#				}else{#}
-{#					var URL = "/setingCloseT";#}
-{#				}#}
+				var timeType = sessionStorage.getItem("timeType");
+
 				// ajax
 
 				$.ajax({
 					type:"POST",
 					url:"/testing_app1/setingTime",
-					data:"timeType="+sessionStorage.timeType+"&time=" + $("#times").val() + "&recur=" + str,
-					success:function(){
-						window.location.href="setTime";
+					data:"timeType="+ timeType + "&time=" + $("#times").val() + "&recur=" + str,
+					success:function(data){
+						// alert("nihao success");
+						window.location.href="/testing_app1/setTime";
 					},
 					error:function(){
-						console.log("error");
+						alert("设置失败！请重新设置！")
 					}
 				})
 

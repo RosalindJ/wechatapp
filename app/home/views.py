@@ -4,7 +4,7 @@
 import datetime
 from app import app
 from flask import request, redirect, render_template
-from app.models import Product, Shop, Detail, Presell
+from app.models import Product, Shop, Detail, Presell,Orders,Parts,Users,DevicesSetupConfigure,DevicesStatusLog,Addresses,Devices
 from . import blueprint
 import json
 import time
@@ -287,23 +287,48 @@ def ordering():
 @app.route('/testing_app1/personal', methods=['GET', 'POST'])
 def personal():
     if request.method == 'GET':
-        perInfor1 = {"headUrl":"app/img/netImg.jpg","nickName":"zhangjuan","machine":2,"yourTel":"13580467147",
-                 "addressCity":"广东 广州 天河区", "fullAddress":"林和西路耀中广场B座910"}
+        perInfor1 = {}
+        for user in Users.objects(openid = "123456789"):
+            print("过滤查询" + user.nickname)
+        nickname = Users.objects(openid="123456789")[0].nickname
+        # print(user.nickname)
+        # address = Addresses.objects(Users.objects(nickname = "zhangjuan"))
+        # print(address)
+        # nickname = Users.objects()[0].nickname
+        # print(nickname)
+        # addressA = Orders.address
+        addressFull = ""#收货地址
+        addressCity=''   #"addressCity":"广东 广州 天河区"
+        fullAddress=''
+        tel = '' #收货电话
+        perInfor1 = {"headUrl":Users.objects()[0].headimgurl,"nickName":nickname,"machine":2,"yourTel":tel,
+                  "addressCity":addressCity, "fullAddress":fullAddress}
         return render_template('testing_app1/personal.html',perInfor1 = perInfor1)
     if request.method == 'POST':
             print(request.form)
-            yourTel = str(request.form.get('yourTel'))
-            addressCity = str(request.form.get('addressCity'))
-            fullAddress = str(request.form.get('fullAddress'))
+            yourTelP = str(request.form.get('yourTel'))
+            addressCityP = str(request.form.get('addressCity'))
+            fullAddressP = str(request.form.get('fullAddress'))
             # 放到个人列表中,有电话号码,省市区,详细地址
+            Orders.update(address=addressCityP+fullAddressP+yourTelP)
             # 可以比较三个值中的数据和返回过来的数据有没有差别,如果有就更新到数据库中
             return ""
 
 # 设置
 @app.route('/testing_app1/setup', methods=['GET', 'POST'])
 def setup():
+    # abnormalData1=[]
+    # DevicesStatusLog.error
     if request.method == 'GET':
-        abnormalData1 = {"id":"renew","select":"true"},{"id":"unusual","select":"false"}
+        # devicesStatusLog = DevicesStatusLog.objects.all()
+        devicesStatusLog = DevicesStatusLog.objects()
+        print(devicesStatusLog)
+
+        # print(devicesStatusLog.remind)
+        # if devicesStatusLog = []
+        # print(devicesStatusLog)
+        abnormalData1 = [{"id":"renew","select":"true"},{"id":"unusual","select":"false"}]
+        print(abnormalData1)
         return render_template('testing_app1/setup.html',abnormalData1 = abnormalData1)
     if request.method == 'POST':
         print(request.form)
@@ -313,6 +338,7 @@ def setup():
         id = str(request.form.get('id'))
         select = str(request.form.get('select'))
         # 存到数据库中
+
         return ""
 
 # 产品介绍
@@ -362,15 +388,19 @@ def setingTime():
 def setParameter():
     if request.method == 'GET':
         # 返回的数据包含:最大值,最小值,最适宜或者用户设置的(一共3*3=9个)
-        parameter = {"temper":{"temMax":35,"temMin":16,"temfit":25},
-                     "damp":{"dampMax":90,"dampMin":0,"dampfit":60},
-                     "co2":{"co2Max":35,"co2Min":16,"co2fit":25}}
+        parameter = {"temper":{"temMax":35,"temMin":16,"temfit":DevicesSetupConfigure.temprature_limit},
+                     "damp":{"dampMax":90,"dampMin":0,"dampfit":DevicesSetupConfigure.moisture_limit},
+                     "co2":{"co2Max":35,"co2Min":16,"co2fit":DevicesSetupConfigure.co2_limit}}
+        # parameter = {"temper":{"temMax":35,"temMin":16,"temfit":25},
+        #              "damp":{"dampMax":90,"dampMin":0,"dampfit":60},
+        #              "co2":{"co2Max":35,"co2Min":16,"co2fit":25}}
         return render_template('testing_app1/setParameter.html',parameter=parameter)
     if request.method == 'POST':
         print(request.form)
         temfit = str(request.form.get('temfit'))
         dampfit = str(request.form.get('dampfit'))
         co2fit = str(request.form.get('co2fit'))
+        DevicesSetupConfigure.update(temprature_limit=temfit,moisture_limit=dampfit,co2_limit=co2fit)
         # 覆盖到用户设置的参数表中
         return "yes"
 
@@ -378,8 +408,24 @@ def setParameter():
 #订单查询
 @app.route('/testing_app1/order',methods=['GET', 'POST'])
 def order():
-    orderJson = [{'orderNum':453499,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新风x100","adapterodel":"sdhh水电费","quantity":1,"sumMoney":360},{'orderNum':11111111,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':222222,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':33333333,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':4444444,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':555555,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':666666,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':777777,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':8888888,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':999999,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},{'orderNum':100000,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540}]
-    # orderJson = {}
+    orders = Orders.objects()
+    for order in orders:
+        print("order" + order)
+    # 获取订单的信息.
+    orderJson = [{'orderNum':453499,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新风x100","adapterodel":"sdhh水电费","quantity":1,"sumMoney":360},
+                 {'orderNum':11111111,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':222222,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':33333333,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':4444444,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':555555,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':666666,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':777777,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':8888888,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':999999,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540},
+                 {'orderNum':100000,'tradingStatus':"交易成功","netImgUrl":"/static/app/img/netImg.jpg","netName":"兆晶新55风x100","adapterodel":"sdhh水555电费","quantity":1,"sumMoney":3540}]
+    for u in orderJson:
+        print(u)
+
     print(len(orderJson))
     page={} #判断数据库是否有数据,有数据的话,page2显示,否则page1显示
     if orderJson:
@@ -421,25 +467,34 @@ def orderdetail():
     orderNum = request.cookies.get('orderNum')
     print(orderNum)
     # 由订单号匹配,在订单数据库,取出相应的数据
-    orderings = {}
-    orderings["netId"] = "990"  #滤网id
-    orderings["price"] = 100   #滤网单价
-    orderings["quantity"] = 1  #购买数量
-    orderings["sendWay"] = "包邮"  #配送方式
-    orderings["name"] = "李大建"  #收货人
-    orderings["tel"] = "11352146590"   #收货电话
-    orderings["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #收货地址
-    orderings["time"] = "2015-09-12 11:67"  #下单时间
-    orderings["message"] = ""  #留言内容
-    orderings["amount"] = 100  #总金额
-    # 由滤网id匹配,在滤网数据库,取出相应数据
-    netData = {}
+    orders = Orders.objects()
+    user = Users.objects()
+    addressA = Addresses.desc
+    addressFull = ""#收货地址
+    tel = '' #收货电话
+    print(Orders.objects()[0].quantity)
+    orderings = {"netId":Parts.pid,"price":Parts.price,"quantity":orders[0].quantity,"sendWay":orders[0].sendWay,"address":addressFull,
+                 "name":Users.nickname,"tel":tel,"time":orders[0].created_time,"message":orders[0].message,"amount":orders[0].amount}
+    print(orderings)
+    # orderings["netId"] = Parts.pid  #滤网id
+    # orderings["price"] = 100   #滤网单价
+    # orderings["quantity"] = Orders.quantity  #购买数量
+    # orderings["sendWay"] = "包邮"  #配送方式
+    # orderings["name"] = "李大建"  #收货人
+    # orderings["tel"] = "11352146590"   #收货电话
+    # orderings["address"] = "广东省广州市天河区林和西路9号耀中广场B座910-911室"  #收货地址
+    # orderings["time"] = "2015-09-12 11:67"  #下单时间
+    # orderings["message"] = ""  #留言内容
+    # orderings["amount"] = Orders.amount  #总金额
+    # # 由滤网id匹配,在滤网数据库,取出相应数据
+    #滤网图片url  #滤网名称  #滤网适配类型
+    netData = {"pro_name":Parts.name,"pro_type":Parts.desc}
     netData["netImg"] = "app/img/netImg.jpg"  #滤网图片url
-    netData["pro_name"] = "高效过滤网"  #滤网名称
-    netData["pro_type"] = "适配x100"   #滤网适配类型
+    # netData["pro_name"] = "高效过滤网"  #滤网名称
+    # netData["pro_type"] = Parts.desc   #滤网适配类型
     return render_template('testing_app1/orderDetail.html',orderings=orderings,netData=netData)
 
 
-@app.route('/testing_app1/weixinbug')
-def wxbug():
-    return render_template('testing_app1/weixinbug.html')
+# @app.route('/testing_app1/weixinbug')
+# def wxbug():
+#     return render_template('testing_app1/weixinbug.html')

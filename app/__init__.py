@@ -33,13 +33,13 @@ class RegexConverter(BaseConverter):
 # url path 支持正则表达式
 app.url_map.converters['regex'] = RegexConverter
 #数据库初始化
-# from .models import db
-# db.init_app(app)
+from .models import db
+db.init_app(app)
 # 缓存初始化# debug toolbar 初始化# bootstrap 框架初始化
-# from app.extensions import (cache, assets_env, debug_toolbar, bootstrap)
-# cache.init_app(app)
-# debug_toolbar.init_app(app)
-# bootstrap.init_app(app)
+from app.extensions import (cache, assets_env, debug_toolbar, bootstrap)
+cache.init_app(app)
+debug_toolbar.init_app(app)
+bootstrap.init_app(app)
 
 # 过滤器初始化
 from app import filters
